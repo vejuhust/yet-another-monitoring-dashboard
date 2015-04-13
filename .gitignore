@@ -194,3 +194,10 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Sublime Text
+*.sublime-*
+
+# OS X
+.DS_Store
+
