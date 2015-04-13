@@ -9,3 +9,6 @@ This project provides a real-time dashboard representing service status in three
 * Bootstrap 3.3.4
     - Site: http://getbootstrap.com/
     - Url: https://github.com/twbs/bootstrap/releases/download/v3.3.4/bootstrap-3.3.4-dist.zip
+* amCharts - JavaScript Stock Chart 3.13.3 
+    - Site: http://www.amcharts.com/
+    - Url: http://www.amcharts.com/downloads/stock-chart/
