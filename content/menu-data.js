@@ -1,4 +1,4 @@
-var menu_data = [{
+var menu_env_data = [{
     "name": "Global",
     "icon": "fa fa-globe",
     "link": "#global",
