@@ -64,12 +64,12 @@ function renderPartnerMenuItems () {
   });
 }
 
-function extractHashTag () {
-  return window.location.hash.substr(1);
+function extractHashTags () {
+  return window.location.hash.substr(1).split(_seperator);
 }
 
 function appendToHashTag (suffix) {
-  var tags = window.location.hash.substr(1).split(_seperator);
+  var tags = extractHashTags();
   tag_env = tags[0];
   tag_part = tags[1];
   if (tag_env && tag_env != "#") {
@@ -78,7 +78,7 @@ function appendToHashTag (suffix) {
 }
 
 function activateTaggedMenuItems () {
-  var tags = window.location.hash.substr(1).split(_seperator);
+  var tags = extractHashTags();
   if (tags[0] || tags[1]) {
     $(".sidebar-menu li[class~=active]").removeClass("active");
     $.each(tags, function (index, tag) {
