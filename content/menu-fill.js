@@ -1,7 +1,3 @@
-console.log("menu-fill");
-
-var menu_env = $("#menu-env");
-
 
 function createLinkItem (item) {
   var _a = $("<a/>", { href: item.link });
@@ -28,15 +24,35 @@ function createMultiLevelMenuItem (item) {
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
 }
 
-var item_list = []
-$.each(menu_env_data, function (index) {
-  item_list.push(this.sub 
-    ? createMultiLevelMenuItem(this)
-    : createSingleLevelMenuItem(this)
-  );
-});
+function renderEnvironmentMenuItems (menu_env) {
+  var item_list = []
+  $.each(menu_env_data, function (index) {
+    item_list.push(this.sub 
+      ? createMultiLevelMenuItem(this)
+      : createSingleLevelMenuItem(this)
+    );
+  });
 
-$.each(item_list.reverse(), function () {
-  menu_env.after(this);
-});
+  $.each(item_list.reverse(), function () {
+    menu_env.after(this);
+  });
+}
 
+function extractHashTag () {
+  return window.location.hash.substr(1);
+}
+
+function activateTaggedEnvironmentMenuItem (tag) {
+  if (tag) {
+
+  }
+}
+
+
+console.log("menu-fill");
+
+renderEnvironmentMenuItems($("#menu-env"))
+
+var tag = extractHashTag();
+console.log(tag);
+activateTaggedEnvironmentMenuItem(tag);
