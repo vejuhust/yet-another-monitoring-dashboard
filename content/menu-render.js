@@ -16,12 +16,13 @@ var _handlerPartnerMenu = function (event) {
   event.preventDefault();
   // Update hash tag in URL
   var tags = extractHashTags();
-  appendToHashTag(tags[0], tags[1], event.data);
-  // Activate menu item as per hash tag
-  var tags = extractHashTags();
-  activateTaggedMenuItems(tags[0], tags[1]);
-  // Render the main page
-  renderMainPage(tags[0], tags[1]);
+  if (appendToHashTag(tags[0], tags[1], event.data)) {
+    // Activate menu item as per hash tag
+    var tags = extractHashTags();
+    activateTaggedMenuItems(tags[0], tags[1]);
+    // Render the main page
+    renderMainPage(tags[0], tags[1]);
+  }
 };
 
 function createLinkItem (item) {
@@ -80,9 +81,12 @@ function extractHashTags () {
 }
 
 function appendToHashTag (tag_env, tag_part, suffix) {
+  var result = false;
   if (tag_env) {
     window.location.hash = tag_part == suffix ? tag_env : tag_env + _seperator + suffix;
+    result = true;
   }
+  return result;
 }
 
 function activateTaggedMenuItems (tag_env, tag_part) {
