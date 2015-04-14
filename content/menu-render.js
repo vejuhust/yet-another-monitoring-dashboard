@@ -1,6 +1,18 @@
 
 var _seperator = '_';
 
+var _environmentMenuItemEvent = function (event) {
+  activateTaggedMenuItems();
+};
+
+var _partnerMenuItemEvent = function (event) {
+  event.preventDefault();
+  appendToHashTag(item.link);
+  activateTaggedMenuItems();
+};
+
+
+
 function createLinkItem (item) {
   var _a = $("<a/>", { href: "#" + item.link });
   $("<i/>", { class: item.icon }).appendTo(_a);
@@ -20,7 +32,7 @@ function createMultiLevelMenuItem (item) {
   var _ul = $("<ul/>", { class: "treeview-menu" });
   $.each(item.sub, function (index) {
     this.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(this));
+    _ul.append(createSingleLevelMenuItem(this).click(_environmentMenuItemEvent));
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -29,11 +41,10 @@ function createMultiLevelMenuItem (item) {
 function renderEnvironmentMenuItems () {
   var menu_env = $("#menu-env");
   var item_list = []
-  $.each(menu_env_data, function (index) {
-    item_list.push(this.sub 
-      ? createMultiLevelMenuItem(this)
-      : createSingleLevelMenuItem(this)
-    );
+  $.each(menu_env_data, function (index, item) {
+    item_list.push(item.sub 
+      ? createMultiLevelMenuItem(item)
+      : createSingleLevelMenuItem(item).click(_environmentMenuItemEvent));
   });
 
   $.each(item_list.reverse(), function () {
@@ -45,10 +56,7 @@ function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
   var item_list = []
   $.each(menu_part_data, function (index, item) {
-    item_list.push(createSingleLevelMenuItem(item).click(function (event) {
-      event.preventDefault();
-      appendToHashTag(item.link);
-    }));
+    item_list.push(createSingleLevelMenuItem(item).click(_partnerMenuItemEvent));
   });
 
   $.each(item_list.reverse(), function () {
@@ -64,13 +72,12 @@ function appendToHashTag (suffix) {
   var main = window.location.hash.split(_seperator)[0];
   if (main && main != "#") {
     window.location.hash = main + _seperator + suffix;
-    console.log(window.location.hash);
   }
 }
 
 function activateTaggedMenuItems () {
-  tags = window.location.hash.substr(1).split(_seperator);
-  if (tags[0] || tags[0]) {
+  var tags = window.location.hash.substr(1).split(_seperator);
+  if (tags[0] || tags[1]) {
     $(".sidebar-menu li[class~=active]").removeClass("active");
     $.each(tags, function (index, tag) {
       var selector = ".sidebar-menu a[href=#" + tag + "]";
@@ -86,4 +93,5 @@ function activateTaggedMenuItems () {
 
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-activateTaggedMenuItems();
+// activateTaggedMenuItems();
+
