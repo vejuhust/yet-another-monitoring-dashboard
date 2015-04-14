@@ -19,11 +19,13 @@ function createMultiLevelMenuItem (item) {
   $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
 
   var _ul = $("<ul/>", { class: "treeview-menu" });
-  $.each(item.sub, function (index) {
-    this.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(this).click(function (event) {
-  activateTaggedMenuItems();
-}));
+  $.each(item.sub, function (index, item) {
+    item.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
+    _ul.append(createSingleLevelMenuItem(item).click(function (event) {
+      event.preventDefault();
+      window.location.hash = "#" + item.link;
+      activateTaggedMenuItems();
+    }));
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -36,6 +38,8 @@ function renderEnvironmentMenuItems () {
     item_list.push(item.sub 
       ? createMultiLevelMenuItem(item)
       : createSingleLevelMenuItem(item).click(function (event) {
+        event.preventDefault();
+        window.location.hash = "#" + item.link;
         activateTaggedMenuItems();
     }));
   });
