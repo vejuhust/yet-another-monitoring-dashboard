@@ -1,6 +1,17 @@
 
 var _seperator = '_';
 
+var _handlerEnvironmentMenu = function (event) {
+  event.preventDefault();
+  window.location.hash = "#" + event.data;
+  activateTaggedMenuItems();
+};
+
+var _handlerPartnerMenu = function (event) {
+  event.preventDefault();
+  appendToHashTag(event.data);
+  activateTaggedMenuItems();
+};
 
 function createLinkItem (item) {
   var _a = $("<a/>", { href: "#" + item.link });
@@ -21,11 +32,7 @@ function createMultiLevelMenuItem (item) {
   var _ul = $("<ul/>", { class: "treeview-menu" });
   $.each(item.sub, function (index, item) {
     item.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(item).click(function (event) {
-      event.preventDefault();
-      window.location.hash = "#" + item.link;
-      activateTaggedMenuItems();
-    }));
+    _ul.append(createSingleLevelMenuItem(item).click(item.link, _handlerEnvironmentMenu));
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -37,11 +44,7 @@ function renderEnvironmentMenuItems () {
   $.each(menu_env_data, function (index, item) {
     item_list.push(item.sub 
       ? createMultiLevelMenuItem(item)
-      : createSingleLevelMenuItem(item).click(function (event) {
-        event.preventDefault();
-        window.location.hash = "#" + item.link;
-        activateTaggedMenuItems();
-    }));
+      : createSingleLevelMenuItem(item).click(item.link, _handlerEnvironmentMenu));
   });
 
   $.each(item_list.reverse(), function () {
@@ -53,11 +56,7 @@ function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
   var item_list = []
   $.each(menu_part_data, function (index, item) {
-    item_list.push(createSingleLevelMenuItem(item).click(function (event) {
-      event.preventDefault();
-      appendToHashTag(item.link);
-      activateTaggedMenuItems();
-    }));
+    item_list.push(createSingleLevelMenuItem(item).click(item.link, _handlerPartnerMenu));
   });
 
   $.each(item_list.reverse(), function () {
