@@ -43,7 +43,9 @@ function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
   var item_list = []
   $.each(menu_part_data, function (index) {
-    item_list.push(createSingleLevelMenuItem(this));
+    item_list.push(createSingleLevelMenuItem(this).click(function () {
+      appendToHashTag(menu_part_data[index].link);
+    }));
   });
 
   $.each(item_list.reverse(), function () {
@@ -53,6 +55,10 @@ function renderPartnerMenuItems () {
 
 function extractHashTag () {
   return window.location.hash.substr(1);
+}
+
+function appendToHashTag (suffix) {
+  console.log(suffix);
 }
 
 function activateTaggedEnvironmentMenuItem (tag) {
