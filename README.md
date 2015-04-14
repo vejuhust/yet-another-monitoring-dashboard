@@ -12,6 +12,9 @@ This project provides a real-time dashboard representing service status in three
 * amCharts - JavaScript Stock Chart 3.13.3 
     - Site: http://www.amcharts.com/
     - Url: http://www.amcharts.com/downloads/stock-chart/
+* flag-icon-css
+    - Site: http://lipis.github.io/flag-icon-css/
+    - Url: https://github.com/lipis/flag-icon-css
 
 ## Template
 * AdminLTE 2.1.0a
