@@ -44,10 +44,15 @@ function extractHashTag () {
 
 function activateTaggedEnvironmentMenuItem (tag) {
   if (tag) {
-
+    selector = ".sidebar-menu a[href=#" + tag + "]";
+    var target = $(selector);
+    if (target) {
+      $(".sidebar-menu li[class~=active]").removeClass("active");
+      target.parent("li").addClass("active");
+      target.parent("li").parent().parent("li").addClass("active");
+    }
   }
 }
-
 
 console.log("menu-fill");
 
