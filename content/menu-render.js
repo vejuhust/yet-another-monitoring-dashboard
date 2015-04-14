@@ -68,19 +68,22 @@ function appendToHashTag (suffix) {
   }
 }
 
-function activateTaggedEnvironmentMenuItem (tag) {
-  if (tag) {
-    selector = ".sidebar-menu a[href=#" + tag + "]";
-    var target = $(selector);
-    if (target) {
-      $(".sidebar-menu li[class~=active]").removeClass("active");
-      target.parent("li").addClass("active");
-      target.parent("li").parent().parent("li").addClass("active");
-    }
+function activateTaggedMenuItems () {
+  tags = window.location.hash.substr(1).split(_seperator);
+  if (tags[0] || tags[0]) {
+    $(".sidebar-menu li[class~=active]").removeClass("active");
+    $.each(tags, function (index, tag) {
+      var selector = ".sidebar-menu a[href=#" + tag + "]";
+      var target = $(selector);
+      if (target) {
+        target.parent("li").addClass("active");
+        target.parent("li").parent().parent("li").addClass("active");
+      }
+    });
   }
 }
 
 
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-activateTaggedEnvironmentMenuItem(extractHashTag());
+activateTaggedMenuItems();
