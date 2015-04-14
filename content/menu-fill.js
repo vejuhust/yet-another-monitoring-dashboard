@@ -3,10 +3,6 @@ console.log("menu-fill");
 var menu_env = $("#menu-env");
 
 
-var item1 = menu_env_data[0];
-var item2 = menu_env_data[1];
-
-
 function createLinkItem (item) {
   var _a = $("<a/>", { href: item.link });
   $("<i/>", { class: item.icon }).appendTo(_a);
@@ -32,11 +28,15 @@ function createMultiLevelMenuItem (item) {
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
 }
 
+var item_list = []
 $.each(menu_env_data, function (index) {
-  if (this.sub) {
-    menu_env.after(createMultiLevelMenuItem(this));
-  }
-  else {
-    menu_env.after(createSingleLevelMenuItem(this));
-  }
+  item_list.push(this.sub 
+    ? createMultiLevelMenuItem(this)
+    : createSingleLevelMenuItem(this)
+  );
 });
+
+$.each(item_list.reverse(), function () {
+  menu_env.after(this);
+});
+
