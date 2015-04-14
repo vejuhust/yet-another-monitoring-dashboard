@@ -54,10 +54,7 @@ function activateTaggedEnvironmentMenuItem (tag) {
   }
 }
 
-console.log("menu-fill");
+
 
 renderEnvironmentMenuItems($("#menu-env"))
-
-var tag = extractHashTag();
-console.log(tag);
-activateTaggedEnvironmentMenuItem(tag);
+activateTaggedEnvironmentMenuItem(extractHashTag());
