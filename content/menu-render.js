@@ -1,6 +1,6 @@
 
 function createLinkItem (item) {
-  var _a = $("<a/>", { href: item.link });
+  var _a = $("<a/>", { href: "#" + item.link });
   $("<i/>", { class: item.icon }).appendTo(_a);
   $("<span/>", { text: " " + item.name }).appendTo(_a);
   return _a;
@@ -11,7 +11,7 @@ function createSingleLevelMenuItem (item) {
 }
 
 function createMultiLevelMenuItem (item) {
-  item.link = "#";
+  item.link = "";
   var _a = createLinkItem(item);
   $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
 
@@ -24,7 +24,8 @@ function createMultiLevelMenuItem (item) {
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
 }
 
-function renderEnvironmentMenuItems (menu_env) {
+function renderEnvironmentMenuItems () {
+  var menu_env = $("#menu-env");
   var item_list = []
   $.each(menu_env_data, function (index) {
     item_list.push(this.sub 
@@ -35,6 +36,18 @@ function renderEnvironmentMenuItems (menu_env) {
 
   $.each(item_list.reverse(), function () {
     menu_env.after(this);
+  });
+}
+
+function renderPartnerMenuItems () {
+  var menu_part = $("#menu-part");
+  var item_list = []
+  $.each(menu_part_data, function (index) {
+    item_list.push(createSingleLevelMenuItem(this));
+  });
+
+  $.each(item_list.reverse(), function () {
+    menu_part.after(this);
   });
 }
 
@@ -55,6 +68,6 @@ function activateTaggedEnvironmentMenuItem (tag) {
 }
 
 
-
-renderEnvironmentMenuItems($("#menu-env"))
+renderEnvironmentMenuItems();
+renderPartnerMenuItems();
 activateTaggedEnvironmentMenuItem(extractHashTag());
