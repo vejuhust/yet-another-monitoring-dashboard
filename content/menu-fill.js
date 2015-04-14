@@ -6,24 +6,37 @@ var menu_env = $("#menu-env");
 var item1 = menu_env_data[0];
 var item2 = menu_env_data[1];
 
-function createSingleLevelMenuItem (item) {
+
+function createLinkItem (item) {
   var _a = $("<a/>", { href: item.link });
   $("<i/>", { class: item.icon }).appendTo(_a);
   $("<span/>", { text: " " + item.name }).appendTo(_a);
-  return $("<li/>").append(_a);
+  return _a;
+}
+
+function createSingleLevelMenuItem (item) {
+  return $("<li/>").append(createLinkItem(item));
 }
 
 function createMultiLevelMenuItem (item) {
-  var _a = $("<a/>", { href: "#" });
-  $("<i/>", { class: item.icon }).appendTo(_a);
-  $("<span/>", { text: " " + item.name }).appendTo(_a);
+  item.link = "#";
+  var _a = createLinkItem(item);
   $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
-  var _li = $("<li/>", { class: "treeview" }).append(_a);
-  return _li;
+
+  var _ul = $("<ul/>", { class: "treeview-menu" });
+  $.each(item.sub, function (index) {
+    this.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
+    _ul.append(createSingleLevelMenuItem(this));
+  });
+
+  return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
 }
 
-var div1 = createSingleLevelMenuItem(item1);
-menu_env.after(div1);
-
-var div2 = createMultiLevelMenuItem(item2);
-menu_env.after(div2);
+$.each(menu_env_data, function (index) {
+  if (this.sub) {
+    menu_env.after(createMultiLevelMenuItem(this));
+  }
+  else {
+    menu_env.after(createSingleLevelMenuItem(this));
+  }
+});
