@@ -108,5 +108,8 @@ function activateTaggedMenuItems (tag_env, tag_part) {
 
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-activateTaggedMenuItems();
+
+var tags = extractHashTags();
+activateTaggedMenuItems(tags[0], tags[1]);
+renderMainPage(tags[0], tags[1]);
 
