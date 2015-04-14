@@ -1,17 +1,6 @@
 
 var _seperator = '_';
 
-var _environmentMenuItemEvent = function (event) {
-  activateTaggedMenuItems();
-};
-
-var _partnerMenuItemEvent = function (event) {
-  event.preventDefault();
-  appendToHashTag(item.link);
-  activateTaggedMenuItems();
-};
-
-
 
 function createLinkItem (item) {
   var _a = $("<a/>", { href: "#" + item.link });
@@ -32,7 +21,9 @@ function createMultiLevelMenuItem (item) {
   var _ul = $("<ul/>", { class: "treeview-menu" });
   $.each(item.sub, function (index) {
     this.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(this).click(_environmentMenuItemEvent));
+    _ul.append(createSingleLevelMenuItem(this).click(function (event) {
+  activateTaggedMenuItems();
+}));
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -44,7 +35,9 @@ function renderEnvironmentMenuItems () {
   $.each(menu_env_data, function (index, item) {
     item_list.push(item.sub 
       ? createMultiLevelMenuItem(item)
-      : createSingleLevelMenuItem(item).click(_environmentMenuItemEvent));
+      : createSingleLevelMenuItem(item).click(function (event) {
+        activateTaggedMenuItems();
+    }));
   });
 
   $.each(item_list.reverse(), function () {
@@ -56,7 +49,11 @@ function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
   var item_list = []
   $.each(menu_part_data, function (index, item) {
-    item_list.push(createSingleLevelMenuItem(item).click(_partnerMenuItemEvent));
+    item_list.push(createSingleLevelMenuItem(item).click(function (event) {
+      event.preventDefault();
+      appendToHashTag(item.link);
+      activateTaggedMenuItems();
+    }));
   });
 
   $.each(item_list.reverse(), function () {
