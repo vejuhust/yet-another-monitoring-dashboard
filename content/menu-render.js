@@ -69,9 +69,11 @@ function extractHashTag () {
 }
 
 function appendToHashTag (suffix) {
-  var main = window.location.hash.split(_seperator)[0];
-  if (main && main != "#") {
-    window.location.hash = main + _seperator + suffix;
+  var tags = window.location.hash.substr(1).split(_seperator);
+  tag_env = tags[0];
+  tag_part = tags[1];
+  if (tag_env && tag_env != "#") {
+    window.location.hash = tag_part == suffix ? tag_env : tag_env + _seperator + suffix;
   }
 }
 
@@ -93,5 +95,5 @@ function activateTaggedMenuItems () {
 
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-// activateTaggedMenuItems();
+activateTaggedMenuItems();
 
