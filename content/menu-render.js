@@ -1,4 +1,6 @@
 
+var _seperator = '_';
+
 function createLinkItem (item) {
   var _a = $("<a/>", { href: "#" + item.link });
   $("<i/>", { class: item.icon }).appendTo(_a);
@@ -42,9 +44,10 @@ function renderEnvironmentMenuItems () {
 function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
   var item_list = []
-  $.each(menu_part_data, function (index) {
-    item_list.push(createSingleLevelMenuItem(this).click(function () {
-      appendToHashTag(menu_part_data[index].link);
+  $.each(menu_part_data, function (index, item) {
+    item_list.push(createSingleLevelMenuItem(item).click(function (event) {
+      event.preventDefault();
+      appendToHashTag(item.link);
     }));
   });
 
@@ -58,7 +61,11 @@ function extractHashTag () {
 }
 
 function appendToHashTag (suffix) {
-  console.log(suffix);
+  var main = window.location.hash.split(_seperator)[0];
+  if (main && main != "#") {
+    window.location.hash = main + _seperator + suffix;
+    console.log(window.location.hash);
+  }
 }
 
 function activateTaggedEnvironmentMenuItem (tag) {
