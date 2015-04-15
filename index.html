@@ -248,14 +248,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="dist/img/user-photo.jpg" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs">James Kneeland</span>
+                  <span class="hidden-xs">Bart Simpson</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="dist/img/user-photo.jpg" class="img-circle" alt="User Image" />
                     <p>
-                      James Kneeland
+                      Bart Simpson
                       <small>DRI since Apr. 14 2015</small>
                     </p>
                   </li>
@@ -300,7 +300,7 @@
               <img src="dist/img/user-photo.jpg" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-              <p>James Kneeland</p>
+              <p>Bart Simpson</p>
 
               <a href="#"><i class="fa fa-circle text-success"></i> DRI this week</a>
             </div>
@@ -318,7 +318,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header" id="menu-env">ENVIRONMENT</li>
-            <li class="header" id="menu-part">PARTNERS</li>
+            <li class="header" id="menu-part">PARTNER</li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -439,6 +439,20 @@
                   <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
                 </div>
               </div><!-- /.nav-tabs-custom -->
+
+              <!-- Info status within a box -->
+              <div class="box box-default">
+                <div class="box-header with-border">
+                  <i class="fa fa-bullhorn"></i>
+                  <h3 class="box-title">Status Changes</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="status-box">
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
 
             </section><!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
@@ -685,13 +699,16 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->
     <script src='plugins/fastclick/fastclick.min.js'></script>
+    <!-- jquery-dateFormat - jQuery Plugin to format Date outputs using JavaScript -->
+    <script src="plugins/dateFormat/jquery-dateFormat.min.js" type="text/javascript"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js" type="text/javascript"></script>    
     
     <!-- EGMD content -->
-    <script src="content/config-data.js" type="text/javascript"></script>    
-    <script src="content/page-render.js" type="text/javascript"></script>    
-    <script src="content/menu-render.js" type="text/javascript"></script>    
+    <script src="content/config-data.js" type="text/javascript"></script>
+    <script src="content/page-render.js" type="text/javascript"></script>
+    <script src="content/menu-render.js" type="text/javascript"></script>
+    <script src="content/bootloader.js" type="text/javascript"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard.js" type="text/javascript"></script>    

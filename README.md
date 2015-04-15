@@ -20,3 +20,8 @@ This project provides a real-time dashboard representing service status in three
 * AdminLTE 2.1.0a
     - Site: https://almsaeedstudio.com/
     - Url: https://github.com/almasaeed2010/AdminLTE
+
+## Plugin
+* jquery-dateFormat
+    - Site: https://github.com/phstc/jquery-dateFormat
+    - Url: https://github.com/phstc/jquery-dateFormat/archive/master.zip
