@@ -3,6 +3,7 @@ var _profile;
 function renderMainPage(tag_env, tag_part) {
   _profile = extractEnvPartProfile(tag_env, tag_part);
   if (updateContentTitleDesc(_profile)) {
+    updateWebpageTitle(_profile);
     addNewBoxInStatusBox(_profile);
   }
 }
@@ -23,6 +24,19 @@ function updateContentTitleDesc (profile) {
   }
   $("#content-title-desc").replaceWith(desc);
   return $("#content-title-desc").html().length > 0;
+}
+
+function updateWebpageTitle (profile) {
+  var _title = "EGMD | ";
+  if (profile.env_name) {
+    _title += profile.env_name;
+  } else if (profile.region_name) {
+    _title += profile.region_name;
+  }
+  if (profile.part_name) {
+    _title += " - " + profile.part_name;
+  }
+  document.title = _title;
 }
 
 function addNewBoxInStatusBox (profile) {
