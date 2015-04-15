@@ -3,9 +3,9 @@ console.log("hello page");
 function renderMainPage(tag_env, tag_part) {
   console.log("now " + tag_env + " " + tag_part);
 
-  var info = searchStaticDataByTagEnv(tag_env);
-  console.log(info);
-  updateContentTitleDesc(info);
+  var info_env = searchStaticDataByTagEnv(tag_env);
+  updateContentTitleDesc(info_env);
+
 };
 
 function updateContentTitleDesc (info) {
