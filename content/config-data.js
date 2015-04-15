@@ -1,5 +1,5 @@
 
-var interval_fetch = 3000;
+var interval_fetch = 5000;
 var interval_progress = 300;
 
 var menu_env_data = [{

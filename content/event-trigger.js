@@ -12,6 +12,7 @@ function clearTimeTriggerEvents() {
     clearInterval(_id);
   });
   _timerIds = {};
+  updateGauageProgress(0);
 }
 
 function updateGauageProgress(num) {

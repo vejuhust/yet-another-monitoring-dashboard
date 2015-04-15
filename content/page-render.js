@@ -1,4 +1,3 @@
-var _profile;
 var _has_content_page = false;
 
 var _handlerUpdatePage = function (event) {
@@ -41,9 +40,8 @@ function updateContentPage() {
   // Activate menu item as per hashtag
   activateTaggedMenuItems();
   // Update title & status
-  _profile = extractEnvPartProfile();
-  if (updateContentTitleDesc(_profile)) {
-    updateWebpageTitle(_profile);
-    addNewSubBoxInStatusBox(_profile);
-  }
+  var _profile = extractEnvPartProfile();
+  updateContentTitleDesc(_profile)
+  updateWebpageTitle(_profile);
+  addNewSubBoxInStatusBox(_profile);
 }
