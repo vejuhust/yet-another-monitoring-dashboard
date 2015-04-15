@@ -12,10 +12,12 @@ function updateContentTitleDesc (profile) {
   var desc = $("<small/>", { id: "content-title-desc" });
   if (profile.region_icon || profile.region_name) {
     $("<i/>", {"class": profile.region_icon}).appendTo(desc);
-    desc.append(" " + profile.region_name);
   }
   if (profile.env_name) {
-    desc.append(" - " + profile.env_name);
+    desc.append(" " + profile.env_name);
+  }
+  else {
+    desc.append(" " + profile.region_name);
   }
   if (profile.part_name) {
     desc.append(" - ");
