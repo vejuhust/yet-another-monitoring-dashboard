@@ -32,7 +32,7 @@ function composeDefaultPage() {
 function composeContentPage() {
   console.log("composeContentPage");
   // Render gauge row and set data update event
-  renderGaugeRowItems();
+  fetchGauageRowData();
   setTimeTriggerEvents();
 }
 

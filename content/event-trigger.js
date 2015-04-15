@@ -1,8 +1,10 @@
 
 var _timerIds = {};
+var _intervalPast = 0;
 
 function setTimeTriggerEvents() {
-  _timerIds.gauge_fetch = setInterval("renderGaugeRowItems()", interval_fetch);
+  _timerIds.gauge_fetch = setInterval("fetchGauageRowData()", interval_fetch);
+  _timerIds.gauge_progress = setInterval("updateGauageProgress()", interval_progress);
 }
 
 function clearTimeTriggerEvents() {
@@ -10,6 +12,16 @@ function clearTimeTriggerEvents() {
     clearInterval(_id);
   });
   _timerIds = {};
+}
+
+function updateGauageProgress(num) {
+  if (num != undefined) {
+    _intervalPast = num;
+  }
+  else {
+    _intervalPast += interval_progress;
+  }
+  updateProgressBar(_intervalPast / interval_fetch);
 }
 
 function updateProgressBar(rate) {

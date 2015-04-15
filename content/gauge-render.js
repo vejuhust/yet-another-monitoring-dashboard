@@ -1,6 +1,5 @@
 
 function renderGaugeRowItems () {
-  fetchGauageRowData();
   if ($("#gauge-row").children().length) {
     updateExistingGaugeRowItems();
   }
