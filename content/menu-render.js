@@ -1,17 +1,8 @@
 var _seperator = '_';
 
-var _handlerRefreshMenuAndPage = function (event) {
-  // Activate menu item as per hash tag
-  var tags = extractHashTags();
-  activateTaggedMenuItems(tags[0], tags[1]);
-  // Render the main page
-  renderMainPage(tags[0], tags[1]);
-};
-
 var _handlerPartnerMenu = function (event) {
   event.preventDefault();
-  var tags = extractHashTags();
-  appendToHashTag(tags[0], tags[1], event.data);
+  appendToHashTag(event.data);
 };
 
 function createLinkItem (item) {
@@ -65,23 +56,32 @@ function renderPartnerMenuItems () {
   });
 }
 
-function extractHashTags () {
-  return window.location.hash.substr(1).split(_seperator);
+function hasHasTagInUrl () {
+  return window.location.hash.length > 0;
 }
 
-function appendToHashTag (tag_env, tag_part, suffix) {
+function extractHashTags () {
+  var tags = window.location.hash.substr(1).split(_seperator);
+  return {
+    "env": tags[0],
+    "part": tags[1],
+  };
+}
+
+function appendToHashTag (suffix) {
+  var tag = extractHashTags();
   var result = false;
-  if (tag_env) {
-    window.location.hash = tag_part == suffix ? tag_env : tag_env + _seperator + suffix;
+  if (tag.env) {
+    window.location.hash = tag.part == suffix ? tag.env : tag.env + _seperator + suffix;
     result = true;
   }
   return result;
 }
 
-function activateTaggedMenuItems (tag_env, tag_part) {
+function activateTaggedMenuItems () {
   $(".sidebar-menu li[class~=active]").removeClass("active");
-  var tags = [tag_env, tag_part];
-  if (tag_env || tag_part) {
+  var tags = extractHashTags();
+  if (tags.env || tags.part) {
     $.each(tags, function (index, tag) {
       if (tag) {
         var selector = ".sidebar-menu a[href=#" + tag + "]";
@@ -90,6 +90,20 @@ function activateTaggedMenuItems (tag_env, tag_part) {
           target.parent("li").addClass("active");
           target.parent("li").parent().parent("li").addClass("active");
         }
-      }});
+      }
+    });
+  }
+  if (tags.env) {
+    // Collapse other expanded menu items
+    var selector = "a[href=#" + tags.env + "]";
+    $(".sidebar-menu ul.menu-open").each(function (index) { 
+      if ($(this).find(selector).length == 0) {
+        $(this).siblings().trigger("click");
+      }; 
+    });
+  }
+  else {
+    // For default page, just collapse every item
+    $(".sidebar-menu ul.menu-open").siblings().trigger("click");
   }
 }

@@ -1,6 +1,6 @@
 
 function renderGaugeRowItems () {
-  updateDataForGauageItems();
+  fetchGauageRowData();
   if ($("#gauge-row").children().length) {
     renderGaugeRowItemsWithUpdates();
   }
@@ -9,14 +9,8 @@ function renderGaugeRowItems () {
   }
 }
 
-function updateDataForGauageItems () {
-  $.each(gauge_data, function (index, item) {
-    item['time'] = new Date();
-    item['value'] *= 1 + (Math.random() - 0.5) * 0.1;
-  });
-}
-
 function renderGaugeRowItemsWithUpdates () {
+  $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
     $(div).find("h3").contents().first()[0].textContent = _formatValueForGauge(gauge_data[index].value);
     $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(gauge_data[index].time);
