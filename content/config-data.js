@@ -1,5 +1,6 @@
 
 var interval_fetch = 3000;
+var interval_status = 300;
 
 var menu_env_data = [{
     "name": "Global",

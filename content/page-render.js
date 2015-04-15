@@ -20,7 +20,7 @@ var _handlerUpdatePage = function (event) {
 
 function composeDefaultPage() {
   _has_content_page = false;
-  console.log("composeDefaultPage " + _timerIdUpdateGaugeRow);
+  console.log("composeDefaultPage ", _timerIds);
 
   clearTimeTriggerEvents();
   $("#gauge-row").hide();

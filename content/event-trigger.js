@@ -1,13 +1,19 @@
 
-var _timerIdUpdateGaugeRow;
+var _timerIds = {};
 
 function setTimeTriggerEvents() {
-  _timerIdUpdateGaugeRow = setInterval("renderGaugeRowItems()", interval_fetch);
+  _timerIds.gauge_fetch = setInterval("renderGaugeRowItems()", interval_fetch);
 }
 
 function clearTimeTriggerEvents() {
-  if (_timerIdUpdateGaugeRow) {
-    clearInterval(_timerIdUpdateGaugeRow);
-    _timerIdUpdateGaugeRow = undefined;
-  }
+  $.each(_timerIds, function (index, _id) {
+    clearInterval(_id);
+  });
+  _timerIds = {};
+}
+
+function updateProgressBar(rate) {
+  var percent = (rate * 100).toFixed(0);
+  $("#progbar-text").text(percent + "%");
+  $("#progbar-rate").attr("style", "width: " + percent + "%");
 }
