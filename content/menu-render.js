@@ -3,14 +3,25 @@ var _seperator = '_';
 
 var _handlerEnvironmentMenu = function (event) {
   event.preventDefault();
+  // Update hash tag in URL
   window.location.hash = "#" + event.data;
-  activateTaggedMenuItems();
+  // Activate menu item as per hash tag
+  var tags = extractHashTags();
+  activateTaggedMenuItems(tags[0], tags[1]);
+  // Render the main page
+  renderMainPage(tags[0], tags[1]);
 };
 
 var _handlerPartnerMenu = function (event) {
   event.preventDefault();
-  appendToHashTag(event.data);
-  activateTaggedMenuItems();
+  // Update hash tag in URL
+  var tags = extractHashTags();
+  appendToHashTag(tags[0], tags[1], event.data);
+  // Activate menu item as per hash tag
+  var tags = extractHashTags();
+  activateTaggedMenuItems(tags[0], tags[1]);
+  // Render the main page
+  renderMainPage(tags[0], tags[1]);
 };
 
 function createLinkItem (item) {
@@ -64,36 +75,40 @@ function renderPartnerMenuItems () {
   });
 }
 
-function extractHashTag () {
-  return window.location.hash.substr(1);
+function extractHashTags () {
+  return window.location.hash.substr(1).split(_seperator);
 }
 
-function appendToHashTag (suffix) {
-  var tags = window.location.hash.substr(1).split(_seperator);
-  tag_env = tags[0];
-  tag_part = tags[1];
-  if (tag_env && tag_env != "#") {
+function appendToHashTag (tag_env, tag_part, suffix) {
+  var result = false;
+  if (tag_env) {
     window.location.hash = tag_part == suffix ? tag_env : tag_env + _seperator + suffix;
+    result = true;
   }
+  return result;
 }
 
-function activateTaggedMenuItems () {
-  var tags = window.location.hash.substr(1).split(_seperator);
-  if (tags[0] || tags[1]) {
-    $(".sidebar-menu li[class~=active]").removeClass("active");
+function activateTaggedMenuItems (tag_env, tag_part) {
+  $(".sidebar-menu li[class~=active]").removeClass("active");
+  var tags = [tag_env, tag_part];
+  if (tag_env || tag_part) {
     $.each(tags, function (index, tag) {
-      var selector = ".sidebar-menu a[href=#" + tag + "]";
-      var target = $(selector);
-      if (target) {
-        target.parent("li").addClass("active");
-        target.parent("li").parent().parent("li").addClass("active");
-      }
-    });
+      if (tag) {
+        var selector = ".sidebar-menu a[href=#" + tag + "]";
+        var target = $(selector);
+        if (target) {
+          target.parent("li").addClass("active");
+          target.parent("li").parent().parent("li").addClass("active");
+        }
+      }});
   }
 }
 
 
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-activateTaggedMenuItems();
+
+var tags = extractHashTags();
+activateTaggedMenuItems(tags[0], tags[1]);
+renderMainPage(tags[0], tags[1]);
 
