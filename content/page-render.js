@@ -16,7 +16,7 @@ function updateContentTitleDesc (profile) {
   if (profile.env_name) {
     desc.append(" " + profile.env_name);
   }
-  else {
+  else if (profile.region_name) {
     desc.append(" " + profile.region_name);
   }
   if (profile.part_name) {

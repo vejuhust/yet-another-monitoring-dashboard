@@ -6,7 +6,7 @@ var menu_env_data = [{
     "name": "Region 1",
     "icon": "flag-icon flag-icon-us",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 1 Summary",
         "link": "reg-1",
     }, {
         "name": "Environment 1-1",
@@ -22,7 +22,7 @@ var menu_env_data = [{
     "name": "Region 2",
     "icon": "flag-icon flag-icon-hk",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 2 Summary",
         "link": "reg-2",
     }, {
         "name": "Environment 2-1",
@@ -44,7 +44,7 @@ var menu_env_data = [{
     "name": "Region 3",
     "icon": "flag-icon flag-icon-sg",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 3 Summary",
         "link": "reg-3",
     }, {
         "name": "Environment 3-1",
@@ -63,7 +63,7 @@ var menu_env_data = [{
     "name": "Region 4",
     "icon": "flag-icon flag-icon-za",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 4 Summary",
         "link": "reg-4",
     }, {
         "name": "Environment 4-1",
@@ -76,7 +76,7 @@ var menu_env_data = [{
     "name": "Region 5",
     "icon": "flag-icon flag-icon-gb",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 5 Summary",
         "link": "reg-5",
     }, {
         "name": "Environment 5-1",
@@ -98,7 +98,7 @@ var menu_env_data = [{
     "name": "Region 6",
     "icon": "flag-icon flag-icon-cn",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 6 Summary",
         "link": "reg-6",
     }, {
         "name": "Environment 6-1",
@@ -111,7 +111,7 @@ var menu_env_data = [{
     "name": "Region 7",
     "icon": "flag-icon flag-icon-kr",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 7 Summary",
         "link": "reg-7",
     }, {
         "name": "Environment 7-1",
@@ -121,7 +121,7 @@ var menu_env_data = [{
     "name": "Region 8",
     "icon": "flag-icon flag-icon-br",
     "sub": [{
-        "name": "Summary",
+        "name": "Region 8 Summary",
         "link": "reg-8",
     }, {
         "name": "Environment 8-1",
