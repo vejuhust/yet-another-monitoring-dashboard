@@ -33,13 +33,10 @@ function composeContentPage() {
 
 function updateContentPage() {
   console.log("updateContentPage");
-  // Activate menu item as per hash tag
-  var tags = extractHashTags();
-  var tag_env = tags[0];
-  var tag_part = tags[1];
-  activateTaggedMenuItems(tag_env, tag_part);
+  // Activate menu item as per hashtag
+  activateTaggedMenuItems();
   // Update title & status
-  _profile = extractEnvPartProfile(tag_env, tag_part);
+  _profile = extractEnvPartProfile();
   if (updateContentTitleDesc(_profile)) {
     updateWebpageTitle(_profile);
     addNewSubBoxInStatusBox(_profile);

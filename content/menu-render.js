@@ -2,8 +2,7 @@ var _seperator = '_';
 
 var _handlerPartnerMenu = function (event) {
   event.preventDefault();
-  var tags = extractHashTags();
-  appendToHashTag(tags[0], tags[1], event.data);
+  appendToHashTag(event.data);
 };
 
 function createLinkItem (item) {
@@ -65,7 +64,10 @@ function extractHashTags () {
   return window.location.hash.substr(1).split(_seperator);
 }
 
-function appendToHashTag (tag_env, tag_part, suffix) {
+function appendToHashTag (suffix) {
+  var tags = extractHashTags();
+  var tag_env = tags[0];
+  var tag_part = tags[1];
   var result = false;
   if (tag_env) {
     window.location.hash = tag_part == suffix ? tag_env : tag_env + _seperator + suffix;
@@ -74,10 +76,10 @@ function appendToHashTag (tag_env, tag_part, suffix) {
   return result;
 }
 
-function activateTaggedMenuItems (tag_env, tag_part) {
+function activateTaggedMenuItems () {
   $(".sidebar-menu li[class~=active]").removeClass("active");
-  var tags = [tag_env, tag_part];
-  if (tag_env || tag_part) {
+  var tags = extractHashTags();
+  if (tags[0] || tags[1]) {
     $.each(tags, function (index, tag) {
       if (tag) {
         var selector = ".sidebar-menu a[href=#" + tag + "]";
@@ -86,6 +88,16 @@ function activateTaggedMenuItems (tag_env, tag_part) {
           target.parent("li").addClass("active");
           target.parent("li").parent().parent("li").addClass("active");
         }
-      }});
+      }
+    });
+  }
+  // Collapsed other expanded menu items
+  if (tags[0]) {
+    var selector = "a[href=#" + tags[0] + "]";
+    $(".sidebar-menu ul.menu-open").each(function (index) { 
+      if ($(this).find(selector).length == 0) {
+        $(this).siblings().trigger("click");
+      }; 
+    });
   }
 }
