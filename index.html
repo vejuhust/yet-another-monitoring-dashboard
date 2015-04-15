@@ -353,7 +353,7 @@
                 <ul class="nav nav-tabs pull-right">
                   <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
                   <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
-                  <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
+                  <li class="pull-left header"><i class="fa fa-inbox"></i> Traffic</li>
                 </ul>
                 <div class="tab-content no-padding">
                   <!-- Morris chart - Sales -->
@@ -384,7 +384,7 @@
               <div class="box box-solid bg-teal-gradient">
                 <div class="box-header">
                   <i class="fa fa-th"></i>
-                  <h3 class="box-title">Sales Graph</h3>
+                  <h3 class="box-title">Traffic Graph</h3>
                   <div class="box-tools pull-right">
                     <button class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -397,15 +397,15 @@
                   <div class="row">
                     <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                       <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60" data-fgColor="#39CCCC"/>
-                      <div class="knob-label">Mail-Orders</div>
+                      <div class="knob-label">Environment</div>
                     </div><!-- ./col -->
                     <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                       <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60" data-fgColor="#39CCCC"/>
-                      <div class="knob-label">Online</div>
+                      <div class="knob-label">Connection</div>
                     </div><!-- ./col -->
                     <div class="col-xs-4 text-center">
                       <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#39CCCC"/>
-                      <div class="knob-label">In-Store</div>
+                      <div class="knob-label">User</div>
                     </div><!-- ./col -->
                   </div><!-- /.row -->
                 </div><!-- /.box-footer -->
@@ -628,12 +628,13 @@
     
     <!-- EGMD content -->
     <script src="content/config-data.js" type="text/javascript"></script>
+    <script src="content/fetch-data.js" type="text/javascript"></script>
     <script src="content/utility.js" type="text/javascript"></script>
-    <script src="content/title-render.js" type="text/javascript"></script>
-    <script src="content/page-render.js" type="text/javascript"></script>
     <script src="content/menu-render.js" type="text/javascript"></script>
-    <script src="content/gauge-render.js" type="text/javascript"></script>
+    <script src="content/title-render.js" type="text/javascript"></script>
     <script src="content/status-render.js" type="text/javascript"></script>
+    <script src="content/gauge-render.js" type="text/javascript"></script>
+    <script src="content/page-render.js" type="text/javascript"></script>
     <script src="content/bootloader.js" type="text/javascript"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
