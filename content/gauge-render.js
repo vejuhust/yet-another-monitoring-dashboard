@@ -10,6 +10,7 @@ function renderGaugeRowItems () {
 }
 
 function renderGaugeRowItemsWithUpdates () {
+  $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
     $(div).find("h3").contents().first()[0].textContent = _formatValueForGauge(gauge_data[index].value);
     $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(gauge_data[index].time);

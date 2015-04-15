@@ -1,13 +1,5 @@
 var _seperator = '_';
 
-var _handlerRefreshMenuAndPage = function (event) {
-  // Activate menu item as per hash tag
-  var tags = extractHashTags();
-  activateTaggedMenuItems(tags[0], tags[1]);
-  // Render the main page
-  renderMainPage(tags[0], tags[1]);
-};
-
 var _handlerPartnerMenu = function (event) {
   event.preventDefault();
   var tags = extractHashTags();
@@ -63,6 +55,10 @@ function renderPartnerMenuItems () {
   $.each(item_list.reverse(), function () {
     menu_part.after(this);
   });
+}
+
+function hasHasTagInUrl () {
+  return window.location.hash.length > 0;
 }
 
 function extractHashTags () {

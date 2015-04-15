@@ -1,20 +1,22 @@
 
-// Render the environment & partner menus
+// Render menus on the left side
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-renderGaugeRowItems();
 
 // Events binding
-window.onhashchange = _handlerRefreshMenuAndPage;
+window.onhashchange = _handlerUpdatePage;
 
-// Update the menu and render the content
-_handlerRefreshMenuAndPage();
+// Force the first refresh
+_handlerUpdatePage();
 
-(function myLoop (i) {          
-  setTimeout(function () {   
-    renderGaugeRowItems();
-    if (--i) {
-      myLoop(i);
-    }
-  }, 3000)
-})(1000);
+// // Update the menu and render the content
+// _handlerRefreshMenuAndPage();
+
+// (function myLoop (i) {          
+//   setTimeout(function () {   
+//     renderGaugeRowItems();
+//     if (--i) {
+//       myLoop(i);
+//     }
+//   }, 3000)
+// })(1000);
