@@ -1,13 +1,11 @@
 var _profile;
 
 function renderMainPage(tag_env, tag_part) {
-  console.log("now " + tag_env + " " + tag_part);
-
   _profile = extractEnvPartProfile(tag_env, tag_part);
   if (updateContentTitleDesc(_profile)) {
     addNewBoxInStatusBox(_profile);
   }
-};
+}
 
 function updateContentTitleDesc (profile) {
   var desc = $("<small/>", { id: "content-title-desc" });
@@ -56,7 +54,7 @@ function searchConfigByTagEnv(tag_env) {
           _env_link = env.link;
           break;
         }
-      };
+      }
     }
     else {
       if (region.link == tag_env) {
