@@ -1,4 +1,3 @@
-
 var _seperator = '_';
 
 var _handlerRefreshMenuAndPage = function (event) {
@@ -94,10 +93,3 @@ function activateTaggedMenuItems (tag_env, tag_part) {
       }});
   }
 }
-
-
-renderEnvironmentMenuItems();
-renderPartnerMenuItems();
-
-window.onhashchange = _handlerRefreshMenuAndPage;
-_handlerRefreshMenuAndPage();
