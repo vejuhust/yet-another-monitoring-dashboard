@@ -1,13 +1,17 @@
-console.log("hello page");
+var _profile;
 
 function renderMainPage(tag_env, tag_part) {
   console.log("now " + tag_env + " " + tag_part);
 
+  _profile = extractEnvPartProfile(tag_env, tag_part);
+  updateContentTitleDesc(_profile);
+};
+
+function extractEnvPartProfile (tag_env, tag_part) {
   var info_env = searchConfigByTagEnv(tag_env);
   var info_part = searchConfigByTagPart(tag_part);
-
-  updateContentTitleDesc($.extend(info_env, info_part));
-};
+  return $.extend(info_env, info_part);
+}
 
 function updateContentTitleDesc (info) {
   var desc = $("<small/>", { id: "content-title-desc" });
