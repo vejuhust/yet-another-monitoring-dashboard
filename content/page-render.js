@@ -1,5 +1,4 @@
 var _profile;
-var _timerIdUpdateGaugeRow;
 var _has_content_page = false;
 
 var _handlerUpdatePage = function (event) {
@@ -23,21 +22,18 @@ function composeDefaultPage() {
   _has_content_page = false;
   console.log("composeDefaultPage " + _timerIdUpdateGaugeRow);
 
-  if (_timerIdUpdateGaugeRow) {
-    clearInterval(_timerIdUpdateGaugeRow);
-    _timerIdUpdateGaugeRow = undefined;
-  }
-
-  updateContentPage();
+  clearTimeTriggerEvents();
   $("#gauge-row").hide();
   $("#status-box").hide();
+
+  updateContentPage();
 }
 
 function composeContentPage() {
   console.log("composeContentPage");
   // Render gauge row and set data update event
   renderGaugeRowItems();
-  _timerIdUpdateGaugeRow = setInterval("renderGaugeRowItems()", interval_fetch);
+  setTimeTriggerEvents();
 }
 
 function updateContentPage() {
