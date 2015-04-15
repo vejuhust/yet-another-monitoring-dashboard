@@ -61,16 +61,18 @@ function hasHasTagInUrl () {
 }
 
 function extractHashTags () {
-  return window.location.hash.substr(1).split(_seperator);
+  var tags = window.location.hash.substr(1).split(_seperator);
+  return {
+    "env": tags[0],
+    "part": tags[1],
+  };
 }
 
 function appendToHashTag (suffix) {
-  var tags = extractHashTags();
-  var tag_env = tags[0];
-  var tag_part = tags[1];
+  var tag = extractHashTags();
   var result = false;
-  if (tag_env) {
-    window.location.hash = tag_part == suffix ? tag_env : tag_env + _seperator + suffix;
+  if (tag.env) {
+    window.location.hash = tag.part == suffix ? tag.env : tag.env + _seperator + suffix;
     result = true;
   }
   return result;
@@ -79,7 +81,7 @@ function appendToHashTag (suffix) {
 function activateTaggedMenuItems () {
   $(".sidebar-menu li[class~=active]").removeClass("active");
   var tags = extractHashTags();
-  if (tags[0] || tags[1]) {
+  if (tags.env || tags.part) {
     $.each(tags, function (index, tag) {
       if (tag) {
         var selector = ".sidebar-menu a[href=#" + tag + "]";

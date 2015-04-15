@@ -1,10 +1,8 @@
 
 function extractEnvPartProfile () {
-  var tags = extractHashTags();
-  var tag_env = tags[0];
-  var tag_part = tags[1];
-  var info_env = searchConfigByTagEnv(tag_env);
-  var info_part = searchConfigByTagPart(tag_part);
+  var tag = extractHashTags();
+  var info_env = searchConfigByTagEnv(tag.env);
+  var info_part = searchConfigByTagPart(tag.part);
   return $.extend(info_env, info_part);
 }
 
