@@ -61,5 +61,5 @@ function _formatValueForGauge (value) {
 }
 
 function _formatTimestampForGauge (timestamp) {
-  return "Updated at " + $.format.date(timestamp, 'HH:mm:ss.SSS') + " ";  
+  return $.format.date(timestamp, 'HH:mm:ss.SSS') + " ";  
 }
