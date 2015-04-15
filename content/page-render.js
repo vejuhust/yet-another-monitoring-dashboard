@@ -1,4 +1,3 @@
-var _profile;
 var _has_content_page = false;
 
 var _handlerUpdatePage = function (event) {
@@ -20,25 +19,24 @@ var _handlerUpdatePage = function (event) {
 
 function composeDefaultPage() {
   _has_content_page = false;
-  console.log("composeDefaultPage " + _has_content_page);
-  updateContentPage();
+  console.log("composeDefaultPage ", _timerIds);
+
+  clearTimeTriggerEvents();
   $("#gauge-row").hide();
   $("#status-box").hide();
+
+  renderTitleAndStatus("Welcome!");
 }
 
 function composeContentPage() {
   console.log("composeContentPage");
-  renderGaugeRowItems();
 }
 
 function updateContentPage() {
   console.log("updateContentPage");
-  // Activate menu item as per hashtag
-  activateTaggedMenuItems();
-  // Update title & status
-  _profile = extractEnvPartProfile();
-  if (updateContentTitleDesc(_profile)) {
-    updateWebpageTitle(_profile);
-    addNewSubBoxInStatusBox(_profile);
-  }
+  renderTitleAndStatus();
+  // Render gauge row and reset data update event
+  clearTimeTriggerEvents();
+  fetchGauageRowData();
+  setTimeTriggerEvents();
 }

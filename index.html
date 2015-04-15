@@ -60,7 +60,7 @@
               <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">4</span>
+                  <span class="label label-success" id="gauge-count">0</span>
                 </a>
                 <ul class="dropdown-menu">
                   <li class="header">You have 4 messages</li>
@@ -420,7 +420,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 0.1
         </div>
-        <strong>Copyright &copy; 2015 Microsoft.</strong> Internal use only.
+        <strong>Copyright &copy; 2015 Microsoft.</strong> For internal use only.
       </footer>
       
       <!-- Control Sidebar -->      
@@ -483,8 +483,8 @@
                     Custom Template Design
                     <span class="label label-danger pull-right">70%</span>
                   </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                  <div class="progress progress-sm active">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 70%"></div>
                   </div>                                    
                 </a>
               </li> 
@@ -494,8 +494,8 @@
                     Update Resume
                     <span class="label label-success pull-right">95%</span>
                   </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                  <div class="progress progress-sm active">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 95%"></div>
                   </div>                                    
                 </a>
               </li> 
@@ -505,19 +505,19 @@
                     Laravel Integration
                     <span class="label label-waring pull-right">50%</span>
                   </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                  <div class="progress progress-sm active">
+                    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 50%"></div>
                   </div>                                    
                 </a>
               </li> 
               <li>
                 <a href='javascript::;'>               
                   <h4 class="control-sidebar-subheading">
-                    Back End Framework
-                    <span class="label label-primary pull-right">68%</span>
+                    Data Fetch Pending
+                    <span class="label label-primary pull-right" id="progbar-text">0%</span>
                   </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                  <div class="progress progress-sm active">
+                    <div class="progress-bar progress-bar-primary progress-bar-striped" id="progbar-rate" style="width: 0%"></div>
                   </div>                                    
                 </a>
               </li>               
@@ -635,6 +635,7 @@
     <script src="content/status-render.js" type="text/javascript"></script>
     <script src="content/gauge-render.js" type="text/javascript"></script>
     <script src="content/page-render.js" type="text/javascript"></script>
+    <script src="content/event-trigger.js" type="text/javascript"></script>
     <script src="content/bootloader.js" type="text/javascript"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
