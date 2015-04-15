@@ -93,13 +93,17 @@ function activateTaggedMenuItems () {
       }
     });
   }
-  // Collapsed other expanded menu items
-  if (tags[0]) {
-    var selector = "a[href=#" + tags[0] + "]";
+  if (tags.env) {
+    // Collapse other expanded menu items
+    var selector = "a[href=#" + tags.env + "]";
     $(".sidebar-menu ul.menu-open").each(function (index) { 
       if ($(this).find(selector).length == 0) {
         $(this).siblings().trigger("click");
       }; 
     });
+  }
+  else {
+    // For default page, just collapse every item
+    $(".sidebar-menu ul.menu-open").siblings().trigger("click");
   }
 }
