@@ -1,10 +1,10 @@
 
 function renderGaugeItems () {
-  var guage_row = $("#gauge-row");
-
+  var guage_row = $('<div/>', { class: "row", id: "gauge-row"});
   $.each(gauge_data, function (index, item) {
     guage_row.append(createGaugeBox(item));
   });
+  $("#gauge-row").replaceWith(guage_row);
 }
 
 function createGaugeBox (item_data) {
