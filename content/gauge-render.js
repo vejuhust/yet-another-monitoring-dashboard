@@ -35,7 +35,7 @@ function createGaugeBox (item_data) {
   var _div_icon = $("<div/>", { class: "icon"}).append($("<i/>", { class: item_data.icon}));
   _div_icon.appendTo(_div_color);
 
-  var _str_time = "Updated at " + $.format.date(item_data.time, 'MM/dd HH:mm:ss') + " ";
+  var _str_time = "Updated at " + $.format.date(item_data.time, 'HH:mm:ss.SSS') + " ";
   var _div_time = $("<div/>", { class: "small-box-footer", href: "#", text: _str_time });
   _div_time.append($("<i/>", { class: "fa fa-arrow-circle-right"}));
   _div_time.appendTo(_div_color);
