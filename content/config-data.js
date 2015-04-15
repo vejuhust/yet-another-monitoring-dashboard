@@ -117,6 +117,19 @@ var menu_env_data = [{
         "name": "Environment 7-1",
         "link": "env-7-1",
     }],
+}, {
+    "name": "Region 8",
+    "icon": "flag-icon flag-icon-br",
+    "sub": [{
+        "name": "Summary",
+        "link": "reg-8",
+    }, {
+        "name": "Environment 8-1",
+        "link": "env-8-1",
+    }, {
+        "name": "Environment 8-2",
+        "link": "env-8-2",
+    }],
 }, ];
 
 var menu_part_data = [{
