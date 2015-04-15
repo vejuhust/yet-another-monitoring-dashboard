@@ -1,12 +1,13 @@
 
 function renderGaugeItems () {
-  updateDataFromGauageItems();
+  updateDataForGauageItems();
   renderGaugeItemsFromScratch();
 }
 
-function updateDataFromGauageItems () {
+function updateDataForGauageItems () {
   $.each(gauge_data, function (index, item) {
     item['time'] = new Date();
+    item['value'] *= 1 + (Math.random() - 0.5) * 0.1;
   });
 }
 
@@ -23,7 +24,7 @@ function createGaugeBox (item_data) {
   var _div_color = $("<div/>", { class: "small-box " + item_data.color });
   var _div_text = $("<div/>", { class: "inner"});
 
-  var _div_value = $("<h3/>", { text: item_data.value });
+  var _div_value = $("<h3/>", { text: item_data.value.toFixed(3) });
   if (item_data.unit) {
     $("<sup/>", { style: "font-size: 20px", text: item_data.unit }).appendTo(_div_value);
   }
@@ -38,8 +39,6 @@ function createGaugeBox (item_data) {
   var _div_time = $("<div/>", { class: "small-box-footer", href: "#", text: _str_time });
   _div_time.append($("<i/>", { class: "fa fa-arrow-circle-right"}));
   _div_time.appendTo(_div_color);
-
-  // $('<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>').appendTo(_div_color);
 
   _div_color.appendTo(_div);
 
