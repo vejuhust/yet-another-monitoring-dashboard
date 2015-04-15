@@ -1,10 +1,7 @@
 
 var _seperator = '_';
 
-var _handlerEnvironmentMenu = function (event) {
-  event.preventDefault();
-  // Update hash tag in URL
-  window.location.hash = "#" + event.data;
+var _handlerRefreshMenuAndPage = function (event) {
   // Activate menu item as per hash tag
   var tags = extractHashTags();
   activateTaggedMenuItems(tags[0], tags[1]);
@@ -14,14 +11,8 @@ var _handlerEnvironmentMenu = function (event) {
 
 var _handlerPartnerMenu = function (event) {
   event.preventDefault();
-  // Update hash tag in URL
   var tags = extractHashTags();
   appendToHashTag(tags[0], tags[1], event.data);
-  // Activate menu item as per hash tag
-  var tags = extractHashTags();
-  activateTaggedMenuItems(tags[0], tags[1]);
-  // Render the main page
-  renderMainPage(tags[0], tags[1]);
 };
 
 function createLinkItem (item) {
@@ -43,7 +34,7 @@ function createMultiLevelMenuItem (item) {
   var _ul = $("<ul/>", { class: "treeview-menu" });
   $.each(item.sub, function (index, item) {
     item.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(item).click(item.link, _handlerEnvironmentMenu));
+    _ul.append(createSingleLevelMenuItem(item));
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -55,7 +46,7 @@ function renderEnvironmentMenuItems () {
   $.each(menu_env_data, function (index, item) {
     item_list.push(item.sub 
       ? createMultiLevelMenuItem(item)
-      : createSingleLevelMenuItem(item).click(item.link, _handlerEnvironmentMenu));
+      : createSingleLevelMenuItem(item));
   });
 
   $.each(item_list.reverse(), function () {
@@ -108,7 +99,5 @@ function activateTaggedMenuItems (tag_env, tag_part) {
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
 
-var tags = extractHashTags();
-activateTaggedMenuItems(tags[0], tags[1]);
-renderMainPage(tags[0], tags[1]);
-
+window.onhashchange = _handlerRefreshMenuAndPage;
+_handlerRefreshMenuAndPage();
