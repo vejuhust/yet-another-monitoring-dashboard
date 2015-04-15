@@ -25,23 +25,18 @@ function composeDefaultPage() {
   $("#gauge-row").hide();
   $("#status-box").hide();
 
-  updateContentPage();
+  renderTitleAndStatus("Welcome!");
 }
 
 function composeContentPage() {
   console.log("composeContentPage");
-  // Render gauge row and set data update event
-  fetchGauageRowData();
-  setTimeTriggerEvents();
 }
 
 function updateContentPage() {
   console.log("updateContentPage");
-  // Activate menu item as per hashtag
-  activateTaggedMenuItems();
-  // Update title & status
-  var _profile = extractEnvPartProfile();
-  updateContentTitleDesc(_profile)
-  updateWebpageTitle(_profile);
-  addNewSubBoxInStatusBox(_profile);
+  renderTitleAndStatus();
+  // Render gauge row and reset data update event
+  clearTimeTriggerEvents();
+  fetchGauageRowData();
+  setTimeTriggerEvents();
 }
