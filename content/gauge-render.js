@@ -2,14 +2,14 @@
 function renderGaugeRowItems () {
   fetchGauageRowData();
   if ($("#gauge-row").children().length) {
-    renderGaugeRowItemsWithUpdates();
+    updateExistingGaugeRowItems();
   }
   else {
-    renderGaugeRowItemsFromScratch();
+    renderNewGaugeRowItems();
   }
 }
 
-function renderGaugeRowItemsWithUpdates () {
+function updateExistingGaugeRowItems () {
   $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
     $(div).find("h3").contents().first()[0].textContent = _formatValueForGauge(gauge_data[index].value);
@@ -17,7 +17,7 @@ function renderGaugeRowItemsWithUpdates () {
   });
 }
 
-function renderGaugeRowItemsFromScratch () {
+function renderNewGaugeRowItems () {
   var guage_row = $('<div/>', { class: "row", id: "gauge-row"});
   $.each(gauge_data, function (index, item) {
     guage_row.append(createGaugeBox(item));

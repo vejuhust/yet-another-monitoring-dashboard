@@ -1,3 +1,6 @@
+
+var interval_fetch = 3000;
+
 var menu_env_data = [{
     "name": "Global",
     "icon": "fa fa-globe",
