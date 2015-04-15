@@ -2,7 +2,7 @@
 // Render the environment & partner menus
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
-renderGaugeItems();
+renderGaugeRowItems();
 
 // Events binding
 window.onhashchange = _handlerRefreshMenuAndPage;
