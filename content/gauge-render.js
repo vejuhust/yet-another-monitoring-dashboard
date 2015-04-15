@@ -47,7 +47,7 @@ function createGaugeBox (item_data) {
   var _div_icon = $("<div/>", { class: "icon"}).append($("<i/>", { class: item_data.icon}));
   _div_icon.appendTo(_div_color);
 
-  var _div_time = $("<div/>", { class: "small-box-footer", href: "#", text: _formatTimestampForGauge(item_data.time) });
+  var _div_time = $("<a/>", { class: "small-box-footer", href: "#", text: _formatTimestampForGauge(item_data.time) });
   _div_time.append($("<i/>", { class: "fa fa-arrow-circle-right"}));
   _div_time.appendTo(_div_color);
 
@@ -57,9 +57,22 @@ function createGaugeBox (item_data) {
 }
 
 function _formatValueForGauge (value) {
-  return value.toFixed(3);
+  var precision;
+  if (value < 10) {
+    precision = 3;
+  }
+  else if (value < 100) {
+    precision = 2;
+  }
+  else if (value < 1000) {
+    precision = 1;
+  }
+  else {
+    precision = 0;
+  }
+  return value.toFixed(precision);
 }
 
 function _formatTimestampForGauge (timestamp) {
-  return "Updated at " + $.format.date(timestamp, 'HH:mm:ss.SSS') + " ";  
+  return $.format.date(timestamp, 'HH:mm:ss') + " ";  
 }
