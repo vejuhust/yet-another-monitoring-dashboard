@@ -1,5 +1,16 @@
 
 function renderGaugeItems () {
+  updateDataFromGauageItems();
+  renderGaugeItemsFromScratch();
+}
+
+function updateDataFromGauageItems () {
+  $.each(gauge_data, function (index, item) {
+    item['time'] = new Date();
+  });
+}
+
+function renderGaugeItemsFromScratch () {
   var guage_row = $('<div/>', { class: "row", id: "gauge-row"});
   $.each(gauge_data, function (index, item) {
     guage_row.append(createGaugeBox(item));
@@ -23,7 +34,13 @@ function createGaugeBox (item_data) {
   var _div_icon = $("<div/>", { class: "icon"}).append($("<i/>", { class: item_data.icon}));
   _div_icon.appendTo(_div_color);
 
-  $('<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>').appendTo(_div_color);
+  var _str_time = "Updated at " + $.format.date(item_data.time, 'MM/dd HH:mm:ss') + " ";
+  var _div_time = $("<div/>", { class: "small-box-footer", href: "#", text: _str_time });
+  _div_time.append($("<i/>", { class: "fa fa-arrow-circle-right"}));
+  _div_time.appendTo(_div_color);
+
+  // $('<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>').appendTo(_div_color);
+
   _div_color.appendTo(_div);
 
   return _div;
