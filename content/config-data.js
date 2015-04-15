@@ -117,6 +117,19 @@ var menu_env_data = [{
         "name": "Environment 7-1",
         "link": "env-7-1",
     }],
+}, {
+    "name": "Region 8",
+    "icon": "flag-icon flag-icon-br",
+    "sub": [{
+        "name": "Summary",
+        "link": "reg-8",
+    }, {
+        "name": "Environment 8-1",
+        "link": "env-8-1",
+    }, {
+        "name": "Environment 8-2",
+        "link": "env-8-2",
+    }],
 }, ];
 
 var menu_part_data = [{
@@ -139,4 +152,40 @@ var menu_part_data = [{
     "name": "Partner 5",
     "icon": "fa fa-fw fa-windows",
     "link": "part-5",
+}, ];
+
+var gauge_data = [{
+    "name": "RPS",
+    "value": 1028,
+    "icon": "fa fa-fw fa-bar-chart-o",
+    "color": "bg-green",
+}, {
+    "name": "RPS Error",
+    "value": 0.43,
+    "icon": "fa fa-fw fa-warning",
+    "color": "bg-red",
+}, {
+    "name": "Ingress",
+    "value": 168.74,
+    "icon": "fa fa-fw fa-sign-in",
+    "color": "bg-teal",
+    "unit": "Mbps",
+}, {
+    "name": "Egress",
+    "value": 642.36,
+    "icon": "fa fa-fw fa-sign-out",
+    "color": "bg-aqua",
+    "unit": "Mbps",
+}, {
+    "name": "HTTP Latency",
+    "value": 457,
+    "icon": "fa fa-fw fa-clock-o",
+    "color": "bg-orange",
+    "unit": "ms",
+}, {
+    "name": "TCP Latency",
+    "value": 125,
+    "icon": "fa fa-fw fa-dot-circle-o",
+    "color": "bg-maroon",
+    "unit": "ms",
 }, ];

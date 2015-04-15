@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>EGMD | Environment 1</title>
+    <title>EGMD | Main</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
@@ -341,85 +341,7 @@
         <!-- Main content -->
         <section class="content">
           <!-- Small boxes (Stat box) -->
-          <div class="row">
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-green">
-                <div class="inner">
-                  <h3>1024</h3>
-                  <p>RPS</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-fw fa-bar-chart-o"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <h3>0.42</h3>
-                  <p>RPS Error</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-fw fa-warning"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-teal">
-                <div class="inner">
-                  <h3>167.74<sup style="font-size: 20px">Mbps</sup></h3>
-                  <p>Ingress</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-fw fa-sign-in"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-aqua">
-                <div class="inner">
-                  <h3>640.36<sup style="font-size: 20px">Mbps</sup></h3>
-                  <p>Egress</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-fw fa-sign-out"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-orange">
-                <div class="inner">
-                  <h3>456<sup style="font-size: 20px">ms</sup></h3>
-                  <p>HTTP Latency</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-fw fa-clock-o"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-maroon">
-                <div class="inner">
-                  <h3>123<sup style="font-size: 20px">ms</sup></h3>
-                  <p>TCP Latency</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-fw fa-dot-circle-o"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->                        
+          <div class="row" id="gauge-row">
           </div><!-- /.row -->
           <!-- Main row -->
           <div class="row">
@@ -441,7 +363,7 @@
               </div><!-- /.nav-tabs-custom -->
 
               <!-- Info status within a box -->
-              <div class="box box-default">
+              <div class="box box-default" id="status-box">
                 <div class="box-header with-border">
                   <i class="fa fa-bullhorn"></i>
                   <h3 class="box-title">Status Changes</h3>
@@ -450,7 +372,7 @@
                     <button class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div><!-- /.box-header -->
-                <div class="box-body" id="status-box">
+                <div class="box-body" id="status-subbox">
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
@@ -708,6 +630,7 @@
     <script src="content/config-data.js" type="text/javascript"></script>
     <script src="content/page-render.js" type="text/javascript"></script>
     <script src="content/menu-render.js" type="text/javascript"></script>
+    <script src="content/gauge-render.js" type="text/javascript"></script>
     <script src="content/bootloader.js" type="text/javascript"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
