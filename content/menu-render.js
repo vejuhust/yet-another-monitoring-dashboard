@@ -16,13 +16,12 @@ var _handlerPartnerMenu = function (event) {
   event.preventDefault();
   // Update hash tag in URL
   var tags = extractHashTags();
-  if (appendToHashTag(tags[0], tags[1], event.data)) {
-    // Activate menu item as per hash tag
-    var tags = extractHashTags();
-    activateTaggedMenuItems(tags[0], tags[1]);
-    // Render the main page
-    renderMainPage(tags[0], tags[1]);
-  }
+  appendToHashTag(tags[0], tags[1], event.data);
+  // Activate menu item as per hash tag
+  var tags = extractHashTags();
+  activateTaggedMenuItems(tags[0], tags[1]);
+  // Render the main page
+  renderMainPage(tags[0], tags[1]);
 };
 
 function createLinkItem (item) {
@@ -90,9 +89,9 @@ function appendToHashTag (tag_env, tag_part, suffix) {
 }
 
 function activateTaggedMenuItems (tag_env, tag_part) {
+  $(".sidebar-menu li[class~=active]").removeClass("active");
   var tags = [tag_env, tag_part];
   if (tag_env || tag_part) {
-    $(".sidebar-menu li[class~=active]").removeClass("active");
     $.each(tags, function (index, tag) {
       if (tag) {
         var selector = ".sidebar-menu a[href=#" + tag + "]";
