@@ -9,12 +9,12 @@ function animationFontZoomIn(_selector, _rate) {
   }
 }
 
-function animationFontZoomOut(_selector, _archive) {
+function animationFontZoomOut(_selector, _archive, _delay) {
   var _div = $(_selector);
   if (_div.length && _archive != undefined) {
     setTimeout(function() {
       _div.css("font-size", _archive + "px");
-    }, 400);
+    }, _delay);
   }
 }
 

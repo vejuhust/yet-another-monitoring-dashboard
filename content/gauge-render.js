@@ -1,4 +1,11 @@
 
+function renderGaugeRowItemsWithAnimation () {
+  var _icon_selector = ".small-box .icon";
+  var _font_size = animationFontZoomIn(_icon_selector, 1.06);
+  setTimeout(renderGaugeRowItems, 250);
+  animationFontZoomOut(_icon_selector, _font_size, 400);
+}
+
 function renderGaugeRowItems () {
   if ($("#gauge-row").children().length) {
     updateExistingGaugeRowItems();
