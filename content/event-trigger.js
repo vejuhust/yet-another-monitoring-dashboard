@@ -3,7 +3,7 @@ var _timerIds = {};
 var _intervalPast = 0;
 
 function setTimeTriggerEvents() {
-  _timerIds.gauge_fetch = setInterval("fetchGauageRowData()", interval_fetch);
+  _timerIds.gauge_fetch = setInterval("fetchDataAndUpdateContent()", interval_fetch);
   _timerIds.gauge_progress = setInterval("updateGauageProgress()", interval_progress);
 }
 

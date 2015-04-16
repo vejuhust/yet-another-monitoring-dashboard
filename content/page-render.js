@@ -39,8 +39,8 @@ function updateContentPage() {
   renderTitleAndStatus();
   // Show partners menu
   $("#menu-part").nextAll().fadeIn();
-  // Render gauge row and reset data update event
+  // Reset data update event, and fetch data to render content
   clearTimeTriggerEvents();
-  fetchGauageRowData();
+  fetchDataAndUpdateContent();
   setTimeTriggerEvents();
 }
