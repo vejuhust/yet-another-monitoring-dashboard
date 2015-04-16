@@ -10,8 +10,7 @@ function fetchDataAndRenderContent () {
 function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
-  extractGauageRowData();
-  renderGaugeRowItemsWithAnimation();
+  renderGaugeRowItemsWithAnimation(extractGauageRowData());
 
   updateFetchCounter();
   updateFetchProgress(0);
@@ -22,10 +21,12 @@ function extractGauageRowData () {
     fetchMockupData();
   }
   var _list = _data_list.slice(-1)[0];
-  $.each(gauge_data, function (index, item) {
+  var _data = $.extend(true, {}, gauge_data);
+  $.each(_data, function (index, item) {
     item.time = _list[index].time;
     item.value = _list[index].value;
   });
+  return _data;
 }
 
 function fetchMockupData () {
