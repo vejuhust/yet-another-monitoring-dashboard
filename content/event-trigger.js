@@ -3,8 +3,9 @@ var _timerIds = {};
 var _intervalPast = 0;
 
 function setTimeTriggerEvents() {
-  _timerIds.gauge_fetch = setInterval("fetchGauageRowData()", interval_fetch);
-  _timerIds.gauge_progress = setInterval("updateGauageProgress()", interval_progress);
+  _timerIds.fetch = setInterval("fetchMockupData()", interval_fetch);
+  _timerIds.update = setInterval("extractDataAndUpdateContent()", interval_update);
+  _timerIds.progress = setInterval("updateFetchProgress()", interval_progress);
 }
 
 function clearTimeTriggerEvents() {
@@ -12,5 +13,5 @@ function clearTimeTriggerEvents() {
     clearInterval(_id);
   });
   _timerIds = {};
-  updateGauageProgress(0);
+  updateFetchProgress(0);
 }

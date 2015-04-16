@@ -20,24 +20,28 @@ function restartStatusBoxIfHidden () {
   }
 }
 
-function updateGaugeCounter () {
-  var _div = $("#gauge-count");
-  var _count = parseInt(_div.text()) + 1;
-  _div.text(_count);
+function updateFetchCounter () {
+  var _div = $("#fetch-count");
+  _div.text(_data_list.length);
 }
 
-function updateGauageProgress(num) {
+function updateFetchProgress(num) {
+  var rate;
   if (num != undefined) {
-    _intervalPast = num;
+    rate = num / 100;
+    _intervalPast = interval_fetch * rate;
   }
   else {
     _intervalPast += interval_progress;
+    rate = _intervalPast / interval_update;
   }
-  updateProgressBar(_intervalPast / interval_fetch);
+  updateProgressBar(rate);
 }
 
 function updateProgressBar(rate) {
-  var percent = (rate * 100).toFixed(0);
+  var _rate = rate * 100;
+  _rate = _rate > 100 ? 100 : _rate;
+  var percent = _rate.toFixed(0);
   $("#progbar-text").text(percent + "%");
   $("#progbar-rate").attr("style", "width: " + percent + "%");
 }
