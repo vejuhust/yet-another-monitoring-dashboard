@@ -3,20 +3,21 @@ var _data_list = [];
 
 function fetchDataAndRenderContent () {
   console.log("fetchDataAndRenderContent first time!");
+  _data_list = [];
   extractDataAndUpdateContent();
 }
 
 function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
-  extractMockupData();
+  extractGauageRowData();
   renderGaugeRowItemsWithAnimation();
 
   updateFetchCounter();
   updateFetchProgress(0);
 }
 
-function extractMockupData () {
+function extractGauageRowData () {
   if (!_data_list.length) {
     fetchMockupData();
   }
