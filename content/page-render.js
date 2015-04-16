@@ -24,6 +24,7 @@ function composeDefaultPage() {
   clearTimeTriggerEvents();
   $("#gauge-row").hide();
   $("#status-box").hide();
+  $("#menu-part").nextAll().fadeOut();
 
   renderTitleAndStatus("Welcome!");
 }
@@ -34,7 +35,10 @@ function composeContentPage() {
 
 function updateContentPage() {
   console.log("updateContentPage");
+  // Update title and add status box
   renderTitleAndStatus();
+  // Show partners menu
+  $("#menu-part").nextAll().fadeIn();
   // Render gauge row and reset data update event
   clearTimeTriggerEvents();
   fetchGauageRowData();
