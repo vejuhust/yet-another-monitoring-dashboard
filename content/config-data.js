@@ -1,5 +1,5 @@
 
-var interval_fetch = 3500;
+var interval_fetch = 4500;
 var interval_update = 5000;
 var interval_progress = 300;
 
