@@ -14,19 +14,3 @@ function clearTimeTriggerEvents() {
   _timerIds = {};
   updateGauageProgress(0);
 }
-
-function updateGauageProgress(num) {
-  if (num != undefined) {
-    _intervalPast = num;
-  }
-  else {
-    _intervalPast += interval_progress;
-  }
-  updateProgressBar(_intervalPast / interval_fetch);
-}
-
-function updateProgressBar(rate) {
-  var percent = (rate * 100).toFixed(0);
-  $("#progbar-text").text(percent + "%");
-  $("#progbar-rate").attr("style", "width: " + percent + "%");
-}
