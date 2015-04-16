@@ -5,18 +5,16 @@ function fetchDataAndRenderContent () {
 }
 
 function fetchDataAndUpdateContent () {
-  updateGauageProgress(100);
+  updateFetchProgress(100);
 
-  fetchGauageRowData();
-
-  updateGaugeCounter();
-
+  fetchMockupData();
   renderGaugeRowItemsWithAnimation();
 
-  updateGauageProgress(0);
+  updateFetchCounter();
+  updateFetchProgress(0);
 }
 
-function fetchGauageRowData () {
+function fetchMockupData () {
   $.each(gauge_data, function (index, item) {
     item['time'] = new Date();
     item['value'] *= 1 + (Math.random() - 0.5) * 0.1;

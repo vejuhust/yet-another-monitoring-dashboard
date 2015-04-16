@@ -4,7 +4,7 @@ var _intervalPast = 0;
 
 function setTimeTriggerEvents() {
   _timerIds.fetch = setInterval("fetchDataAndUpdateContent()", interval_fetch);
-  _timerIds.progress = setInterval("updateGauageProgress()", interval_progress);
+  _timerIds.progress = setInterval("updateFetchProgress()", interval_progress);
 }
 
 function clearTimeTriggerEvents() {
@@ -12,5 +12,5 @@ function clearTimeTriggerEvents() {
     clearInterval(_id);
   });
   _timerIds = {};
-  updateGauageProgress(0);
+  updateFetchProgress(0);
 }
