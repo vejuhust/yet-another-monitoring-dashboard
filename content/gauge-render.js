@@ -1,31 +1,33 @@
 
-function renderGaugeRowItemsWithAnimation () {
+function renderGaugeRowItemsWithAnimation (row_data) {
   var _icon_selector = ".small-box .icon";
   var _font_size = animationFontZoomIn(_icon_selector, 1.06);
-  setTimeout(renderGaugeRowItems, 250);
+  setTimeout(function () { 
+    renderGaugeRowItems(row_data); 
+  }, 250);
   animationFontZoomOut(_icon_selector, _font_size, 400);
 }
 
-function renderGaugeRowItems () {
+function renderGaugeRowItems (row_data) {
   if ($("#gauge-row").children().length) {
-    updateExistingGaugeRowItems();
+    updateExistingGaugeRowItems(row_data);
   }
   else {
-    renderNewGaugeRowItems();
+    renderNewGaugeRowItems(row_data);
   }
 }
 
-function updateExistingGaugeRowItems () {
+function updateExistingGaugeRowItems (row_data) {
   $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
-    $(div).find("h3").contents().first()[0].textContent = _formatValueForGauge(gauge_data[index].value);
-    $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(gauge_data[index].time);
+    $(div).find("h3").contents().first()[0].textContent = _formatValueForGauge(row_data[index].value);
+    $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(row_data[index].time);
   });
 }
 
-function renderNewGaugeRowItems () {
+function renderNewGaugeRowItems (row_data) {
   var guage_row = $('<div/>', { class: "row", id: "gauge-row"});
-  $.each(gauge_data, function (index, item) {
+  $.each(row_data, function (index, item) {
     guage_row.append(createGaugeBox(item));
   });
   $("#gauge-row").replaceWith(guage_row);
