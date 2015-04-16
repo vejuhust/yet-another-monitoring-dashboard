@@ -22,8 +22,7 @@ function restartStatusBoxIfHidden () {
 
 function updateFetchCounter () {
   var _div = $("#fetch-count");
-  var _count = parseInt(_div.text()) + 1;
-  _div.text(_count);
+  _div.text(_data_list.length);
 }
 
 function updateFetchProgress(num) {
@@ -34,7 +33,7 @@ function updateFetchProgress(num) {
   }
   else {
     _intervalPast += interval_progress;
-    rate = _intervalPast / interval_fetch;
+    rate = _intervalPast / interval_update;
   }
   updateProgressBar(rate);
 }

@@ -1,17 +1,26 @@
 
+var _data_list = [];
+
 function fetchDataAndRenderContent () {
   console.log("fetchDataAndRenderContent first time!");
-  fetchDataAndUpdateContent();
+  extractDataAndUpdateContent();
 }
 
-function fetchDataAndUpdateContent () {
+function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
-  fetchMockupData();
+  extractMockupData();
   renderGaugeRowItemsWithAnimation();
 
   updateFetchCounter();
   updateFetchProgress(0);
+}
+
+function extractMockupData () {
+  if (!_data_list.length) {
+    fetchMockupData();
+  }
+  return _data_list.slice(-1)[0];
 }
 
 function fetchMockupData () {
@@ -19,4 +28,5 @@ function fetchMockupData () {
     item['time'] = new Date();
     item['value'] *= 1 + (Math.random() - 0.5) * 0.1;
   });
+  _data_list.push(gauge_data);
 }
