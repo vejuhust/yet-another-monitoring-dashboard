@@ -1,4 +1,23 @@
 
+function animationFontZoomIn(_selector, _rate) {
+  var _div = $(_selector);
+  if (_div.length) {
+    var _current = parseInt(_div.css("font-size"));
+    var _new = (_current * _rate).toFixed(0);
+    _div.css("font-size", _new + "px");
+    return _current;
+  }
+}
+
+function animationFontZoomOut(_selector, _archive) {
+  var _div = $(_selector);
+  if (_div.length && _archive != undefined) {
+    setTimeout(function() {
+      _div.css("font-size", _archive + "px");
+    }, 400);
+  }
+}
+
 function extractEnvPartProfile () {
   var tag = extractHashTags();
   var info_env = searchConfigByTagEnv(tag.env);
