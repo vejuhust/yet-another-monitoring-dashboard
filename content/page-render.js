@@ -41,6 +41,6 @@ function updateContentPage() {
   $("#menu-part").nextAll().fadeIn();
   // Reset data update event, and fetch data to render content
   clearTimeTriggerEvents();
-  fetchDataAndUpdateContent();
+  fetchDataAndRenderContent();
   setTimeTriggerEvents();
 }

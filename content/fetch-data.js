@@ -1,4 +1,9 @@
 
+function fetchDataAndRenderContent () {
+  console.log("fetchDataAndRenderContent first time!");
+  fetchDataAndUpdateContent();
+}
+
 function fetchDataAndUpdateContent () {
   updateGauageProgress(100);
 
