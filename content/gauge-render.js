@@ -20,7 +20,7 @@ function renderGaugeRowItems (row_data) {
 function updateExistingGaugeRowItems (row_data) {
   $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
-    $(div).find("h3").contents().first()[0].textContent = _formatValueForGauge(row_data[index].value);
+    $(div).find("h3").contents().first()[0].textContent = _formatReadableFloat(row_data[index].value);
     $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(row_data[index].time);
   });
 }
@@ -38,7 +38,7 @@ function createGaugeBox (item_data) {
   var _div_color = $("<div/>", { class: "small-box " + item_data.color });
   var _div_text = $("<div/>", { class: "inner"});
 
-  var _div_value = $("<h3/>", { text: _formatValueForGauge(item_data.value) });
+  var _div_value = $("<h3/>", { text: _formatReadableFloat(item_data.value) });
   if (item_data.unit) {
     $("<sup/>", { style: "font-size: 20px", text: item_data.unit }).appendTo(_div_value);
   }
@@ -56,23 +56,6 @@ function createGaugeBox (item_data) {
   _div_color.appendTo(_div);
 
   return _div;
-}
-
-function _formatValueForGauge (value) {
-  var precision;
-  if (value < 10) {
-    precision = 3;
-  }
-  else if (value < 100) {
-    precision = 2;
-  }
-  else if (value < 1000) {
-    precision = 1;
-  }
-  else {
-    precision = 0;
-  }
-  return value.toFixed(precision);
 }
 
 function _formatTimestampForGauge (timestamp) {

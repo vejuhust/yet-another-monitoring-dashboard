@@ -18,6 +18,23 @@ function animationFontZoomOut(_selector, _archive, _delay) {
   }
 }
 
+function _formatReadableFloat (value) {
+  var precision;
+  if (value < 10) {
+    precision = 3;
+  }
+  else if (value < 100) {
+    precision = 2;
+  }
+  else if (value < 1000) {
+    precision = 1;
+  }
+  else {
+    precision = 0;
+  }
+  return value.toFixed(precision);
+}
+
 function extractEnvPartProfile () {
   var tag = extractHashTags();
   var info_env = searchConfigByTagEnv(tag.env);
