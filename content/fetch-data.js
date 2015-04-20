@@ -22,22 +22,22 @@ function extractGauageRowData () {
   if (!_data_list.length) {
     fetchMockupData();
   }
-  var _list = _data_list.slice(-1)[0];
+  var _set = _data_list.slice(-1)[0];
   var _data = $.extend(true, {}, gauge_data);
   $.each(_data, function (index, item) {
-    item.time = _list[index].time;
-    item.value = _list[index].value;
+    item.time = _set[item.id].time;
+    item.value = _set[item.id].value;
   });
   return _data;
 }
 
 function fetchMockupData () {
-  var _list = [];
+  var _set = [];
   $.each(gauge_data, function (index, item) {
     var _item = {};
     _item.time = new Date();
     _item.value = item.value * (1 + (Math.random() - 0.5) * 0.1);
-    _list.push(_item);
+    _set[item.id] = _item;
   });
-  _data_list.push(_list);
+  _data_list.push(_set);
 }
