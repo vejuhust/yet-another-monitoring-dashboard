@@ -28,6 +28,8 @@ function createChartContent (_div_id, _label, _data) {
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
   _setting.valueAxes[0].title = _label.unit || "Rate";
+  
+  _data[_data.length - 1].bulletClass = "lastBullet";
   _setting.dataProvider = _data;
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
@@ -90,12 +92,20 @@ var _chart_setting =
   "trendLines": [],
   "graphs": [
     {
+      "animationPlayed": true,
       "bullet": "round",
+      "bulletBorderAlpha": 1,
+      "bulletBorderColor": "#786c56",
+      "bulletBorderThickness": 2,
+      "bulletColor": "#000000",
+      "classNameField": "bulletClass",
       "id": "g2",
-      "title": "",
-      "valueField": "value",
-      "lineThickness": 2,
       "lineColor": "#534D4D",
+      "lineThickness": 2,
+      "showBalloon": true,
+      "title": "",
+      "type": "line",
+      "valueField": "value",
     },
   ],
   "guides": [],

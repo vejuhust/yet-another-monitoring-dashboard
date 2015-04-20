@@ -28,6 +28,7 @@
   -webkit-animation: am-pulsating 1s ease-out infinite;
   animation: am-pulsating 1s ease-out infinite;
 }
+
 @-webkit-keyframes am-pulsating {
   0% {
     stroke-opacity: 1;
