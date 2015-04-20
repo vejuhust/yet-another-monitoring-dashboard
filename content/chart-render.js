@@ -3,7 +3,6 @@ var _selector_chart_box_all = "section div[name=chart-box]";
 
 function renderChartBoxes () {
   console.log("renderChartBoxes ~~~~~~~");
-  $("#status-box").hide(); ////
   removeChartBoxes();
   $.each(gauge_data, function (index, label_data) {
     var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
