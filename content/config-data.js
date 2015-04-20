@@ -189,7 +189,7 @@ var gauge_data = [{
     "name": "HTTP Latency",
     "value": 457,
     "icon": "fa fa-fw fa-clock-o",
-    "color": "bg-orange",
+    "color": "bg-purple",
     "unit": "ms",
     "id": "latency-http",
 }, {

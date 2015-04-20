@@ -1,5 +1,13 @@
-function renderCharts () {
-  $("#chart-col-left").append(createChartBox(gauge_data[1]));
+function renderChartBoxes () {
+  $.each(gauge_data, function (index, label_data) {
+    if ($("#" + label_data.id + "-box").length == 0) {
+      $("#chart-col-left").append(createChartBox(label_data));
+    }
+  });
+}
+
+function updateChartBoxes () {
+  console.log("updateChartBoxes");
 }
 
 function createChartBox (_data) {
