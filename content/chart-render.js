@@ -3,6 +3,7 @@ var _selector_chart_box_all = "section div[name=chart-box]";
 
 function renderCharts () {
   renderChartBoxes();
+  renderChartContents();
 }
 
 function renderChartBoxes () {
@@ -12,6 +13,14 @@ function renderChartBoxes () {
     var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
     $(_id_col).append(createChartBox(label_data));
   });
+}
+
+function renderChartContents () {
+  createChartContent("rps-chart");
+}
+
+function createChartContent (_div_id) {
+  AmCharts.makeChart(_div_id, _chart_setting);
 }
 
 function updateCharts () {
@@ -43,10 +52,84 @@ function createChartBox (_data) {
   _button.appendTo(_header);
 
   var _body = $("<div/>", { class: "box-body border-radius-none" });
-  _body.append($("<div/>", { class: "chart", style: "height: 300px;", id: _data.id + "-chart" }));
+  _body.append($("<div/>", { class: "chart", style: "height:400px;", id: _data.id + "-chart" }));
 
   _div.append(_header);
   _div.append(_body);
 
   return _div;
 }
+
+var _chart_setting = 
+{
+  "type": "serial",
+  "pathToImages": "amcharts/images/",
+  "categoryField": "date",
+  "dataDateFormat": "YYYY-MM-DD HH:NN",
+  "categoryAxis": {
+    "minPeriod": "mm",
+    "parseDates": true
+  },
+  "chartCursor": {
+    "categoryBalloonDateFormat": "JJ:NN"
+  },
+  "chartScrollbar": {},
+  "trendLines": [],
+  "graphs": [
+    {
+      "bullet": "round",
+      "id": "AmGraph-1",
+      "title": "graph 1",
+      "valueField": "column-1"
+    }
+  ],
+  "guides": [],
+  "valueAxes": [
+    {
+      "id": "ValueAxis-1",
+      "title": "Axis title"
+    }
+  ],
+  "allLabels": [],
+  "balloon": {},
+  "legend": {
+    "useGraphSettings": true
+  },
+  "titles": [
+    {
+      "id": "Title-1",
+      "size": 15,
+      "text": "Chart Title"
+    }
+  ],
+  "dataProvider": [
+    {
+      "column-1": 8,
+      "date": "2014-03-01 07:57"
+    },
+    {
+      "column-1": 6,
+      "date": "2014-03-01 07:58"
+    },
+    {
+      "column-1": 2,
+      "date": "2014-03-01 07:59"
+    },
+    {
+      "column-1": 1,
+      "date": "2014-03-01 08:00"
+    },
+    {
+      "column-1": 2,
+      "date": "2014-03-01 08:01"
+    },
+    {
+      "column-1": 3,
+      "date": "2014-03-01 08:02"
+    },
+    {
+      "column-1": 6,
+      "date": "2014-03-01 08:03"
+    }
+  ]
+};
