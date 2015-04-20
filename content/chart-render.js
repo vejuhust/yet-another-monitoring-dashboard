@@ -3,7 +3,7 @@ var _selector_chart_box_all = "section div[name=chart-box]";
 
 function renderCharts () {
   renderChartBoxes();
-  renderChartContents();
+  // renderChartContents();
 }
 
 function renderChartBoxes () {
@@ -15,25 +15,27 @@ function renderChartBoxes () {
   });
 }
 
-function renderChartContents () {
+function renderChartContents (_data_set) {
   $.each(gauge_data, function (index, label_data) {
-    createChartContent(label_data.id + "-chart", label_data);
+    createChartContent(label_data.id + "-chart", label_data, _data_set[label_data.id]);
   });
 }
 
-function createChartContent (_div_id, _label) {
+function createChartContent (_div_id, _label, _data) {
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.graphs[0].id = _label.id + "-graph";
   _setting.graphs[0].title = _label.name;
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
   _setting.valueAxes[0].title = _label.unit || "Count";
+  _setting.dataProvider = _data;
 
+  $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   AmCharts.makeChart(_div_id, _setting);
 }
 
-function updateCharts () {
-  console.log("updateCharts");
+function updateCharts (_data_set) {
+  renderChartContents(_data_set);
 }
 
 function showChartBoxes () {
@@ -74,13 +76,13 @@ var _chart_setting =
   "type": "serial",
   "pathToImages": "amcharts/images/",
   "categoryField": "date",
-  "dataDateFormat": "YYYY-MM-DD HH:NN",
+  "dataDateFormat": "YYYY-MM-DD HH:NN:SS",
   "categoryAxis": {
-    "minPeriod": "mm",
+    "minPeriod": "ss",
     "parseDates": true
   },
   "chartCursor": {
-    "categoryBalloonDateFormat": "JJ:NN"
+    "categoryBalloonDateFormat": "JJ:NN:SS"
   },
   "chartScrollbar": {},
   "trendLines": [],
@@ -90,7 +92,7 @@ var _chart_setting =
       "id": "",
       "title": "",
       "valueField": "value"
-    }
+    },
   ],
   "guides": [],
   "valueAxes": [
@@ -111,34 +113,5 @@ var _chart_setting =
       "text": "",
     }
   ],
-  "dataProvider": [
-    {
-      "value": 80,
-      "date": "2014-03-01 07:57"
-    },
-    {
-      "value": 65,
-      "date": "2014-03-01 07:58"
-    },
-    {
-      "value": 23,
-      "date": "2014-03-01 07:59"
-    },
-    {
-      "value": 19,
-      "date": "2014-03-01 08:00"
-    },
-    {
-      "value": 28,
-      "date": "2014-03-01 08:01"
-    },
-    {
-      "value": 38,
-      "date": "2014-03-01 08:02"
-    },
-    {
-      "value": 66,
-      "date": "2014-03-01 08:03"
-    }
-  ]
+  "dataProvider": [],
 };

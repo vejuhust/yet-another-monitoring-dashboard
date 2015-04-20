@@ -12,10 +12,28 @@ function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
   renderGaugeRowItemsWithAnimation(extractGauageRowData());
-  updateCharts();
+  updateCharts(extractChartData(20));
 
   updateFetchCounter();
   updateFetchProgress(0);
+}
+
+function extractChartData (_limit) {
+  var _limit = _limit || 10;
+  var _raw_list = _data_list.slice(-_limit);
+  var _data_set = {};
+  $.each(gauge_data, function (index, item) {
+    var _list = [];
+    $.each(_raw_list, function (index, record) {
+      var _record = {};
+      _record.date = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
+      // _record.time = record[item.id].time;
+      _record.value = record[item.id].value;
+      _list.push(_record);
+    });
+    _data_set[item.id] = _list;
+  });
+  return _data_set;
 }
 
 function extractGauageRowData () {
@@ -32,7 +50,7 @@ function extractGauageRowData () {
 }
 
 function fetchMockupData () {
-  var _set = [];
+  var _set = {};
   $.each(gauge_data, function (index, item) {
     var _item = {};
     _item.time = new Date();
