@@ -4,6 +4,7 @@ var _data_list = [];
 function fetchDataAndRenderContent () {
   console.log("fetchDataAndRenderContent first time!");
   _data_list = [];
+  renderChartBoxes();
   extractDataAndUpdateContent();
 }
 
@@ -11,6 +12,7 @@ function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
   renderGaugeRowItemsWithAnimation(extractGauageRowData());
+  updateChartBoxes();
 
   updateFetchCounter();
   updateFetchProgress(0);

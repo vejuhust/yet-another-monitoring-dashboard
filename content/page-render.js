@@ -25,6 +25,7 @@ function composeDefaultPage() {
   $("#gauge-row").hide();
   $("#status-box").hide();
   $("#menu-part").nextAll().fadeOut();
+  removeChartBoxes();
 
   renderTitleAndStatus("Welcome!");
 }
