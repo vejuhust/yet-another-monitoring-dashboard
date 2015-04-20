@@ -32,6 +32,7 @@ function composeDefaultPage() {
 
 function composeContentPage() {
   console.log("composeContentPage");
+  $("#status-box").hide();
 }
 
 function updateContentPage() {

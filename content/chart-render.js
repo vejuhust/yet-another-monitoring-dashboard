@@ -1,6 +1,10 @@
 
 var _selector_chart_box_all = "section div[name=chart-box]";
 
+function renderCharts () {
+  renderChartBoxes();
+}
+
 function renderChartBoxes () {
   console.log("renderChartBoxes ~~~~~~~");
   removeChartBoxes();
@@ -8,11 +12,10 @@ function renderChartBoxes () {
     var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
     $(_id_col).append(createChartBox(label_data));
   });
-  $.AdminLTE.boxWidget.activate();
 }
 
-function updateChartBoxes () {
-  console.log("updateChartBoxes");
+function updateCharts () {
+  console.log("updateCharts");
 }
 
 function showChartBoxes () {
