@@ -1,7 +1,8 @@
 function renderChartBoxes () {
   $.each(gauge_data, function (index, label_data) {
     if ($("#" + label_data.id + "-box").length == 0) {
-      $("#chart-col-left").append(createChartBox(label_data));
+      var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
+      $(_id_col).append(createChartBox(label_data));
     }
   });
 }
