@@ -39,7 +39,7 @@ function createChartBox (_data) {
   _button.appendTo(_header);
 
   var _body = $("<div/>", { class: "box-body border-radius-none" });
-  _body.append($("<div/>", { class: "chart", style: "height: 250px;", id: _data.id + "-chart" }));
+  _body.append($("<div/>", { class: "chart", style: "height: 300px;", id: _data.id + "-chart" }));
 
   _div.append(_header);
   _div.append(_body);
