@@ -50,10 +50,12 @@ function extractGauageRowData () {
 
 function fetchMockupData () {
   var _set = {};
+  var _last_set = _data_list.length ? _data_list.slice(-1)[0] : undefined;
   $.each(gauge_data, function (index, item) {
     var _item = {};
     _item.time = new Date();
-    _item.value = item.value * (1 + (Math.random() - 0.5) * 0.1);
+    _item.value = _last_set ? _last_set[item.id].value : item.value;
+    _item.value *= (1 + (Math.random() - 0.5) * 0.1);
     _set[item.id] = _item;
   });
   _data_list.push(_set);
