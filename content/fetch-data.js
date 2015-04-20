@@ -11,6 +11,7 @@ function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
   renderGaugeRowItemsWithAnimation(extractGauageRowData());
+  renderCharts();
 
   updateFetchCounter();
   updateFetchProgress(0);
