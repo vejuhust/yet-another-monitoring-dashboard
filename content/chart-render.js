@@ -16,18 +16,20 @@ function renderChartBoxes () {
 }
 
 function renderChartContents () {
-  var data = gauge_data[0];
-  createChartContent(data.id + "-chart", data);
+  $.each(gauge_data, function (index, label_data) {
+    createChartContent(label_data.id + "-chart", label_data);
+  });
 }
 
 function createChartContent (_div_id, _label) {
-  _chart_setting.graphs[0].id = _label.id + "-graph";
-  _chart_setting.graphs[0].title = _label.name;
-  _chart_setting.titles[0].id = _label.id + "-title";
-  _chart_setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
-  _chart_setting.valueAxes[0].title = _label.unit || "Count";
+  var _setting = $.extend(true, {}, _chart_setting);
+  _setting.graphs[0].id = _label.id + "-graph";
+  _setting.graphs[0].title = _label.name;
+  _setting.titles[0].id = _label.id + "-title";
+  _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
+  _setting.valueAxes[0].title = _label.unit || "Count";
 
-  AmCharts.makeChart(_div_id, _chart_setting);
+  AmCharts.makeChart(_div_id, _setting);
 }
 
 function updateCharts () {
