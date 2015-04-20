@@ -16,10 +16,17 @@ function renderChartBoxes () {
 }
 
 function renderChartContents () {
-  createChartContent("rps-chart");
+  var data = gauge_data[0];
+  createChartContent(data.id + "-chart", data);
 }
 
-function createChartContent (_div_id) {
+function createChartContent (_div_id, _label) {
+  _chart_setting.graphs[0].id = _label.id + "-graph";
+  _chart_setting.graphs[0].title = _label.name;
+  _chart_setting.titles[0].id = _label.id + "-title";
+  _chart_setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
+  _chart_setting.valueAxes[0].title = _label.unit || "Count";
+
   AmCharts.makeChart(_div_id, _chart_setting);
 }
 
@@ -78,16 +85,16 @@ var _chart_setting =
   "graphs": [
     {
       "bullet": "round",
-      "id": "AmGraph-1",
-      "title": "graph 1",
-      "valueField": "column-1"
+      "id": "",
+      "title": "",
+      "valueField": "value"
     }
   ],
   "guides": [],
   "valueAxes": [
     {
-      "id": "ValueAxis-1",
-      "title": "Axis title"
+      "id": "ValueAxis",
+      "title": "",
     }
   ],
   "allLabels": [],
@@ -97,38 +104,38 @@ var _chart_setting =
   },
   "titles": [
     {
-      "id": "Title-1",
+      "id": "",
       "size": 15,
-      "text": "Chart Title"
+      "text": "",
     }
   ],
   "dataProvider": [
     {
-      "column-1": 8,
+      "value": 80,
       "date": "2014-03-01 07:57"
     },
     {
-      "column-1": 6,
+      "value": 65,
       "date": "2014-03-01 07:58"
     },
     {
-      "column-1": 2,
+      "value": 23,
       "date": "2014-03-01 07:59"
     },
     {
-      "column-1": 1,
+      "value": 19,
       "date": "2014-03-01 08:00"
     },
     {
-      "column-1": 2,
+      "value": 28,
       "date": "2014-03-01 08:01"
     },
     {
-      "column-1": 3,
+      "value": 38,
       "date": "2014-03-01 08:02"
     },
     {
-      "column-1": 6,
+      "value": 66,
       "date": "2014-03-01 08:03"
     }
   ]
