@@ -1,9 +1,13 @@
+
+var _selector_chart_box_all = "section div[name=chart-box]";
+
 function renderChartBoxes () {
+  console.log("renderChartBoxes ~~~~~~~");
+  $("#status-box").hide(); ////
+  removeChartBoxes();
   $.each(gauge_data, function (index, label_data) {
-    if ($("#" + label_data.id + "-box").length == 0) {
-      var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
-      $(_id_col).append(createChartBox(label_data));
-    }
+    var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
+    $(_id_col).append(createChartBox(label_data));
   });
 }
 
@@ -11,8 +15,20 @@ function updateChartBoxes () {
   console.log("updateChartBoxes");
 }
 
+function showChartBoxes () {
+  $(_selector_chart_box_all).show();
+}
+
+function hideChartBoxes () {
+  $(_selector_chart_box_all).hide();
+}
+
+function removeChartBoxes () {
+  $(_selector_chart_box_all).remove();
+}
+
 function createChartBox (_data) {
-  var _div = $("<div/>", { class: "box box-solid " + _data.color + "-gradient", id: _data.id + "-box" });
+  var _div = $("<div/>", { class: "box box-solid " + _data.color + "-gradient", id: _data.id + "-box", name: "chart-box" });
   
   var _header = $("<div/>", { class: "box-header" });
   _header.append($("<i/>", { class: _data.icon }));
