@@ -23,11 +23,11 @@ function renderChartContents (_data_set) {
 
 function createChartContent (_div_id, _label, _data) {
   var _setting = $.extend(true, {}, _chart_setting);
-  _setting.graphs[0].id = _label.id + "-graph";
   _setting.graphs[0].title = _label.name;
+  _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
-  _setting.valueAxes[0].title = _label.unit || "Count";
+  _setting.valueAxes[0].title = _label.unit || "Rate";
   _setting.dataProvider = _data;
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
@@ -74,9 +74,12 @@ function createChartBox (_data) {
 var _chart_setting = 
 {
   "type": "serial",
+  "addClassNames": true,
+  "classNamePrefix": "amcharts",
   "pathToImages": "amcharts/images/",
   "categoryField": "date",
   "dataDateFormat": "YYYY-MM-DD HH:NN:SS",
+  "fontFamily": "'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif",
   "categoryAxis": {
     "minPeriod": "ss",
     "parseDates": true
@@ -84,14 +87,15 @@ var _chart_setting =
   "chartCursor": {
     "categoryBalloonDateFormat": "JJ:NN:SS"
   },
-  "chartScrollbar": {},
   "trendLines": [],
   "graphs": [
     {
       "bullet": "round",
-      "id": "",
+      "id": "g2",
       "title": "",
-      "valueField": "value"
+      "valueField": "value",
+      "lineThickness": 2,
+      "lineColor": "#534D4D",
     },
   ],
   "guides": [],
