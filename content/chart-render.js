@@ -101,8 +101,6 @@ var _chart_setting =
       "bulletColor": "#FFFFFF",
       "classNameField": "bulletClass",
       "id": "g2",
-      "labelPosition": "right",
-      "labelText": "[[value]]",
       "lineColor": "#FFFFFF",
       "lineThickness": 2,
       "showBalloon": true,
@@ -116,6 +114,7 @@ var _chart_setting =
     {
       "id": "ValueAxis",
       "title": "",
+      "minimum": 0,
     }
   ],
   "allLabels": [],
