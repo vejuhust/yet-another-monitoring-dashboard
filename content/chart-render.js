@@ -37,6 +37,13 @@ function createChartContent (_div_id, _label) {
   console.log("chart " + _label.id + " created ~ !");
 }
 
+function zoomAllChartContent(_start, _end) {
+  $.each(_chart_set, function (index, _chart_id) {
+    _chart_id.zoomToIndexes(_start, _end);
+    console.log(_chart_id.graphs[0].title, _start, _end);
+  });
+}
+
 function updateCharts (_data_set) {
   updateChartContents(_data_set);
 }
