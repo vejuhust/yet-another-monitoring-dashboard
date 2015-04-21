@@ -16,6 +16,7 @@ function renderChartBoxes () {
 }
 
 function renderChartContents () {
+  _chart_set = {};
   $.each(gauge_data, function (index, label_data) {
     createChartContent(label_data.id + "-chart", label_data);
   });
@@ -63,6 +64,10 @@ function hideChartBoxes () {
 }
 
 function removeChartBoxes () {
+  $.each(_chart_set, function (index, _chart_id) {
+    _chart_id.clear();
+  });
+  _chart_set.length = 0;
   $(_selector_chart_box_all).remove();
 }
 
