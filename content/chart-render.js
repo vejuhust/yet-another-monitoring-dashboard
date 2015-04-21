@@ -3,7 +3,7 @@ var _selector_chart_box_all = "section div[name=chart-box]";
 
 function renderCharts () {
   renderChartBoxes();
-  // renderChartContents();
+  renderChartContents();
 }
 
 function renderChartBoxes () {
@@ -15,29 +15,43 @@ function renderChartBoxes () {
   });
 }
 
-function renderChartContents (_data_set) {
+function renderChartContents () {
   $.each(gauge_data, function (index, label_data) {
-    createChartContent(label_data.id + "-chart", label_data, _data_set[label_data.id]);
+    createChartContent(label_data.id + "-chart", label_data);
   });
 }
 
-function createChartContent (_div_id, _label, _data) {
+function createChartContent (_div_id, _label) {
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.graphs[0].title = _label.name;
   _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
   _setting.valueAxes[0].title = _label.unit || "Rate";
-
-  _data[_data.length - 1].bulletClass = "lastBullet";
-  _setting.dataProvider = _data;
+  _setting.dataProvider = [];
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
-  AmCharts.makeChart(_div_id, _setting);
+  _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
+
+  console.log("chart " + _label.id + " created ~ !");
 }
 
 function updateCharts (_data_set) {
-  renderChartContents(_data_set);
+  updateChartContents(_data_set);
+}
+
+function updateChartContents (_data_set) {
+  $.each(gauge_data, function (index, label_data) {
+    updateChartContentWithData(label_data.id, _data_set[label_data.id]);
+  });
+}
+
+function updateChartContentWithData (_id, _data) {
+  _data[_data.length - 1].bulletClass = "lastBullet";
+  var _archive_data = _chart_set[_id].dataProvider;
+  _chart_set[_id].dataProvider = _data;
+  _chart_set[_id].validateData();
+  _archive_data.length = 0;
 }
 
 function showChartBoxes () {
@@ -73,6 +87,8 @@ function createChartBox (_data) {
   return _div;
 }
 
+var _chart_set = {};
+
 var _chart_setting = 
 {
   "type": "serial",
@@ -94,18 +110,19 @@ var _chart_setting =
   "graphs": [
     {
       "animationPlayed": true,
+      "balloonText": undefined,
       "bullet": "round",
       "bulletBorderAlpha": 1,
       "bulletBorderColor": "#DDE0E0",
       "bulletBorderThickness": 1,
       "bulletColor": "#FFFFFF",
-      "bulletSize": 7,
+      "bulletSize": 1,
       "classNameField": "bulletClass",
       "id": "g2",
       "lineColor": "#FFFFFF",
-      "lineThickness": 2,
+      "lineThickness": 1,
       "showBalloon": true,
-      "title": "",
+      "title": undefined,
       "type": "line",
       "valueField": "value",
     },
@@ -114,7 +131,7 @@ var _chart_setting =
   "valueAxes": [
     {
       "id": "ValueAxis",
-      "title": "",
+      "title": undefined,
       "minimum": 0,
     }
   ],
@@ -125,10 +142,10 @@ var _chart_setting =
   },
   "titles": [
     {
-      "id": "",
+      "id": undefined,
       "size": 15,
-      "text": "",
+      "text": undefined,
     }
   ],
-  "dataProvider": [],
+  "dataProvider": undefined,
 };
