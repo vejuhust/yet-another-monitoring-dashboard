@@ -1,10 +1,4 @@
 
-/*.graph-g3 .graph-line {
-  -webkit-animation: am-pulsate-line 1s linear infinite;
-  animation: am-pulsate-line 1s linear infinite;
-}
-*/
-
 .amcharts-graph-g2 .amcharts-graph-stroke {
   stroke-dasharray: 3px 3px;
   stroke-linejoin: round;
