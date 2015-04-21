@@ -3,7 +3,7 @@ var _data_list = [];
 
 function fetchDataAndRenderContent () {
   console.log("fetchDataAndRenderContent first time!");
-  _data_list = [];
+  _data_list.length = 0;
   renderCharts();
   extractDataAndUpdateContent();
 }

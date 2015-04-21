@@ -16,6 +16,7 @@ function renderChartBoxes () {
 }
 
 function renderChartContents () {
+  _chart_set = {};
   $.each(gauge_data, function (index, label_data) {
     createChartContent(label_data.id + "-chart", label_data);
   });
@@ -32,8 +33,19 @@ function createChartContent (_div_id, _label) {
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
+  _chart_set[_label.id].addListener("zoomed", syncZoom);
 
   console.log("chart " + _label.id + " created ~ !");
+}
+
+function syncZoom(event) {
+  zoomAllChartContent(event.startIndex, event.endIndex);
+}
+
+function zoomAllChartContent(_start, _end) {
+  $.each(_chart_set, function (index, _chart_id) {
+    _chart_id.zoomToIndexes(_start, _end);
+  });
 }
 
 function updateCharts (_data_set) {
@@ -47,11 +59,16 @@ function updateChartContents (_data_set) {
 }
 
 function updateChartContentWithData (_id, _data) {
-  _data[_data.length - 1].bulletClass = "lastBullet";
-  var _archive_data = _chart_set[_id].dataProvider;
-  _chart_set[_id].dataProvider = _data;
-  _chart_set[_id].validateData();
-  _archive_data.length = 0;
+  var _start = _chart_set[_id].startIndex;
+  var _end = _chart_set[_id].endIndex;
+  var _length = _chart_set[_id].dataProvider.length;
+  if (!(_start && _end) || (_length == _end - _start + 1)) {
+    _data[_data.length - 1].bulletClass = "lastBullet";
+    var _archive_data = _chart_set[_id].dataProvider;
+    _chart_set[_id].dataProvider = _data;
+    _chart_set[_id].validateData();
+    _archive_data.length = 0;
+  }
 }
 
 function showChartBoxes () {
@@ -63,6 +80,10 @@ function hideChartBoxes () {
 }
 
 function removeChartBoxes () {
+  $.each(_chart_set, function (index, _chart_id) {
+    _chart_id.clear();
+  });
+  _chart_set.length = 0;
   $(_selector_chart_box_all).remove();
 }
 
