@@ -45,7 +45,6 @@ function syncZoom(event) {
 function zoomAllChartContent(_start, _end) {
   $.each(_chart_set, function (index, _chart_id) {
     _chart_id.zoomToIndexes(_start, _end);
-    console.log(_chart_id.graphs[0].title, _start, _end);
   });
 }
 
@@ -60,11 +59,16 @@ function updateChartContents (_data_set) {
 }
 
 function updateChartContentWithData (_id, _data) {
-  _data[_data.length - 1].bulletClass = "lastBullet";
-  var _archive_data = _chart_set[_id].dataProvider;
-  _chart_set[_id].dataProvider = _data;
-  _chart_set[_id].validateData();
-  _archive_data.length = 0;
+  var _start = _chart_set[_id].startIndex;
+  var _end = _chart_set[_id].endIndex;
+  var _length = _chart_set[_id].dataProvider.length;
+  if (!(_start && _end) || (_length == _end - _start + 1)) {
+    _data[_data.length - 1].bulletClass = "lastBullet";
+    var _archive_data = _chart_set[_id].dataProvider;
+    _chart_set[_id].dataProvider = _data;
+    _chart_set[_id].validateData();
+    _archive_data.length = 0;
+  }
 }
 
 function showChartBoxes () {
