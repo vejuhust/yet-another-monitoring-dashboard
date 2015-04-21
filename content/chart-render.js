@@ -48,8 +48,10 @@ function updateChartContents (_data_set) {
 
 function updateChartContentWithData (_id, _data) {
   _data[_data.length - 1].bulletClass = "lastBullet";
+  var _archive_data = _chart_set[_id].dataProvider;
   _chart_set[_id].dataProvider = _data;
   _chart_set[_id].validateData();
+  _archive_data.length = 0;
 }
 
 function showChartBoxes () {
@@ -108,18 +110,19 @@ var _chart_setting =
   "graphs": [
     {
       "animationPlayed": true,
+      "balloonText": undefined,
       "bullet": "round",
       "bulletBorderAlpha": 1,
       "bulletBorderColor": "#DDE0E0",
       "bulletBorderThickness": 1,
       "bulletColor": "#FFFFFF",
-      "bulletSize": 7,
+      "bulletSize": 1,
       "classNameField": "bulletClass",
       "id": "g2",
       "lineColor": "#FFFFFF",
-      "lineThickness": 2,
+      "lineThickness": 1,
       "showBalloon": true,
-      "title": "",
+      "title": undefined,
       "type": "line",
       "valueField": "value",
     },
@@ -128,7 +131,7 @@ var _chart_setting =
   "valueAxes": [
     {
       "id": "ValueAxis",
-      "title": "",
+      "title": undefined,
       "minimum": 0,
     }
   ],
@@ -139,10 +142,10 @@ var _chart_setting =
   },
   "titles": [
     {
-      "id": "",
+      "id": undefined,
       "size": 15,
-      "text": "",
+      "text": undefined,
     }
   ],
-  "dataProvider": [],
+  "dataProvider": undefined,
 };
