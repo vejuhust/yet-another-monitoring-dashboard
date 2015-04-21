@@ -5,6 +5,7 @@ function renderGaugeRowItemsWithAnimation (row_data) {
   setTimeout(function () { 
     renderGaugeRowItems(row_data); 
   }, 250);
+  _font_size = 90;
   animationFontZoomOut(_icon_selector, _font_size, 400);
 }
 
