@@ -19,7 +19,7 @@ function extractDataAndUpdateContent () {
 }
 
 function extractChartData (_limit) {
-  var _limit = _limit || 500;
+  var _limit = _limit || 100;
   var _raw_list = _data_list.slice(-_limit);
   var _data_set = {};
   $.each(gauge_data, function (index, item) {
