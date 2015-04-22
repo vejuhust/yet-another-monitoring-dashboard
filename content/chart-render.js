@@ -7,7 +7,6 @@ function renderCharts () {
 }
 
 function renderChartBoxes () {
-  console.log("renderChartBoxes ~~~~~~~");
   removeChartBoxes();
   $.each(gauge_data, function (index, label_data) {
     var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
@@ -34,8 +33,6 @@ function createChartContent (_div_id, _label) {
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
-
-  console.log("chart " + _label.id + " created ~ !");
 }
 
 function syncZoom(event) {
