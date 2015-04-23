@@ -175,14 +175,14 @@ var gauge_data = [{
     "name": "Ingress",
     "value": 168.74,
     "icon": "fa fa-fw fa-sign-in",
-    "color": "bg-teal",
+    "color": "bg-aqua",
     "unit": "Mbps",
     "id": "ingress",
 }, {
     "name": "Egress",
     "value": 642.36,
     "icon": "fa fa-fw fa-sign-out",
-    "color": "bg-aqua",
+    "color": "bg-purple",
     "unit": "Mbps",
     "id": "egress",
 }, ];
