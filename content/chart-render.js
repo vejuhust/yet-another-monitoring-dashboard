@@ -31,14 +31,30 @@ function renderChartContents () {
   var _profile = extractEnvPartProfile();
   _suffix = _profile.env_name || _profile.region_name;
   $.each(partner_data, function (index, label_data) {
-    createChartContent(label_data.id + "-chart", label_data, _suffix);
+    createPartnerChartContent(label_data.id + "-chart", label_data, _suffix);
   });
 }
 
 function createChartContent (_div_id, _label, _suffix) {
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.graphs[0].title = _label.name;
+  _setting.graphs[0].valueField = "value";
   _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
+  _setting.titles[0].id = _label.id + "-title";
+  _setting.titles[0].text = _label.name + " - " + _suffix;
+  _setting.valueAxes[0].title = _label.unit || "Rate";
+  _setting.dataProvider = [];
+
+  $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
+  _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
+  _chart_set[_label.id].addListener("zoomed", syncZoom);
+}
+
+function createPartnerChartContent (_div_id, _label, _suffix) {
+  var _setting = $.extend(true, {}, _chart_setting);
+  _setting.graphs[0].title = _label.name;
+  _setting.graphs[0].valueField = "value0";
+  _setting.graphs[0].balloonText = "[[value0]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
@@ -64,7 +80,7 @@ function updateCharts (_data_set) {
 }
 
 function updateChartContents (_data_set) {
-  $.each(gauge_data, function (index, label_data) {
+  $.each(gauge_data.concat(partner_data), function (index, label_data) {
     updateChartContentWithData(label_data.id, _data_set[label_data.id]);
   });
 }
@@ -163,7 +179,7 @@ var _chart_setting =
       "showBalloon": true,
       "title": undefined,
       "type": "line",
-      "valueField": "value",
+      "valueField": undefined,
     },
   ],
   "guides": [],

@@ -44,7 +44,7 @@ function extractChartData (_limit) {
       _record.date = $.format.date(record[item.parent_id].time, 'yyyy-MM-dd HH:mm:ss');
       var _base_value = record[item.parent_id].value;
       for (var i = 0; i < partner_limit; i++) {
-        _record["value" + i] = _base_value * 0.15 * (1 + (Math.random() - 0.35) * (partner_limit - i) / (partner_limit) );
+        _record["value" + i] = _formatReadableFloat(_base_value * 0.15 * (1 + (Math.random() - 0.35) * (partner_limit - i) / (partner_limit) ));
       };
       _list.push(_record);
     });
@@ -70,7 +70,7 @@ function extractGauageRowData () {
 function initializePartnersForCharts () {
   partner_profile = fetchMockupTopPartnersProfile(partner_limit);
 
-  partner_data = $.extend(true, {}, gauge_data);
+  partner_data = $.extend(true, [], gauge_data);
   $.each(partner_data, function (index, label_data) {
     label_data.name = "Top Partners - " + label_data.name; 
     label_data.parent_id = label_data.id;
