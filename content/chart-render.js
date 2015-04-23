@@ -43,6 +43,8 @@ function createChartContent (_div_id, _label, _suffix) {
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
+  _setting.legend.valueText = _setting.graphs[0].balloonText;
+  _setting.legend.valueWidth = 100;
   _setting.dataProvider = [];
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
@@ -51,14 +53,31 @@ function createChartContent (_div_id, _label, _suffix) {
 }
 
 function createPartnerChartContent (_div_id, _label, _suffix) {
+  var _color_setting = $("#" + _label.id + "-box .box-header").css("background-color");
+  var _color_percent = partner_limit > 1 ? 0.5 / (partner_limit - 1) : 0;
+
   var _setting = $.extend(true, {}, _chart_setting);
-  _setting.graphs[0].title = _label.name;
-  _setting.graphs[0].valueField = "value0";
-  _setting.graphs[0].balloonText = "[[value0]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
+  _setting.legend.valueText = "[[value]]";
+  _setting.legend.valueWidth = 65;
   _setting.dataProvider = [];
+
+  _setting.graphs = [];
+  var _graphs_setting = _chart_setting.graphs[0];
+  $.each(partner_profile, function (index, profile) {
+    var _color = shadeRGBColor(_color_setting, index * _color_percent);
+    var _graphs = $.extend(true, {}, _graphs_setting);
+    _graphs.id = "p" + index;
+    _graphs.title = profile.name;
+    _graphs.valueField = "value" + index;
+    _graphs.balloonText = profile.name + ": [[value" + index +  "]] " + (_label.unit || "");
+    _graphs.bulletBorderColor = _color;
+    _graphs.bulletColor = _color;
+    _graphs.lineColor = _color;
+    _setting.graphs.push(_graphs);
+  })
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
@@ -195,7 +214,8 @@ var _chart_setting =
   "balloon": {},
   "legend": {
     "useGraphSettings": true,
-    "valueWidth": 70,
+    "valueWidth": undefined,
+    "valueText": undefined,
   },
   "titles": [
     {

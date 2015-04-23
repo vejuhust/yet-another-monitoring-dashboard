@@ -18,6 +18,16 @@
           animation-direction: reverse;
 }
 
+.amcharts-graph-p0 .amcharts-graph-stroke,
+.amcharts-graph-p1 .amcharts-graph-stroke,
+.amcharts-graph-p2 .amcharts-graph-stroke,
+.amcharts-graph-p3 .amcharts-graph-stroke,
+.amcharts-graph-p4 .amcharts-graph-stroke,
+.amcharts-graph-p5 .amcharts-graph-stroke,
+.amcharts-graph-p6 .amcharts-graph-stroke,
+.amcharts-graph-p7 .amcharts-graph-stroke,
+.amcharts-graph-p8 .amcharts-graph-stroke,
+.amcharts-graph-p9 .amcharts-graph-stroke,
 .amcharts-graph-g2 .amcharts-graph-stroke {
   stroke-dasharray: 3px 3px;
   stroke-linejoin: round;
