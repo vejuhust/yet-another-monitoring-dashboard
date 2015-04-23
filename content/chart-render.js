@@ -101,6 +101,8 @@ function createChartBox (_data) {
 
 var _chart_set = {};
 
+var _chart_font_size = 14;
+
 var _chart_setting =
 {
   "type": "serial",
@@ -109,6 +111,7 @@ var _chart_setting =
   "pathToImages": "amcharts/images/",
   "categoryField": "date",
   "dataDateFormat": "YYYY-MM-DD HH:NN:SS",
+  "fontSize": _chart_font_size,
   "fontFamily": "'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif",
   "theme": "black",
   "categoryAxis": {
@@ -144,18 +147,20 @@ var _chart_setting =
     {
       "id": "ValueAxis",
       "title": undefined,
+      "fontSize": _chart_font_size,
       "minimum": 0,
     }
   ],
   "allLabels": [],
   "balloon": {},
   "legend": {
-    "useGraphSettings": true
+    "useGraphSettings": true,
+    "valueWidth": 70,
   },
   "titles": [
     {
       "id": undefined,
-      "size": 15,
+      "size": _chart_font_size + 3,
       "text": undefined,
     }
   ],
