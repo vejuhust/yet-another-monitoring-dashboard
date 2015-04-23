@@ -185,18 +185,4 @@ var gauge_data = [{
     "color": "bg-aqua",
     "unit": "Mbps",
     "id": "egress",
-}, {
-    "name": "HTTP Latency",
-    "value": 457,
-    "icon": "fa fa-fw fa-clock-o",
-    "color": "bg-purple",
-    "unit": "ms",
-    "id": "latency-http",
-}, {
-    "name": "TCP Latency",
-    "value": 125,
-    "icon": "fa fa-fw fa-dot-circle-o",
-    "color": "bg-maroon",
-    "unit": "ms",
-    "id": "latency-tcp",
 }, ];

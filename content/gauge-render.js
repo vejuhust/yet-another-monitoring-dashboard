@@ -2,8 +2,8 @@
 function renderOrUpdateGaugeRowItemsWithAnimation (row_data) {
   var _icon_selector = ".small-box .icon";
   var _font_size = animationFontZoomIn(_icon_selector, 1.06);
-  setTimeout(function () { 
-    renderOrUpdateGaugeRowItems(row_data); 
+  setTimeout(function () {
+    renderOrUpdateGaugeRowItems(row_data);
   }, 250);
   _font_size = 90;
   animationFontZoomOut(_icon_selector, _font_size, 400);
@@ -35,7 +35,7 @@ function renderNewGaugeRowItems (row_data) {
 }
 
 function createGaugeBox (item_data) {
-  var _div = $("<div/>", { class: "col-lg-2 col-xs-6"});
+  var _div = $("<div/>", { class: "col-lg-3 col-xs-6"});
   var _div_color = $("<div/>", { class: "small-box " + item_data.color });
   var _div_text = $("<div/>", { class: "inner"});
 
@@ -60,5 +60,5 @@ function createGaugeBox (item_data) {
 }
 
 function _formatTimestampForGauge (timestamp) {
-  return $.format.date(timestamp, 'HH:mm:ss') + " ";  
+  return $.format.date(timestamp, 'HH:mm:ss') + " ";
 }
