@@ -22,17 +22,25 @@ function renderChartBoxes () {
 
 function renderChartContents () {
   _chart_set = {};
+
+  var _suffix = $("#content-title-desc").text();
   $.each(gauge_data, function (index, label_data) {
-    createChartContent(label_data.id + "-chart", label_data);
+    createChartContent(label_data.id + "-chart", label_data, _suffix);
+  });
+  
+  var _profile = extractEnvPartProfile();
+  _suffix = _profile.env_name || _profile.region_name;
+  $.each(partner_data, function (index, label_data) {
+    createChartContent(label_data.id + "-chart", label_data, _suffix);
   });
 }
 
-function createChartContent (_div_id, _label) {
+function createChartContent (_div_id, _label, _suffix) {
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.graphs[0].title = _label.name;
   _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
-  _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
+  _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
   _setting.dataProvider = [];
 

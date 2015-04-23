@@ -56,6 +56,7 @@ function initializePartnersForCharts () {
   partner_data = $.extend(true, {}, gauge_data);
   $.each(partner_data, function (index, label_data) {
     label_data.name = "Top Partners - " + label_data.name; 
+    label_data.id += "-part";
   });
 }
 
