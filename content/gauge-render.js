@@ -1,7 +1,7 @@
 
 function renderOrUpdateGaugeRowItemsWithAnimation (row_data) {
   var _icon_selector = ".small-box .icon";
-  var _font_size = animationFontZoomIn(_icon_selector, 1.06);
+  var _font_size = animationFontZoomIn(_icon_selector, 1.1);
   setTimeout(function () {
     renderOrUpdateGaugeRowItems(row_data);
   }, 250);
@@ -39,7 +39,7 @@ function createGaugeBox (item_data) {
   var _div_color = $("<div/>", { class: "small-box " + item_data.color });
   var _div_text = $("<div/>", { class: "inner"});
 
-  var _div_value = $("<h3/>", { text: _formatReadableFloat(item_data.value) });
+  var _div_value = $("<h3/>", { style: "font-size:64px;", text: _formatReadableFloat(item_data.value) });
   if (item_data.unit) {
     $("<sup/>", { style: "font-size: 20px", text: item_data.unit }).appendTo(_div_value);
   }
@@ -50,8 +50,8 @@ function createGaugeBox (item_data) {
   var _div_icon = $("<div/>", { class: "icon"}).append($("<i/>", { class: item_data.icon}));
   _div_icon.appendTo(_div_color);
 
-  var _div_time = $("<a/>", { class: "small-box-footer", href: "#", text: _formatTimestampForGauge(item_data.time) });
-  _div_time.append($("<i/>", { class: "fa fa-arrow-circle-right"}));
+  var _div_time = $("<div/>", { class: "small-box-footer", text: _formatTimestampForGauge(item_data.time) });
+  _div_time.append($("<i/>", { class: "fa fa-fw fa-clock-o"}));
   _div_time.appendTo(_div_color);
 
   _div_color.appendTo(_div);

@@ -27,6 +27,9 @@ function _formatReadableFloat (value) {
     precision = 2;
   }
   else if (value < 1000) {
+    precision = 2;
+  }
+  else if (value < 10000) {
     precision = 1;
   }
   else {
