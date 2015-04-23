@@ -1,7 +1,7 @@
 
 function renderTitleAndStatus (_custom) {
   // Activate menu item as per hashtag
-  activateTaggedMenuItems();
+  activateTaggedMenuPath();
   // Update title & status
   var _profile = extractEnvPartProfile();
   updateContentTitleDesc(_profile)

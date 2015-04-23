@@ -74,13 +74,18 @@ function appendToHashTag (suffix) {
   return result;
 }
 
-function activateTaggedMenuItems () {
-  $(".sidebar-menu li[class~=active]").removeClass("active");
+function activateTaggedMenuPath () {
+  activateTaggedMenuPathForSingleMenu("#menu-env", "env");
+  activateTaggedMenuPathForSingleMenu("#menu-part", "part");
+}
+
+function activateTaggedMenuPathForSingleMenu (_menu_prefix, _tag_name) {
+  $(_menu_prefix + " li[class~=active]").removeClass("active");
   var tags = extractHashTags();
   if (tags.env || tags.part) {
     $.each(tags, function (index, tag) {
       if (tag) {
-        var selector = ".sidebar-menu a[href=#" + tag + "]";
+        var selector = _menu_prefix + " a[href=#" + tag + "]";
         var target = $(selector);
         if (target) {
           target.parent("li").addClass("active");
@@ -90,11 +95,11 @@ function activateTaggedMenuItems () {
     });
   }
   // Only when it's expanded
-  if (!$(".sidebar-collapse").length) {
-    if (tags.env) {
+  if (!$(_menu_prefix + " .sidebar-collapse").length) {
+    if (tags[_tag_name]) {
       // Collapse other expanded menu items
-      var selector = "a[href=#" + tags.env + "]";
-      $(".sidebar-menu ul.menu-open").each(function (index) { 
+      var selector = "a[href=#" + tags[_tag_name] + "]";
+      $(_menu_prefix + " ul.menu-open").each(function (index) { 
         if ($(this).find(selector).length == 0) {
           $(this).siblings().trigger("click");
         }; 
@@ -102,7 +107,7 @@ function activateTaggedMenuItems () {
     }
     else {
       // For default page, just collapse every item
-      $(".sidebar-menu ul.menu-open").siblings().trigger("click");
+      $(_menu_prefix + " ul.menu-open").siblings().trigger("click");
     }
   }
 }
