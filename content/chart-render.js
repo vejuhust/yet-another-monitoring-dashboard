@@ -90,11 +90,6 @@ function createChartBox (_data) {
   _header.append($("<i/>", { class: _data.icon }));
   _header.append($("<h3/>", { class: "box-title", text: _data.name + " Graph" }));
 
-  var _button = $("<div/>", { class: "box-tools pull-right" });
-  _button.append($('<button class="btn ' + _data.color + ' btn-sm" data-widget="collapse" style="margin-right:3px;"><i class="fa fa-minus"></i></button>'));
-  _button.append($('<button class="btn ' + _data.color + ' btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>'));
-  _button.appendTo(_header);
-
   var _body = $("<div/>", { class: "box-body border-radius-none" });
   _body.append($("<div/>", { class: "chart", style: "height:400px;", id: _data.id + "-chart" }));
 
