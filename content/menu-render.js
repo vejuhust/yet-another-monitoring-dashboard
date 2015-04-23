@@ -16,16 +16,21 @@ function createSingleLevelMenuItem (item) {
   return $("<li/>").append(createLinkItem(item));
 }
 
-function createMultiLevelMenuItem (item, _handler) {
+function createMultiLevelMenuItem (item, _part_handler) {
   item.link = "";
   var _a = createLinkItem(item);
-  $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - (_handler ? 0 : 1) }).appendTo(_a);
+  if (_part_handler) {
+    $("<span/>", { class: "label label-success pull-right", text: item.sub.length }).appendTo(_a);
+  }
+  else {
+    $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
+  }
 
   var _ul = $("<ul/>", { class: "treeview-menu" });
   $.each(item.sub, function (index, subitem) {
-    if (_handler) {
+    if (_part_handler) {
       subitem.icon = "fa fa-user";
-      _ul.append(createSingleLevelMenuItem(subitem).click(subitem.link, _handler));
+      _ul.append(createSingleLevelMenuItem(subitem).click(subitem.link, _part_handler));
     }
     else {
       subitem.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
