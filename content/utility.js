@@ -38,6 +38,22 @@ function _formatReadableFloat (value) {
   return value.toFixed(precision);
 }
 
+function flattenConfigIntoList (config_data) {
+  var _child_list = [];
+  for (var pl = config_data.length, pi = 0; pi < pl; pi++) {
+    var parent = config_data[pi];
+    for (var cl = parent.sub.length, ci = 0; ci < cl; ci++) {
+      var child = parent.sub[ci];
+      _child_list.push({
+        "name": child.name,
+        "link": child.link,
+        "icon": parent.icon,
+      });
+    }
+  }
+  return _child_list;
+}
+
 function extractEnvPartProfile () {
   var tag = extractHashTags();
   var info_env = searchConfigByTagEnv(tag.env);

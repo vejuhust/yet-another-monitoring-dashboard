@@ -18,7 +18,7 @@ function extractDataAndUpdateContent () {
 }
 
 function extractChartData (_limit) {
-  var _limit = _limit || 100;
+  _limit = _limit || 100;
   var _raw_list = _data_list.slice(-_limit);
   var _data_set = {};
   $.each(gauge_data, function (index, item) {
@@ -45,6 +45,13 @@ function extractGauageRowData () {
     item.value = _set[item.id].value;
   });
   return _data;
+}
+
+function fetchMockupTopPartnersProfile (_limit) {
+  _limit = _limit || 5;
+  var _list = flattenConfigIntoList(menu_part_data);
+  _list.sort(function () { return 0.5 - Math.random() });
+  return _list.slice(-_limit);
 }
 
 function fetchMockupData () {
