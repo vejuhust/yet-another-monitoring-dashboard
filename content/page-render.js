@@ -21,7 +21,7 @@ function composeDefaultPage() {
   clearTimeTriggerEvents();
   $("#gauge-row").hide();
   $("#status-box").hide();
-  $("#menu-part").nextAll().fadeOut();
+  $("#menu-part").fadeOut();
   removeChartBoxes();
 
   renderTitleAndStatus("Welcome!");
@@ -35,7 +35,7 @@ function updateContentPage() {
   // Update title and add status box
   renderTitleAndStatus();
   // Show partners menu
-  $("#menu-part").nextAll().fadeIn();
+  $("#menu-part").fadeIn();
   // Reset data update event, and fetch data to render content
   clearTimeTriggerEvents();
   fetchDataAndRenderContent();

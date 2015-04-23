@@ -16,15 +16,26 @@ function createSingleLevelMenuItem (item) {
   return $("<li/>").append(createLinkItem(item));
 }
 
-function createMultiLevelMenuItem (item) {
+function createMultiLevelMenuItem (item, _part_handler) {
   item.link = "";
   var _a = createLinkItem(item);
-  $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
+  if (_part_handler) {
+    $("<span/>", { class: "label label-success pull-right", text: item.sub.length }).appendTo(_a);
+  }
+  else {
+    $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
+  }
 
   var _ul = $("<ul/>", { class: "treeview-menu" });
-  $.each(item.sub, function (index, item) {
-    item.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(item));
+  $.each(item.sub, function (index, subitem) {
+    if (_part_handler) {
+      subitem.icon = "fa fa-user";
+      _ul.append(createSingleLevelMenuItem(subitem).click(subitem.link, _part_handler));
+    }
+    else {
+      subitem.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
+      _ul.append(createSingleLevelMenuItem(subitem));
+    }
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -32,27 +43,17 @@ function createMultiLevelMenuItem (item) {
 
 function renderEnvironmentMenuItems () {
   var menu_env = $("#menu-env");
-  var item_list = []
   $.each(menu_env_data, function (index, item) {
-    item_list.push(item.sub 
+    menu_env.append(item.sub 
       ? createMultiLevelMenuItem(item)
       : createSingleLevelMenuItem(item));
-  });
-
-  $.each(item_list.reverse(), function () {
-    menu_env.after(this);
   });
 }
 
 function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
-  var item_list = []
   $.each(menu_part_data, function (index, item) {
-    item_list.push(createSingleLevelMenuItem(item).click(item.link, _handlerPartnerMenu));
-  });
-
-  $.each(item_list.reverse(), function () {
-    menu_part.after(this);
+    menu_part.append(createMultiLevelMenuItem(item, _handlerPartnerMenu));
   });
 }
 
@@ -78,13 +79,18 @@ function appendToHashTag (suffix) {
   return result;
 }
 
-function activateTaggedMenuItems () {
-  $(".sidebar-menu li[class~=active]").removeClass("active");
+function activateTaggedMenuPath () {
+  activateTaggedMenuPathForSingleMenu("#menu-env", "env");
+  activateTaggedMenuPathForSingleMenu("#menu-part", "part");
+}
+
+function activateTaggedMenuPathForSingleMenu (_menu_prefix, _tag_name) {
+  $(_menu_prefix + " li[class~=active]").removeClass("active");
   var tags = extractHashTags();
   if (tags.env || tags.part) {
     $.each(tags, function (index, tag) {
       if (tag) {
-        var selector = ".sidebar-menu a[href=#" + tag + "]";
+        var selector = _menu_prefix + " a[href=#" + tag + "]";
         var target = $(selector);
         if (target) {
           target.parent("li").addClass("active");
@@ -94,11 +100,11 @@ function activateTaggedMenuItems () {
     });
   }
   // Only when it's expanded
-  if (!$(".sidebar-collapse").length) {
-    if (tags.env) {
+  if (!$(_menu_prefix + " .sidebar-collapse").length) {
+    if (tags[_tag_name]) {
       // Collapse other expanded menu items
-      var selector = "a[href=#" + tags.env + "]";
-      $(".sidebar-menu ul.menu-open").each(function (index) { 
+      var selector = "a[href=#" + tags[_tag_name] + "]";
+      $(_menu_prefix + " ul.menu-open").each(function (index) { 
         if ($(this).find(selector).length == 0) {
           $(this).siblings().trigger("click");
         }; 
@@ -106,7 +112,7 @@ function activateTaggedMenuItems () {
     }
     else {
       // For default page, just collapse every item
-      $(".sidebar-menu ul.menu-open").siblings().trigger("click");
+      $(_menu_prefix + " ul.menu-open").siblings().trigger("click");
     }
   }
 }
