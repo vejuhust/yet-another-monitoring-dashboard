@@ -40,14 +40,12 @@ function extractChartData (_limit) {
   $.each(partner_data, function (index, item) {
     var _list = [];
     $.each(_raw_list, function (index, record) {
-      var _value = [];
-      var _base_value = record[item.parent_id].value;
-      for (var i = 0; i < partner_limit; i++) {
-        _value.push(_base_value * 0.15 * (1 + (Math.random() - 0.35) * (partner_limit - i) / (partner_limit) ));
-      };
       var _record = {};
       _record.date = $.format.date(record[item.parent_id].time, 'yyyy-MM-dd HH:mm:ss');
-      _record.value = _value;
+      var _base_value = record[item.parent_id].value;
+      for (var i = 0; i < partner_limit; i++) {
+        _record["value" + i] = _base_value * 0.15 * (1 + (Math.random() - 0.35) * (partner_limit - i) / (partner_limit) );
+      };
       _list.push(_record);
     });
     _data_set[item.id] = _list;
