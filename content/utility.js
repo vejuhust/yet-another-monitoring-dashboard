@@ -70,11 +70,11 @@ function searchConfigByTagPart (tag_part) {
 function searchTwoLevelConfigByTagLink(config_data, tag_link) {
   var _parent_name, _parent_icon, _parent_link, _child_name, _child_link;
 
-  for (var rl = config_data.length, ri = 0; ri < rl; ri++) {
-    var parent = config_data[ri];
+  for (var pl = config_data.length, pi = 0; pi < pl; pi++) {
+    var parent = config_data[pi];
     if (parent.sub) {
-      for (var el = parent.sub.length, ei = 0; ei < el; ei++) {
-        var child = parent.sub[ei];
+      for (var cl = parent.sub.length, ci = 0; ci < cl; ci++) {
+        var child = parent.sub[ci];
         if (child.link == tag_link) {
           _parent_name = parent.name;
           _parent_icon = parent.icon;
