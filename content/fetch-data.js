@@ -1,6 +1,9 @@
 
 var _data_list = [];
 
+var partner_data = undefined;
+var partner_profile = undefined;
+
 function fetchDataAndRenderContent () {
   _data_list.length = 0;
   renderCharts();
@@ -45,6 +48,15 @@ function extractGauageRowData () {
     item.value = _set[item.id].value;
   });
   return _data;
+}
+
+function initializePartnersForCharts () {
+  partner_profile = fetchMockupTopPartnersProfile();
+
+  partner_data = $.extend(true, {}, gauge_data);
+  $.each(partner_data, function (index, label_data) {
+    label_data.name = "Top Partners - " + label_data.name; 
+  });
 }
 
 function fetchMockupTopPartnersProfile (_limit) {

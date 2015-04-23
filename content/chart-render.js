@@ -8,9 +8,15 @@ function renderCharts () {
 
 function renderChartBoxes () {
   removeChartBoxes();
-  $.each(gauge_data, function (index, label_data) {
-    var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
-    $(_id_col).append(createChartBox(label_data));
+
+  initializePartnersForCharts();
+  var source_list = [gauge_data, partner_data];
+
+  $.each(source_list, function (source_index, source) {
+    $.each(source, function (index, label_data) {
+      var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
+      $(_id_col).append(createChartBox(label_data, source_index));
+    });
   });
 }
 
@@ -83,10 +89,19 @@ function removeChartBoxes () {
   $(_selector_chart_box_all).remove();
 }
 
-function createChartBox (_data) {
+function createChartBox (_data, _striped_header) {
   var _div = $("<div/>", { class: "box box-solid", id: _data.id + "-box", name: "chart-box" });
 
-  var _header = $("<div/>", { class: "box-header " + _data.color + "-gradient", style: "border-radius: 3px 3px 0 0 / 3px 3px;" });
+  var _header = $("<div/>", { class: "box-header", style: "border-radius: 3px 3px 0 0 / 3px 3px;" });
+  if (_striped_header) {
+    _header.addClass(_data.color);
+    _header.addClass("chart-box-header-striped");
+    _header.addClass("chart-box-header-active");
+  }
+  else {
+    _header.addClass(_data.color + "-gradient");
+  }
+
   _header.append($("<i/>", { class: _data.icon }));
   _header.append($("<h3/>", { class: "box-title", text: _data.name + " Graph" }));
 
