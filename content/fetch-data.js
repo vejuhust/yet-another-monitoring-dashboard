@@ -1,6 +1,10 @@
 
 var _data_list = [];
 
+var partner_data = undefined;
+var partner_profile = undefined;
+var partner_limit = 5;
+
 function fetchDataAndRenderContent () {
   _data_list.length = 0;
   renderCharts();
@@ -18,9 +22,10 @@ function extractDataAndUpdateContent () {
 }
 
 function extractChartData (_limit) {
-  var _limit = _limit || 100;
+  _limit = _limit || 100;
   var _raw_list = _data_list.slice(-_limit);
   var _data_set = {};
+
   $.each(gauge_data, function (index, item) {
     var _list = [];
     $.each(_raw_list, function (index, record) {
@@ -31,6 +36,21 @@ function extractChartData (_limit) {
     });
     _data_set[item.id] = _list;
   });
+
+  $.each(partner_data, function (index, item) {
+    var _list = [];
+    $.each(_raw_list, function (index, record) {
+      var _record = {};
+      _record.date = $.format.date(record[item.parent_id].time, 'yyyy-MM-dd HH:mm:ss');
+      var _base_value = record[item.parent_id].value;
+      for (var i = 0; i < partner_limit; i++) {
+        _record["value" + i] = _formatReadableFloat(_base_value * 0.17 * (2 * partner_limit - i) / (2 * partner_limit) );
+      };
+      _list.push(_record);
+    });
+    _data_set[item.id] = _list;
+  });
+  
   return _data_set;
 }
 
@@ -45,6 +65,24 @@ function extractGauageRowData () {
     item.value = _set[item.id].value;
   });
   return _data;
+}
+
+function initializePartnersForCharts () {
+  partner_profile = fetchMockupTopPartnersProfile(partner_limit);
+
+  partner_data = $.extend(true, [], gauge_data);
+  $.each(partner_data, function (index, label_data) {
+    label_data.name = "Top Partners - " + label_data.name; 
+    label_data.parent_id = label_data.id;
+    label_data.id += "-part";
+  });
+}
+
+function fetchMockupTopPartnersProfile (_limit) {
+  _limit = _limit || 5;
+  var _list = flattenConfigIntoList(menu_part_data);
+  _list.sort(function () { return 0.5 - Math.random() });
+  return _list.slice(-_limit);
 }
 
 function fetchMockupData () {

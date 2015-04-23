@@ -8,27 +8,76 @@ function renderCharts () {
 
 function renderChartBoxes () {
   removeChartBoxes();
-  $.each(gauge_data, function (index, label_data) {
-    var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
-    $(_id_col).append(createChartBox(label_data));
+
+  initializePartnersForCharts();
+  var source_list = [gauge_data, partner_data];
+
+  $.each(source_list, function (source_index, source) {
+    $.each(source, function (index, label_data) {
+      var _id_col = index % 2 == 0 ? "#chart-col-left" : "#chart-col-right";
+      $(_id_col).append(createChartBox(label_data, source_index));
+    });
   });
 }
 
 function renderChartContents () {
   _chart_set = {};
+
+  var _suffix = $("#content-title-desc").text();
   $.each(gauge_data, function (index, label_data) {
-    createChartContent(label_data.id + "-chart", label_data);
+    createChartContent(label_data.id + "-chart", label_data, _suffix);
+  });
+  
+  var _profile = extractEnvPartProfile();
+  _suffix = _profile.env_name || _profile.region_name;
+  $.each(partner_data, function (index, label_data) {
+    createPartnerChartContent(label_data.id + "-chart", label_data, _suffix);
   });
 }
 
-function createChartContent (_div_id, _label) {
+function createChartContent (_div_id, _label, _suffix) {
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.graphs[0].title = _label.name;
+  _setting.graphs[0].valueField = "value";
   _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
-  _setting.titles[0].text = _label.name + " -" + $("#content-title-desc").text();
+  _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
+  _setting.legend.valueText = _setting.graphs[0].balloonText;
+  _setting.legend.valueWidth = 100;
   _setting.dataProvider = [];
+
+  $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
+  _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
+  _chart_set[_label.id].addListener("zoomed", syncZoom);
+}
+
+function createPartnerChartContent (_div_id, _label, _suffix) {
+  var _color_setting = $("#" + _label.id + "-box .box-header").css("background-color");
+  var _color_percent = partner_limit > 1 ? 0.5 / (partner_limit - 1) : 0;
+
+  var _setting = $.extend(true, {}, _chart_setting);
+  _setting.titles[0].id = _label.id + "-title";
+  _setting.titles[0].text = _label.name + " - " + _suffix;
+  _setting.valueAxes[0].title = _label.unit || "Rate";
+  _setting.legend.valueText = "[[value]]";
+  _setting.legend.valueWidth = 65;
+  _setting.dataProvider = [];
+
+  _setting.graphs = [];
+  var _graphs_setting = _chart_setting.graphs[0];
+  $.each(partner_profile, function (index, profile) {
+    var _color = shadeRGBColor(_color_setting, index * _color_percent);
+    var _graphs = $.extend(true, {}, _graphs_setting);
+    _graphs.id = "p" + index;
+    _graphs.title = profile.name;
+    _graphs.valueField = "value" + index;
+    _graphs.balloonText = profile.name + ": [[value" + index +  "]] " + (_label.unit || "");
+    _graphs.bulletBorderColor = _color;
+    _graphs.bulletColor = _color;
+    _graphs.lineColor = _color;
+    _setting.graphs.push(_graphs);
+  })
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
@@ -50,7 +99,7 @@ function updateCharts (_data_set) {
 }
 
 function updateChartContents (_data_set) {
-  $.each(gauge_data, function (index, label_data) {
+  $.each(gauge_data.concat(partner_data), function (index, label_data) {
     updateChartContentWithData(label_data.id, _data_set[label_data.id]);
   });
 }
@@ -83,10 +132,19 @@ function removeChartBoxes () {
   $(_selector_chart_box_all).remove();
 }
 
-function createChartBox (_data) {
+function createChartBox (_data, _striped_header) {
   var _div = $("<div/>", { class: "box box-solid", id: _data.id + "-box", name: "chart-box" });
 
-  var _header = $("<div/>", { class: "box-header " + _data.color + "-gradient", style: "border-radius: 3px 3px 0 0 / 3px 3px;" });
+  var _header = $("<div/>", { class: "box-header", style: "border-radius: 3px 3px 0 0 / 3px 3px;" });
+  if (_striped_header) {
+    _header.addClass(_data.color);
+    _header.addClass("chart-box-header-striped");
+    _header.addClass("chart-box-header-active");
+  }
+  else {
+    _header.addClass(_data.color + "-gradient");
+  }
+
   _header.append($("<i/>", { class: _data.icon }));
   _header.append($("<h3/>", { class: "box-title", text: _data.name + " Graph" }));
 
@@ -140,7 +198,7 @@ var _chart_setting =
       "showBalloon": true,
       "title": undefined,
       "type": "line",
-      "valueField": "value",
+      "valueField": undefined,
     },
   ],
   "guides": [],
@@ -156,7 +214,8 @@ var _chart_setting =
   "balloon": {},
   "legend": {
     "useGraphSettings": true,
-    "valueWidth": 70,
+    "valueWidth": undefined,
+    "valueText": undefined,
   },
   "titles": [
     {
