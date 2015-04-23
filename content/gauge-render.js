@@ -39,9 +39,9 @@ function createGaugeBox (item_data) {
   var _div_color = $("<div/>", { class: "small-box " + item_data.color + "-gradient" });
   var _div_text = $("<div/>", { class: "inner"});
 
-  var _div_value = $("<h3/>", { style: "font-size:64px;", text: _formatReadableFloat(item_data.value) });
+  var _div_value = $("<h3/>", { style: "font-size: 64px;", text: _formatReadableFloat(item_data.value) });
   if (item_data.unit) {
-    $("<sup/>", { style: "font-size: 20px", text: item_data.unit }).appendTo(_div_value);
+    $("<sup/>", { style: "font-size: 32px", text: item_data.unit }).appendTo(_div_value);
   }
   _div_value.appendTo(_div_text);
   $("<p/>", { text: item_data.name }).appendTo(_div_text);
