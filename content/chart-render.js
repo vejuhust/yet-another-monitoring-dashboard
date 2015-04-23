@@ -60,7 +60,6 @@ function updateChartContentWithData (_id, _data) {
   var _end = _chart_set[_id].endIndex;
   var _length = _chart_set[_id].dataProvider.length;
   if (!(_start && _end) || (_length == _end - _start + 1)) {
-    _data[_data.length - 1].bulletClass = "lastBullet";
     var _archive_data = _chart_set[_id].dataProvider;
     _chart_set[_id].dataProvider = _data;
     _chart_set[_id].validateData();
@@ -86,7 +85,7 @@ function removeChartBoxes () {
 
 function createChartBox (_data) {
   var _div = $("<div/>", { class: "box box-solid " + _data.color + "-gradient", id: _data.id + "-box", name: "chart-box" });
-  
+
   var _header = $("<div/>", { class: "box-header" });
   _header.append($("<i/>", { class: _data.icon }));
   _header.append($("<h3/>", { class: "box-title", text: _data.name + " Graph" }));
@@ -107,7 +106,7 @@ function createChartBox (_data) {
 
 var _chart_set = {};
 
-var _chart_setting = 
+var _chart_setting =
 {
   "type": "serial",
   "addClassNames": true,
