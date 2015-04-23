@@ -36,7 +36,7 @@ function renderNewGaugeRowItems (row_data) {
 
 function createGaugeBox (item_data) {
   var _div = $("<div/>", { class: "col-lg-3 col-xs-6"});
-  var _div_color = $("<div/>", { class: "small-box " + item_data.color });
+  var _div_color = $("<div/>", { class: "small-box " + item_data.color + "-gradient" });
   var _div_text = $("<div/>", { class: "inner"});
 
   var _div_value = $("<h3/>", { style: "font-size:64px;", text: _formatReadableFloat(item_data.value) });

@@ -84,9 +84,9 @@ function removeChartBoxes () {
 }
 
 function createChartBox (_data) {
-  var _div = $("<div/>", { class: "box box-solid " + _data.color + "-gradient", id: _data.id + "-box", name: "chart-box" });
+  var _div = $("<div/>", { class: "box box-solid", id: _data.id + "-box", name: "chart-box" });
 
-  var _header = $("<div/>", { class: "box-header" });
+  var _header = $("<div/>", { class: "box-header " + _data.color + "-gradient", style: "border-radius: 3px 3px 0 0 / 3px 3px;" });
   _header.append($("<i/>", { class: _data.icon }));
   _header.append($("<h3/>", { class: "box-title", text: _data.name + " Graph" }));
 
@@ -102,6 +102,7 @@ function createChartBox (_data) {
 var _chart_set = {};
 
 var _chart_font_size = 14;
+var _chart_bullet_color = "#000000";
 
 var _chart_setting =
 {
@@ -113,7 +114,7 @@ var _chart_setting =
   "dataDateFormat": "YYYY-MM-DD HH:NN:SS",
   "fontSize": _chart_font_size,
   "fontFamily": "'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif",
-  "theme": "black",
+  "theme": "light",
   "categoryAxis": {
     "minPeriod": "ss",
     "parseDates": true
@@ -128,13 +129,13 @@ var _chart_setting =
       "balloonText": undefined,
       "bullet": "round",
       "bulletBorderAlpha": 1,
-      "bulletBorderColor": "#DDE0E0",
+      "bulletBorderColor": _chart_bullet_color,
       "bulletBorderThickness": 1,
-      "bulletColor": "#FFFFFF",
+      "bulletColor": _chart_bullet_color,
       "bulletSize": 1,
       "classNameField": "bulletClass",
       "id": "g2",
-      "lineColor": "#FFFFFF",
+      "lineColor": _chart_bullet_color,
       "lineThickness": 1,
       "showBalloon": true,
       "title": undefined,
