@@ -38,27 +38,17 @@ function createMultiLevelMenuItem (item, _handler) {
 
 function renderEnvironmentMenuItems () {
   var menu_env = $("#menu-env");
-  var item_list = []
   $.each(menu_env_data, function (index, item) {
-    item_list.push(item.sub 
+    menu_env.append(item.sub 
       ? createMultiLevelMenuItem(item)
       : createSingleLevelMenuItem(item));
-  });
-
-  $.each(item_list.reverse(), function () {
-    menu_env.after(this);
   });
 }
 
 function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
-  var item_list = []
   $.each(menu_part_data, function (index, item) {
-    item_list.push(createMultiLevelMenuItem(item, _handlerPartnerMenu));
-  });
-
-  $.each(item_list.reverse(), function () {
-    menu_part.after(this);
+    menu_part.append(createMultiLevelMenuItem(item, _handlerPartnerMenu));
   });
 }
 
