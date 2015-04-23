@@ -16,15 +16,21 @@ function createSingleLevelMenuItem (item) {
   return $("<li/>").append(createLinkItem(item));
 }
 
-function createMultiLevelMenuItem (item) {
+function createMultiLevelMenuItem (item, _handler) {
   item.link = "";
   var _a = createLinkItem(item);
-  $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
+  $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - (_handler ? 0 : 1) }).appendTo(_a);
 
   var _ul = $("<ul/>", { class: "treeview-menu" });
-  $.each(item.sub, function (index, item) {
-    item.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
-    _ul.append(createSingleLevelMenuItem(item));
+  $.each(item.sub, function (index, subitem) {
+    if (_handler) {
+      subitem.icon = "fa fa-user";
+      _ul.append(createSingleLevelMenuItem(subitem).click(subitem.link, _handler));
+    }
+    else {
+      subitem.icon = index == 0 ? "fa fa-certificate" : "fa fa-circle-o";
+      _ul.append(createSingleLevelMenuItem(subitem));
+    }
   });
 
   return $("<li/>", { class: "treeview" }).append(_a).append(_ul);
@@ -48,7 +54,7 @@ function renderPartnerMenuItems () {
   var menu_part = $("#menu-part");
   var item_list = []
   $.each(menu_part_data, function (index, item) {
-    item_list.push(createSingleLevelMenuItem(item).click(item.link, _handlerPartnerMenu));
+    item_list.push(createMultiLevelMenuItem(item, _handlerPartnerMenu));
   });
 
   $.each(item_list.reverse(), function () {
