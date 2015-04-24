@@ -35,14 +35,15 @@ function handleSearchBoxSelection (event) {
       if (_selected_env && _selected_part) {
         break;
       }
-      else if (!_selected_env) {
-        _selected_env = extractValueAfterPrefix(_selected, _prefix_env);
-      }
-      else if (!_selected_part) {
-        _selected_part = extractValueAfterPrefix(_selected, _prefix_part);
+      else {
+        if (!_selected_env) {
+          _selected_env = extractValueAfterPrefix(_selected, _prefix_env);
+        }
+        if (!_selected_part) {
+          _selected_part = extractValueAfterPrefix(_selected, _prefix_part);
+        }
       }
     }
-
     console.log(_selected_env, _selected_part, _list);
   }
 }
