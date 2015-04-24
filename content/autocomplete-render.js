@@ -1,19 +1,21 @@
 
 var _prefix_env = "env:";
 var _prefix_part = "part:";
+var _id_searchbox = "search-select";
+var _id_searchbox_status = "search-select-info";
 
 function renderSearchBoxWithAutoComplete () {
   // Prepare data for Select2 in select/option DOM structure
-  var searchbox_dropdown = $("<select/>", { id: "search-select", class: "form-control", multiple: "true", style: "display:none;" });
+  var searchbox_dropdown = $("<select/>", { id: _id_searchbox, class: "form-control", multiple: "true", style: "display:none;" });
   var _list_env = createSelectOptionListWithConfigData(menu_env_data, _prefix_env);
   var _list_part = createSelectOptionListWithConfigData(menu_part_data, _prefix_part);
   $.each(_list_env.concat(_list_part), function (index, _opt) {
     searchbox_dropdown.append(_opt);
   });
-  $("#search-select").replaceWith(searchbox_dropdown);
+  $("#" + _id_searchbox).replaceWith(searchbox_dropdown);
 
   // Enable auto-complete feature in search box with Select2
-  var searchbox_autocomplete = $("#search-select").select2({ 
+  var searchbox_autocomplete = $("#" + _id_searchbox).select2({ 
     width: "resolve",
     allowClear: true,
     placeholder: "type whatever you want -,-",
@@ -45,6 +47,36 @@ function handleSearchBoxSelection (event) {
       }
     }
     console.log(_selected_env, _selected_part, _list);
+
+    // Merge result with hashtag
+    if (!(_selected_env && _selected_part)) {
+      var _profile = extractEnvPartProfile();
+      if (!_selected_env) {
+        _selected_env = _profile.env_link || _profile.region_link;
+      }
+      if (!_selected_part) {
+        _selected_part = _profile.part_link;
+      }
+    }
+
+    // Output result
+    var _message = "";
+    if (!_selected_env && !_selected_part) {
+      _message = "You choose no environment nor partner.";
+    }
+    else if (!_selected_env) {
+      _message = "You should choose a environment to continue.";
+    }
+    else if (!_selected_part) {
+      _message = "You choose " + _selected_env + " as environment. What about partner?";
+    }
+    else {
+      _message = "You choose " + _selected_env + " as environment with partner " + _selected_part + ".";
+    }
+    var _div = $("<p/>", { id: _id_searchbox_status, class: "text-aqua", text: _message });
+    $("#" + _id_searchbox_status).replaceWith(_div);
+    console.log(_message);
+    
   }
 }
 
