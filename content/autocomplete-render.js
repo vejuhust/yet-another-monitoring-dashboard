@@ -60,23 +60,8 @@ function handleSearchBoxSelection (event) {
     }
 
     // Output result
-    var _message = "";
-    if (!_selected_env && !_selected_part) {
-      _message = "You choose no environment nor partner.";
-    }
-    else if (!_selected_env) {
-      _message = "You should choose a environment to continue.";
-    }
-    else if (!_selected_part) {
-      _message = "You choose " + _selected_env + " as environment. What about partner?";
-    }
-    else {
-      _message = "You choose " + _selected_env + " as environment with partner " + _selected_part + ".";
-    }
-    var _div = $("<p/>", { id: _id_searchbox_status, class: "text-aqua", text: _message });
-    $("#" + _id_searchbox_status).replaceWith(_div);
-    console.log(_message);
-    
+    updateSearchBoxStatusLine(_selected_env, _selected_part);
+
   }
 }
 
