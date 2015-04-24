@@ -30,6 +30,7 @@ function handleSearchBoxSelection (event) {
   var _selected_env = undefined;
   var _selected_part = undefined;
 
+  // Load selected items from search box, or reload hashtag in URL if search box is empty
   if (_list) {
     // Extract first selected environment and partner in menu order
     for (var len = _list.length, index = 0; index < len; index++) {
@@ -46,9 +47,7 @@ function handleSearchBoxSelection (event) {
         }
       }
     }
-    console.log(_selected_env, _selected_part, _list);
-
-    // Merge result with hashtag
+    // Merge result with hashtag in URL
     if (!(_selected_env && _selected_part)) {
       var _profile = extractEnvPartProfile();
       if (!_selected_env) {
@@ -58,14 +57,18 @@ function handleSearchBoxSelection (event) {
         _selected_part = _profile.part_link;
       }
     }
-
-    // Output result
-    updateSearchBoxStatusLine(_selected_env, _selected_part);
-
   }
+  else {
+    var _profile = extractEnvPartProfile();
+    _selected_env = _profile.env_link || _profile.region_link;
+    _selected_part = _profile.part_link;
+  }
+
+  // Output result
+  updateSearchBoxStatusLine(_selected_env, _selected_part);
 }
 
-function extractValueAfterPrefix(_raw, _prefix) {
+function extractValueAfterPrefix (_raw, _prefix) {
   var _result = undefined;
   var _pos = _raw.indexOf(_prefix);
   if (_pos >= 0) {
