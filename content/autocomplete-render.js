@@ -1,6 +1,6 @@
 
 function renderSearchBoxWithAutoComplete () {
-  var searchbox_dropdown = $("<select/>", { id: "search-select", class: "form-control", multiple: "multiple" });
+  var searchbox_dropdown = $("<select/>", { id: "search-select", class: "form-control", multiple: "multiple", style: "display:none;" });
   var _list_env = createSelectOptionListWithConfigData(menu_env_data, "env:");
   var _list_part = createSelectOptionListWithConfigData(menu_part_data, "part:");
   $.each(_list_env.concat(_list_part), function (index, _opt) {
