@@ -1,7 +1,8 @@
 
-// Render menus on the left side
+// Render menus and search box on the left side
 renderEnvironmentMenuItems();
 renderPartnerMenuItems();
+renderSearchBoxWithAutoComplete();
 
 // Events binding
 window.onhashchange = _handlerUpdatePage;

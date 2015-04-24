@@ -13,6 +13,23 @@ function addNewSubBoxInStatusBox (profile, _custom) {
   $("#status-subbox").prepend(_div);
 }
 
+function updateSearchBoxStatusLine (_selected_env, _selected_part) {
+    var _div = $("<p/>", { id: _id_searchbox_status, class: "text-aqua" });
+    if (!_selected_env && !_selected_part) {
+      _div.append("You choose no environment nor partner.");
+    }
+    else if (!_selected_env) {
+      _div.append("You should choose a environment to continue.");
+    }
+    else if (!_selected_part) {
+      _div.append("You choose <strong>" + _selected_env + "</strong> as environment. What about partner?");
+    }
+    else {
+      _div.append("You choose <strong>" + _selected_env + "</strong> as environment with <strong>" + _selected_part + "</strong> as partner.");
+    }
+    $("#" + _id_searchbox_status).replaceWith(_div);
+}
+
 function restartStatusBoxIfHidden () {
   if ($("#status-box:hidden").length) {
     $("#status-subbox").empty();
