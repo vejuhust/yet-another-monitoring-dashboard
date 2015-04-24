@@ -25,3 +25,6 @@ This project provides a real-time dashboard representing service status in three
 * jquery-dateFormat
     - Site: https://github.com/phstc/jquery-dateFormat
     - Url: https://github.com/phstc/jquery-dateFormat/archive/master.zip
+* Select2 4.0.0-rc.2
+    - Site: https://select2.github.io/
+    - Url: https://github.com/select2/select2
