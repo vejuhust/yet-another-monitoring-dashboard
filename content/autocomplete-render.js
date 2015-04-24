@@ -26,6 +26,9 @@ function renderSearchBoxWithAutoComplete () {
 }
 
 function handleSearchBoxSelection (event) {
+  var _profile = extractEnvPartProfile();
+  var _profile_env_region_link = _profile.env_link || _profile.region_link;
+
   var _list = $("#search-select").val();
   var _selected_env = undefined;
   var _selected_part = undefined;
@@ -49,9 +52,8 @@ function handleSearchBoxSelection (event) {
     }
     // Merge result with hashtag in URL
     if (!(_selected_env && _selected_part)) {
-      var _profile = extractEnvPartProfile();
       if (!_selected_env) {
-        _selected_env = _profile.env_link || _profile.region_link;
+        _selected_env = _profile_env_region_link;
       }
       if (!_selected_part) {
         _selected_part = _profile.part_link;
@@ -59,13 +61,28 @@ function handleSearchBoxSelection (event) {
     }
   }
   else {
-    var _profile = extractEnvPartProfile();
-    _selected_env = _profile.env_link || _profile.region_link;
+    _selected_env = _profile_env_region_link;
     _selected_part = _profile.part_link;
   }
 
   // Output result
   updateSearchBoxStatusLine(_selected_env, _selected_part);
+
+  // Validate if the page should be updated
+  var _shouldUpdate = false;
+  if (_selected_env) {
+    if (_selected_part != _profile.part_link) {
+      _shouldUpdate = true;
+    }
+    if (_selected_env != _profile_env_region_link) {
+      _shouldUpdate = true;
+    }
+  }
+
+  // Update the page and hashtag
+  if (_shouldUpdate) {
+    updateHashTags(_selected_env, _selected_part);
+  }
 }
 
 function extractValueAfterPrefix (_raw, _prefix) {

@@ -79,6 +79,10 @@ function appendToHashTag (suffix) {
   return result;
 }
 
+function updateHashTags (_env, _part) {
+  window.location.hash = _part ? _env + _seperator + _part : _env;
+}
+
 function activateTaggedMenuPath () {
   activateTaggedMenuPathForSingleMenu("#menu-env", "env");
   activateTaggedMenuPathForSingleMenu("#menu-part", "part");
