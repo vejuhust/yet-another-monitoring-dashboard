@@ -53,9 +53,6 @@ function createChartContent (_div_id, _label, _suffix) {
 }
 
 function createPartnerChartContent (_div_id, _label, _suffix) {
-  var _color_setting = $("#" + _label.id + "-box .box-header").css("background-color");
-  var _color_percent = partner_limit > 1 ? 0.5 / (partner_limit - 1) : 0;
-
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
@@ -67,7 +64,7 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
   _setting.graphs = [];
   var _graphs_setting = _chart_setting.graphs[0];
   $.each(partner_profile, function (index, profile) {
-    var _color = shadeRGBColor(_color_setting, index * _color_percent);
+    var _color = undefined;
     var _graphs = $.extend(true, {}, _graphs_setting);
     _graphs.id = "p" + index;
     _graphs.title = profile.name;

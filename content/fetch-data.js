@@ -44,7 +44,7 @@ function extractChartData (_limit) {
       _record.date = $.format.date(record[item.parent_id].time, 'yyyy-MM-dd HH:mm:ss');
       var _base_value = record[item.parent_id].value;
       for (var i = 0; i < partner_limit; i++) {
-        _record["value" + i] = _formatReadableFloat(_base_value * 0.17 * (2 * partner_limit - i) / (2 * partner_limit) );
+        _record["value" + i] = _formatReadableFloat(_base_value * 0.17 * (5 * partner_limit - ((_base_value * 1000).toFixed(0) % (10 + i))) / (5 * partner_limit) );
       };
       _list.push(_record);
     });
