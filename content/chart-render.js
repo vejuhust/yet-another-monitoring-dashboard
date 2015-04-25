@@ -73,6 +73,7 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
     _graphs.title = profile.name;
     _graphs.valueField = "value" + index;
     _graphs.balloonText = profile.name + ": [[value" + index +  "]] " + (_label.unit || "");
+    _graphs.bullet = "none";
     _graphs.bulletBorderColor = _color;
     _graphs.bulletColor = _color;
     _graphs.lineColor = _color;
