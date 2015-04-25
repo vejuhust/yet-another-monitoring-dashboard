@@ -22,6 +22,7 @@ function renderChartBoxes () {
 
 function renderChartContents () {
   _chart_set = {};
+  _chart_partner_set = {};
 
   var _suffix = $("#content-title-desc").text();
   $.each(gauge_data, function (index, label_data) {
@@ -60,10 +61,8 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
-  _setting.legend.valueText = "[[value]]";
-  _setting.legend.valueWidth = 65;
   _setting.dataProvider = [];
-
+  
   _setting.graphs = [];
   var _graphs_setting = _chart_setting.graphs[0];
   $.each(partner_profile, function (index, profile) {
@@ -78,11 +77,41 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
     _graphs.bulletColor = _color;
     _graphs.lineColor = _color;
     _setting.graphs.push(_graphs);
-  })
+  });
+
+  _setting.legend.length = 0;
+  var _legend = new AmCharts.AmLegend();
+  _legend.useGraphSettings = true;
+  _legend.valueText = "[[value]]";
+  _legend.valueWidth = 65;
+  _legend.addListener("hideItem", syncDisplayOfPartnerGraphsLine);
+  _legend.addListener("showItem", syncDisplayOfPartnerGraphsLine);
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
+  _chart_set[_label.id].addLegend(_legend, _label.id);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
+
+  _chart_partner_set[_label.id] = _chart_set[_label.id];
+}
+
+function syncDisplayOfPartnerGraphsLine (event) {
+  var _index = event.dataItem.index;
+  var _hidden = event.type == "hideItem";
+  var _start = event.chart.startIndex;
+  var _end = event.chart.endIndex;
+  var _zoomed = event.chart.dataProvider.length != (_end - _start + 1);
+  var _last_chart = undefined;
+
+  $.each(_chart_partner_set, function (index, _chart_id) {
+    _chart_id.graphs[_index].hidden = _hidden;
+    _chart_id.validateData();
+    _last_chart = _chart_id;
+  });
+
+  if (_zoomed) {
+    _last_chart.zoomToIndexes(_start, _end);
+  }
 }
 
 function syncZoom(event) {
@@ -159,6 +188,7 @@ function createChartBox (_data, _striped_header) {
 }
 
 var _chart_set = {};
+var _chart_partner_set = {};
 
 var _chart_font_size = 14;
 var _chart_bullet_color = "#000000";
