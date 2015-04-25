@@ -69,7 +69,7 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
     var _color = undefined;
     // var _color = shadeRGBColor(_color_setting, index * _color_percent);
     var _graphs = $.extend(true, {}, _graphs_setting);
-    _graphs.id = "p" + index;
+    _graphs.id = "zen" + index;
     _graphs.title = profile.name;
     _graphs.valueField = "value" + index;
     _graphs.balloonText = profile.name + ": [[value" + index +  "]] " + (_label.unit || "");
