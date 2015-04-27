@@ -22,12 +22,14 @@ function composeDefaultPage() {
   clearTimeTriggerEvents();
   $("#gauge-row").hide();
   $("#menu-part").fadeOut();
+  $("#default-carousel-box").show();
   removeChartBoxes();
 
   renderTitleAndStatus("Welcome!");
 }
 
 function composeContentPage() {
+  $("#default-carousel-box").hide();
 }
 
 function updateContentPage() {
