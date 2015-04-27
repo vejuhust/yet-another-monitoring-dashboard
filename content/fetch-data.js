@@ -68,7 +68,7 @@ function extractGauageRowData () {
 }
 
 function initializePartnersForCharts () {
-  partner_profile = fetchMockupTopPartnersProfile(partner_limit);
+  partner_profile = extractMockupTopPartnersProfile(partner_limit);
 
   partner_data = $.extend(true, [], gauge_data);
   $.each(partner_data, function (index, label_data) {
@@ -78,7 +78,7 @@ function initializePartnersForCharts () {
   });
 }
 
-function fetchMockupTopPartnersProfile (_limit) {
+function extractMockupTopPartnersProfile (_limit) {
   _limit = _limit || 5;
   var _list = flattenConfigIntoList(menu_part_data);
   _list.sort(function () { return 0.5 - Math.random() });
