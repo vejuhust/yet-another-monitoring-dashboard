@@ -36,7 +36,7 @@ function extractDataAndUpdateContent () {
 
 function adjustGaugeDataWithChartData (_gauge_data, _chart_data) {
   $.each(_gauge_data, function (index, item) {
-    item.value = _chart_data[item.id].slice(-1)[0].total_raw;
+    item.value = _chart_data[item.id].slice(-1)[0].raw;
   });
 }
 
@@ -58,7 +58,7 @@ function extractChartData (_value_limit, _record_limit) {
           _record["value" + i] = formatReadableFloat(_value);
           _total += _value;
         }
-        _record["total_raw"] = _total;
+        _record["raw"] = _total;
         _record["total"] = formatReadableFloat(_total);
       }
       _list.push(_record);

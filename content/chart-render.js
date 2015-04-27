@@ -37,9 +37,6 @@ function renderChartContents () {
 
 function createChartContent (_div_id, _label, _suffix) {
   var _setting = $.extend(true, {}, _chart_setting);
-  _setting.graphs[0].title = _label.name;
-  _setting.graphs[0].valueField = "value";
-  _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
@@ -47,12 +44,43 @@ function createChartContent (_div_id, _label, _suffix) {
   _setting.legend.valueWidth = 100;
   _setting.dataProvider = [];
 
+  switch (_page_profile.page_type) {
+    case "environment":
+      _setting.graphs[0].title = _label.name;
+      _setting.graphs[0].valueField = "value";
+      _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
+      break;
+    case "region":
+      _setting.graphs = [];
+      _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "", _page_profile.region_name, "total", _label.unit, undefined));
+      for (var index = 0; index < _page_profile.env_count; index++) {
+        _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, "XXX", "value" + index, _label.unit, undefined));
+      };
+      break;
+    case "global":
+      break;
+  }
+
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
 }
 
+function generateChartGraphs (_graphs_setting, index, name, value, unit, color) {
+  var _graphs = $.extend(true, {}, _graphs_setting);
+  _graphs.id = "zen" + index;
+  _graphs.title = name;
+  _graphs.valueField = value;
+  _graphs.balloonText = name + ": [[" + value +  "]] " + (unit || "");
+  _graphs.bullet = "none";
+  _graphs.bulletBorderColor = color;
+  _graphs.bulletColor = color;
+  _graphs.lineColor = color;
+  return _graphs;
+}
+
 function createPartnerChartContent (_div_id, _label, _suffix) {
+  var _color = undefined;
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
@@ -62,7 +90,6 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
   _setting.graphs = [];
   var _graphs_setting = _chart_setting.graphs[0];
   $.each(partner_profile, function (index, profile) {
-    var _color = undefined;
     var _graphs = $.extend(true, {}, _graphs_setting);
     _graphs.id = "zen" + index;
     _graphs.title = profile.name;
