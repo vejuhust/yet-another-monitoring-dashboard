@@ -46,7 +46,7 @@ function createChartContent (_div_id, _label, _suffix) {
 
   switch (_page_profile.page_type) {
     case "environment":
-      _setting.graphs[0].title = _label.name;
+      _setting.graphs[0].title = _page_profile.env_name;
       _setting.graphs[0].valueField = "value";
       _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
       break;
