@@ -20,7 +20,6 @@ function composeDefaultPage() {
 
   clearTimeTriggerEvents();
   $("#gauge-row").hide();
-  $("#status-box").hide();
   $("#menu-part").fadeOut();
   removeChartBoxes();
 
@@ -28,7 +27,6 @@ function composeDefaultPage() {
 }
 
 function composeContentPage() {
-  $("#status-box").hide();
 }
 
 function updateContentPage() {

@@ -6,7 +6,6 @@ function renderTitleAndStatus (_custom) {
   var _profile = extractEnvPartProfile();
   updateContentTitleDesc(_profile)
   updateWebpageTitle(_profile, _custom);
-  // addNewSubBoxInStatusBox(_profile, _custom);
 }
 
 function updateContentTitleDesc (profile) {
