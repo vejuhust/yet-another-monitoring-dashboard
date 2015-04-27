@@ -22,6 +22,7 @@ function renderChartBoxes () {
 
 function renderChartContents () {
   _chart_set = {};
+  _chart_main_set = {};
   _chart_partner_set = {};
 
   var _suffix = $("#content-title-desc").text();
@@ -37,9 +38,6 @@ function renderChartContents () {
 
 function createChartContent (_div_id, _label, _suffix) {
   var _setting = $.extend(true, {}, _chart_setting);
-  _setting.graphs[0].title = _label.name;
-  _setting.graphs[0].valueField = "value";
-  _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
@@ -47,9 +45,32 @@ function createChartContent (_div_id, _label, _suffix) {
   _setting.legend.valueWidth = 100;
   _setting.dataProvider = [];
 
+  switch (_page_profile.page_type) {
+    case "environment":
+      _setting.graphs[0].title = _page_profile.env_name;
+      _setting.graphs[0].valueField = "value";
+      _setting.graphs[0].balloonText = "[[value]] " + (_label.unit || "");
+      break;
+    case "region":
+      _setting.graphs = [];
+      _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "sum", _page_profile.region_name, "sum", _label.unit, undefined));
+      for (var index = 0; index < _page_profile.env_count; index++) {
+        _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, menu_env_data[_page_profile.region_index].sub[index + 1].name, "value" + index, _label.unit, undefined));
+      };
+      _setting.legend.length = 0;
+      break;
+    case "global":
+      break;
+  }
+
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
+  if (!_setting.legend.length) {
+    _chart_set[_label.id].addLegend(generateChartLegend(65, syncDisplayOfMainGraphsLine), _label.id);
+  }
+
+  _chart_main_set[_label.id] = _chart_set[_label.id];
 }
 
 function createPartnerChartContent (_div_id, _label, _suffix) {
@@ -58,40 +79,53 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
   _setting.dataProvider = [];
+  _setting.legend.length = 0;
   
   _setting.graphs = [];
-  var _graphs_setting = _chart_setting.graphs[0];
   $.each(partner_profile, function (index, profile) {
-    var _color = undefined;
-    var _graphs = $.extend(true, {}, _graphs_setting);
-    _graphs.id = "zen" + index;
-    _graphs.title = profile.name;
-    _graphs.valueField = "value" + index;
-    _graphs.balloonText = profile.name + ": [[value" + index +  "]] " + (_label.unit || "");
-    _graphs.bullet = "none";
-    _graphs.bulletBorderColor = _color;
-    _graphs.bulletColor = _color;
-    _graphs.lineColor = _color;
-    _setting.graphs.push(_graphs);
+    _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, profile.name, "value" + index, _label.unit, undefined));
   });
-
-  _setting.legend.length = 0;
-  var _legend = new AmCharts.AmLegend();
-  _legend.useGraphSettings = true;
-  _legend.valueText = "[[value]]";
-  _legend.valueWidth = 65;
-  _legend.addListener("hideItem", syncDisplayOfPartnerGraphsLine);
-  _legend.addListener("showItem", syncDisplayOfPartnerGraphsLine);
 
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
-  _chart_set[_label.id].addLegend(_legend, _label.id);
+  _chart_set[_label.id].addLegend(generateChartLegend(65, syncDisplayOfPartnerGraphsLine), _label.id);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
 
   _chart_partner_set[_label.id] = _chart_set[_label.id];
 }
 
+function generateChartGraphs (_graphs_setting, index, name, value, unit, color) {
+  var _graphs = $.extend(true, {}, _graphs_setting);
+  _graphs.id = "zen" + index;
+  _graphs.title = name;
+  _graphs.valueField = value;
+  _graphs.balloonText = name + ": [[" + value +  "]] " + (unit || "");
+  _graphs.bullet = "none";
+  _graphs.bulletBorderColor = color;
+  _graphs.bulletColor = color;
+  _graphs.lineColor = color;
+  return _graphs;
+}
+
+function generateChartLegend (_width, _handler) {
+  var _legend = new AmCharts.AmLegend();
+  _legend.useGraphSettings = true;
+  _legend.valueText = "[[value]]";
+  _legend.valueWidth = _width;
+  _legend.addListener("hideItem", _handler);
+  _legend.addListener("showItem", _handler);
+  return _legend;
+}
+
+function syncDisplayOfMainGraphsLine (event) {
+  syncDisplayOfGraphsLine(event, _chart_main_set);
+}
+
 function syncDisplayOfPartnerGraphsLine (event) {
+  syncDisplayOfGraphsLine(event, _chart_partner_set);
+}
+
+function syncDisplayOfGraphsLine (event, _set) {
   var _index = event.dataItem.index;
   var _hidden = event.type == "hideItem";
   var _start = event.chart.startIndex;
@@ -99,7 +133,7 @@ function syncDisplayOfPartnerGraphsLine (event) {
   var _zoomed = event.chart.dataProvider.length != (_end - _start + 1);
   var _last_chart = undefined;
 
-  $.each(_chart_partner_set, function (index, _chart_id) {
+  $.each(_set, function (index, _chart_id) {
     _chart_id.graphs[_index].hidden = _hidden;
     _chart_id.validateData();
     _last_chart = _chart_id;
@@ -121,10 +155,6 @@ function zoomAllChartContent(_start, _end) {
 }
 
 function updateCharts (_data_set) {
-  updateChartContents(_data_set);
-}
-
-function updateChartContents (_data_set) {
   $.each(gauge_data.concat(partner_data), function (index, label_data) {
     updateChartContentWithData(label_data.id, _data_set[label_data.id]);
   });
@@ -184,6 +214,7 @@ function createChartBox (_data, _striped_header) {
 }
 
 var _chart_set = {};
+var _chart_main_set = {};
 var _chart_partner_set = {};
 
 var _chart_font_size = 14;
