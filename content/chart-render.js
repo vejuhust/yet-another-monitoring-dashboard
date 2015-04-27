@@ -121,10 +121,6 @@ function zoomAllChartContent(_start, _end) {
 }
 
 function updateCharts (_data_set) {
-  updateChartContents(_data_set);
-}
-
-function updateChartContents (_data_set) {
   $.each(gauge_data.concat(partner_data), function (index, label_data) {
     updateChartContentWithData(label_data.id, _data_set[label_data.id]);
   });
