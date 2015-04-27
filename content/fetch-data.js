@@ -49,8 +49,7 @@ function extractChartData (_value_limit, _record_limit) {
     var _list = [];
     $.each(_raw_list, function (index, record) {
       var _record = {};
-      _record.date = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
-      _record.value = formatReadableFloat(record[item.id].value);
+      _record["date"] = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
       if (_value_limit) {
         var _total = 0;
         for (var i = 0; i < _value_limit; i++) {
@@ -59,7 +58,10 @@ function extractChartData (_value_limit, _record_limit) {
           _total += _value;
         }
         _record["raw"] = _total;
-        _record["total"] = formatReadableFloat(_total);
+        _record["sum"] = formatReadableFloat(_total);
+      }
+      else {
+        _record["value"] = formatReadableFloat(record[item.id].value);
       }
       _list.push(_record);
     });

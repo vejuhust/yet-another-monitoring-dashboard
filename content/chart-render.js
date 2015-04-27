@@ -52,10 +52,11 @@ function createChartContent (_div_id, _label, _suffix) {
       break;
     case "region":
       _setting.graphs = [];
-      _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "", _page_profile.region_name, "total", _label.unit, undefined));
+      _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "sum", _page_profile.region_name, "sum", _label.unit, undefined));
       for (var index = 0; index < _page_profile.env_count; index++) {
         _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, "XXX", "value" + index, _label.unit, undefined));
       };
+      console.log(_setting.graphs);
       break;
     case "global":
       break;
