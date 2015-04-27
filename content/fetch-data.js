@@ -31,7 +31,7 @@ function extractChartData (_limit) {
     $.each(_raw_list, function (index, record) {
       var _record = {};
       _record.date = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
-      _record.value = _formatReadableFloat(record[item.id].value);
+      _record.value = formatReadableFloat(record[item.id].value);
       _list.push(_record);
     });
     _data_set[item.id] = _list;
@@ -44,7 +44,7 @@ function extractChartData (_limit) {
       _record.date = $.format.date(record[item.parent_id].time, 'yyyy-MM-dd HH:mm:ss');
       var _base_value = record[item.parent_id].value;
       for (var i = 0; i < partner_limit; i++) {
-        _record["value" + i] = _formatReadableFloat(_base_value * 0.17 * (5 * partner_limit - (i + 1) * 0.42 - ((_base_value * 1000).toFixed(0) % (10 + i))) / (5 * partner_limit) );
+        _record["value" + i] = formatReadableFloat(_base_value * 0.17 * (5 * partner_limit - (i + 1) * 0.42 - ((_base_value * 1000).toFixed(0) % (10 + i))) / (5 * partner_limit) );
       };
       _list.push(_record);
     });

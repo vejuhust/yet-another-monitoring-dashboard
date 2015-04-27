@@ -3,10 +3,8 @@ function renderTitleAndStatus (_custom) {
   // Activate menu item as per hashtag
   activateTaggedMenuPath();
   // Update title & status
-  var _profile = extractEnvPartProfile();
-  updateContentTitleDesc(_profile)
-  updateWebpageTitle(_profile, _custom);
-  // addNewSubBoxInStatusBox(_profile, _custom);
+  updateContentTitleDesc(_page_profile)
+  updateWebpageTitle(_page_profile, _custom);
 }
 
 function updateContentTitleDesc (profile) {
@@ -14,11 +12,8 @@ function updateContentTitleDesc (profile) {
   if (profile.region_icon || profile.region_name) {
     $("<i/>", {"class": profile.region_icon}).appendTo(desc);
   }
-  if (profile.env_name) {
-    desc.append(" " + profile.env_name);
-  }
-  else if (profile.region_name) {
-    desc.append(" " + profile.region_name);
+  if (profile.env_region_name) {
+    desc.append(" " + profile.env_region_name);
   }
   if (profile.part_name) {
     desc.append(" - ");

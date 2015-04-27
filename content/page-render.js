@@ -1,6 +1,7 @@
 var _has_content_page = false;
 
 var _handlerUpdatePage = function (event) {
+  updatePageProfile();
   if (hasHasTagInUrl()) {
     // Render or update content if it meant to be 
     if (!_has_content_page) {
@@ -20,7 +21,6 @@ function composeDefaultPage() {
 
   clearTimeTriggerEvents();
   $("#gauge-row").hide();
-  $("#status-box").hide();
   $("#menu-part").fadeOut();
   removeChartBoxes();
 
@@ -28,7 +28,6 @@ function composeDefaultPage() {
 }
 
 function composeContentPage() {
-  $("#status-box").hide();
 }
 
 function updateContentPage() {

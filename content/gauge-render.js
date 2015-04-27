@@ -21,7 +21,7 @@ function renderOrUpdateGaugeRowItems (row_data) {
 function updateExistingGaugeRowItems (row_data) {
   $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
-    $(div).find("h3").contents().first()[0].textContent = _formatReadableFloat(row_data[index].value);
+    $(div).find("h3").contents().first()[0].textContent = formatReadableFloat(row_data[index].value);
     $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(row_data[index].time);
   });
 }
@@ -39,7 +39,7 @@ function createGaugeBox (item_data) {
   var _div_color = $("<div/>", { class: "small-box " + item_data.color + "-gradient" });
   var _div_text = $("<div/>", { class: "inner"});
 
-  var _div_value = $("<h3/>", { style: "font-size: 64px;", text: _formatReadableFloat(item_data.value) });
+  var _div_value = $("<h3/>", { style: "font-size: 64px;", text: formatReadableFloat(item_data.value) });
   if (item_data.unit) {
     $("<sup/>", { style: "font-size: 32px", text: item_data.unit }).appendTo(_div_value);
   }

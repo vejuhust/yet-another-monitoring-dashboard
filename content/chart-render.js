@@ -28,9 +28,8 @@ function renderChartContents () {
   $.each(gauge_data, function (index, label_data) {
     createChartContent(label_data.id + "-chart", label_data, _suffix);
   });
-  
-  var _profile = extractEnvPartProfile();
-  _suffix = _profile.env_name || _profile.region_name;
+
+  _suffix = _page_profile.env_region_name;
   $.each(partner_data, function (index, label_data) {
     createPartnerChartContent(label_data.id + "-chart", label_data, _suffix);
   });
@@ -54,9 +53,6 @@ function createChartContent (_div_id, _label, _suffix) {
 }
 
 function createPartnerChartContent (_div_id, _label, _suffix) {
-  var _color_setting = $("#" + _label.id + "-box .box-header").css("background-color");
-  var _color_percent = partner_limit > 1 ? 0.5 / (partner_limit - 1) : 0;
-
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
@@ -67,7 +63,6 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
   var _graphs_setting = _chart_setting.graphs[0];
   $.each(partner_profile, function (index, profile) {
     var _color = undefined;
-    // var _color = shadeRGBColor(_color_setting, index * _color_percent);
     var _graphs = $.extend(true, {}, _graphs_setting);
     _graphs.id = "zen" + index;
     _graphs.title = profile.name;
