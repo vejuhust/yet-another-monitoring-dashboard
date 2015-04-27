@@ -16,10 +16,14 @@ function extractDataAndUpdateContent () {
 
   switch (_page_profile.page_type) {
     case "environment":
-      renderOrUpdateGaugeRowItemsWithAnimation(extractGauageRowData());
+      renderOrUpdateGaugeRowItemsWithAnimation(extractGaugeRowData());
       updateCharts(extractChartData());
       break;
     case "region":
+      var gaugeData = extractGaugeRowData();
+      var chartData = extractChartData(_page_profile.env_count);
+      renderOrUpdateGaugeRowItemsWithAnimation(gaugeData);
+      updateCharts(chartData);
       break;
     case "global":
       break;
@@ -29,9 +33,8 @@ function extractDataAndUpdateContent () {
   updateFetchProgress(0);
 }
 
-function extractChartData (_record_limit) {
+function extractChartData (_value_limit, _record_limit) {
   _record_limit = _record_limit || 100;
-  var _value_limit = _page_profile.env_count || 5;
   var _raw_list = _data_list.slice(-_record_limit);
   var _data_set = {};
 
@@ -41,13 +44,15 @@ function extractChartData (_record_limit) {
       var _record = {};
       _record.date = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
       _record.value = formatReadableFloat(record[item.id].value);
-      var _total = 0;
-      for (var i = 0; i < _value_limit; i++) {
-        var _value = (record[item.id].rand[i % 3] + (_value_limit - i)/(_value_limit * 2.5)) * record[item.id].value; 
-        _record["value" + i] = formatReadableFloat(_value);
-        _total += _value;
+      if (_value_limit) {
+        var _total = 0;
+        for (var i = 0; i < _value_limit; i++) {
+          var _value = (record[item.id].rand[i % 3] + (_value_limit - i)/(_value_limit * 2.5)) * record[item.id].value; 
+          _record["value" + i] = formatReadableFloat(_value);
+          _total += _value;
+        }
+        _record["total"] = formatReadableFloat(_total); 
       }
-      _record["total"] = formatReadableFloat(_total); 
       _list.push(_record);
     });
     _data_set[item.id] = _list;
@@ -70,7 +75,7 @@ function extractChartData (_record_limit) {
   return _data_set;
 }
 
-function extractGauageRowData () {
+function extractGaugeRowData () {
   if (!_data_list.length) {
     fetchMockupData();
   }
