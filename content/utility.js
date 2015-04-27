@@ -23,7 +23,7 @@ function animationFontZoomOut(_selector, _archive, _delay) {
   }
 }
 
-function _formatReadableFloat (value) {
+function formatReadableFloat (value) {
   var precision;
   if (value < 10) {
     precision = 3;
