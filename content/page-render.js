@@ -23,6 +23,7 @@ function composeDefaultPage() {
   $("#gauge-row").hide();
   $("#menu-part").fadeOut();
   $("#default-carousel-box").show();
+  $("#default-map-box").show();
   removeChartBoxes();
 
   renderTitleAndStatus("Welcome!");
@@ -30,6 +31,7 @@ function composeDefaultPage() {
 
 function composeContentPage() {
   $("#default-carousel-box").hide();
+  $("#default-map-box").hide();
 }
 
 function updateContentPage() {
