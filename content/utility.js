@@ -64,6 +64,8 @@ function updatePageProfile () {
   var info_env = searchConfigByTagEnv(tag.env);
   var info_part = searchConfigByTagPart(tag.part);
   _page_profile = $.extend(info_env, info_part);
+  _page_profile["env_region_name"] = _page_profile.env_name || _page_profile.region_name;
+  _page_profile["env_region_link"] = _page_profile.env_link || _page_profile.region_link;
 }
 
 function searchConfigByTagEnv(tag_env) {

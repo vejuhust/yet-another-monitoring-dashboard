@@ -29,7 +29,7 @@ function renderChartContents () {
     createChartContent(label_data.id + "-chart", label_data, _suffix);
   });
 
-  _suffix = _page_profile.env_name || _page_profile.region_name;
+  _suffix = _page_profile.env_region_name;
   $.each(partner_data, function (index, label_data) {
     createPartnerChartContent(label_data.id + "-chart", label_data, _suffix);
   });

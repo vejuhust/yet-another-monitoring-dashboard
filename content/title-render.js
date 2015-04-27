@@ -12,11 +12,8 @@ function updateContentTitleDesc (profile) {
   if (profile.region_icon || profile.region_name) {
     $("<i/>", {"class": profile.region_icon}).appendTo(desc);
   }
-  if (profile.env_name) {
-    desc.append(" " + profile.env_name);
-  }
-  else if (profile.region_name) {
-    desc.append(" " + profile.region_name);
+  if (profile.env_region_name) {
+    desc.append(" " + profile.env_region_name);
   }
   if (profile.part_name) {
     desc.append(" - ");
