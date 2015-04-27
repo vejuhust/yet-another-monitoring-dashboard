@@ -22,6 +22,7 @@ function extractDataAndUpdateContent () {
     case "region":
       var gaugeData = extractGaugeRowData();
       var chartData = extractChartData(_page_profile.env_count);
+      adjustGaugeDataWithChartData(gaugeData, chartData);
       renderOrUpdateGaugeRowItemsWithAnimation(gaugeData);
       updateCharts(chartData);
       break;
@@ -31,6 +32,12 @@ function extractDataAndUpdateContent () {
 
   updateFetchCounter();
   updateFetchProgress(0);
+}
+
+function adjustGaugeDataWithChartData (_gauge_data, _chart_data) {
+  $.each(_gauge_data, function (index, item) {
+    item.value = _chart_data[item.id].slice(-1)[0].total_raw;
+  });
 }
 
 function extractChartData (_value_limit, _record_limit) {
@@ -51,7 +58,8 @@ function extractChartData (_value_limit, _record_limit) {
           _record["value" + i] = formatReadableFloat(_value);
           _total += _value;
         }
-        _record["total"] = formatReadableFloat(_total); 
+        _record["total_raw"] = _total;
+        _record["total"] = formatReadableFloat(_total);
       }
       _list.push(_record);
     });
@@ -63,7 +71,7 @@ function extractChartData (_value_limit, _record_limit) {
     $.each(_raw_list, function (index, record) {
       var _record = {};
       _record.date = $.format.date(record[item.parent_id].time, 'yyyy-MM-dd HH:mm:ss');
-      var _base_value = record[item.parent_id].value;
+      var _base_value = _value_limit ? _value_limit * record[item.parent_id].value : record[item.parent_id].value;
       for (var i = 0; i < partner_limit; i++) {
         _record["value" + i] = formatReadableFloat(_base_value * 0.17 * (5 * partner_limit - (i + 1) * 0.42 - ((_base_value * 1000).toFixed(0) % (10 + i))) / (5 * partner_limit) );
       }
