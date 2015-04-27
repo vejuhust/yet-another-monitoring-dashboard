@@ -14,16 +14,25 @@ function fetchDataAndRenderContent () {
 function extractDataAndUpdateContent () {
   updateFetchProgress(100);
 
-  renderOrUpdateGaugeRowItemsWithAnimation(extractGauageRowData());
-  updateCharts(extractChartData());
+  switch (_page_profile.page_type) {
+    case "environment":
+      renderOrUpdateGaugeRowItemsWithAnimation(extractGauageRowData());
+      updateCharts(extractChartData());
+      break;
+    case "region":
+      break;
+    case "global":
+      break;
+  }
 
   updateFetchCounter();
   updateFetchProgress(0);
 }
 
-function extractChartData (_limit) {
-  _limit = _limit || 100;
-  var _raw_list = _data_list.slice(-_limit);
+function extractChartData (_record_limit) {
+  _record_limit = _record_limit || 100;
+  var _value_limit = _page_profile.env_count || 5;
+  var _raw_list = _data_list.slice(-_record_limit);
   var _data_set = {};
 
   $.each(gauge_data, function (index, item) {
@@ -32,10 +41,9 @@ function extractChartData (_limit) {
       var _record = {};
       _record.date = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
       _record.value = formatReadableFloat(record[item.id].value);
-      var _count = 5;
       var _total = 0;
-      for (var i = 0; i < _count; i++) {
-        var _value = (record[item.id].rand[i % 3] + (_count - i)/(_count * 2.5)) * record[item.id].value; 
+      for (var i = 0; i < _value_limit; i++) {
+        var _value = (record[item.id].rand[i % 3] + (_value_limit - i)/(_value_limit * 2.5)) * record[item.id].value; 
         _record["value" + i] = formatReadableFloat(_value);
         _total += _value;
       }

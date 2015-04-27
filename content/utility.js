@@ -88,6 +88,8 @@ function searchConfigByTagEnv(tag_env) {
     "env_name": result.child_name,
     "env_link": result.child_link,
     "is_summary": result.child_index == 0,
+    "env_count": result.child_count - 1,
+    "region_count": result.parent_count - 1,
   };
 }
 
@@ -99,11 +101,12 @@ function searchConfigByTagPart (tag_part) {
     "part_icon": result.parent_icon,
     "part_name": result.child_name,
     "part_link": result.child_link,
+    "part_count": result.child_count,
   };
 }
 
 function searchTwoLevelConfigByTagLink(config_data, tag_link) {
-  var _parent_name, _parent_icon, _parent_link, _child_name, _child_link, _child_index;
+  var _parent_name, _parent_icon, _parent_link, _child_name, _child_link, _child_index, _child_count, _parent_count;
 
   for (var pl = config_data.length, pi = 0; pi < pl; pi++) {
     var parent = config_data[pi];
@@ -116,6 +119,8 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
           _child_name = child.name;
           _child_link = child.link;
           _child_index = ci;
+          _child_count = cl;
+          _parent_count = pl; 
           break;
         }
       }
@@ -125,6 +130,7 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
         _parent_name = parent.name;
         _parent_icon = parent.icon;
         _parent_link = parent.link;
+        _parent_count = pl; 
         break;
       }
     }
@@ -137,5 +143,7 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
     "child_name": _child_name,
     "child_link": _child_link,
     "child_index": _child_index,
+    "child_count": _child_count,
+    "parent_count": _parent_count,
   };
 }
