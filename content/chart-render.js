@@ -83,7 +83,6 @@ function generateChartGraphs (_graphs_setting, index, name, value, unit, color) 
 }
 
 function createPartnerChartContent (_div_id, _label, _suffix) {
-  var _color = undefined;
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
@@ -91,18 +90,8 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
   _setting.dataProvider = [];
   
   _setting.graphs = [];
-  var _graphs_setting = _chart_setting.graphs[0];
   $.each(partner_profile, function (index, profile) {
-    var _graphs = $.extend(true, {}, _graphs_setting);
-    _graphs.id = "zen" + index;
-    _graphs.title = profile.name;
-    _graphs.valueField = "value" + index;
-    _graphs.balloonText = profile.name + ": [[value" + index +  "]] " + (_label.unit || "");
-    _graphs.bullet = "none";
-    _graphs.bulletBorderColor = _color;
-    _graphs.bulletColor = _color;
-    _graphs.lineColor = _color;
-    _setting.graphs.push(_graphs);
+    _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, profile.name, "value" + index, _label.unit, undefined));
   });
 
   _setting.legend.length = 0;
