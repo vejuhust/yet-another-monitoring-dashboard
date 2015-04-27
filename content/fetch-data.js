@@ -59,6 +59,9 @@ function extractChartData (_value_limit, _record_limit) {
         var _total = 0;
         for (var i = 0; i < _value_limit; i++) {
           var _value = (record[item.id].rand[i % 3] + (_value_limit - i)/(_value_limit * 2.5)) * record[item.id].value; 
+          if (_page_profile.page_type == "global") {
+            _value += record[item.id].value * 2.876;
+          }
           _record["value" + i] = formatReadableFloat(_value);
           _total += _value;
         }
