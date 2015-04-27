@@ -55,8 +55,9 @@ function createChartContent (_div_id, _label, _suffix) {
       _setting.graphs = [];
       _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "sum", _page_profile.region_name, "sum", _label.unit, undefined));
       for (var index = 0; index < _page_profile.env_count; index++) {
-        _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, menu_env_data[_page_profile.region_index].sub[index].name, "value" + index, _label.unit, undefined));
+        _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, menu_env_data[_page_profile.region_index].sub[index + 1].name, "value" + index, _label.unit, undefined));
       };
+      _setting.legend.length = 0;
       break;
     case "global":
       break;
@@ -65,6 +66,9 @@ function createChartContent (_div_id, _label, _suffix) {
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
+  if (!_setting.legend.length) {
+    _chart_set[_label.id].addLegend(generateChartLegend(65, syncDisplayOfMainGraphsLine), _label.id);
+  }
 
   _chart_main_set[_label.id] = _chart_set[_label.id];
 }
@@ -82,32 +86,39 @@ function generateChartGraphs (_graphs_setting, index, name, value, unit, color) 
   return _graphs;
 }
 
+function generateChartLegend (_width, _handler) {
+  var _legend = new AmCharts.AmLegend();
+  _legend.useGraphSettings = true;
+  _legend.valueText = "[[value]]";
+  _legend.valueWidth = _width;
+  _legend.addListener("hideItem", _handler);
+  _legend.addListener("showItem", _handler);
+  return _legend;
+}
+
 function createPartnerChartContent (_div_id, _label, _suffix) {
   var _setting = $.extend(true, {}, _chart_setting);
   _setting.titles[0].id = _label.id + "-title";
   _setting.titles[0].text = _label.name + " - " + _suffix;
   _setting.valueAxes[0].title = _label.unit || "Rate";
   _setting.dataProvider = [];
+  _setting.legend.length = 0;
   
   _setting.graphs = [];
   $.each(partner_profile, function (index, profile) {
     _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, profile.name, "value" + index, _label.unit, undefined));
   });
 
-  _setting.legend.length = 0;
-  var _legend = new AmCharts.AmLegend();
-  _legend.useGraphSettings = true;
-  _legend.valueText = "[[value]]";
-  _legend.valueWidth = 65;
-  _legend.addListener("hideItem", syncDisplayOfPartnerGraphsLine);
-  _legend.addListener("showItem", syncDisplayOfPartnerGraphsLine);
-
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
-  _chart_set[_label.id].addLegend(_legend, _label.id);
+  _chart_set[_label.id].addLegend(generateChartLegend(65, syncDisplayOfPartnerGraphsLine), _label.id);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
 
   _chart_partner_set[_label.id] = _chart_set[_label.id];
+}
+
+function syncDisplayOfMainGraphsLine (event) {
+  syncDisplayOfGraphsLine(event, _chart_main_set);
 }
 
 function syncDisplayOfPartnerGraphsLine (event) {
