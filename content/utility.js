@@ -90,6 +90,7 @@ function searchConfigByTagEnv(tag_env) {
     "is_summary": result.child_index == 0,
     "env_count": result.child_count - 1,
     "region_count": result.parent_count - 1,
+    "region_index": result.parent_index,
   };
 }
 
@@ -106,7 +107,7 @@ function searchConfigByTagPart (tag_part) {
 }
 
 function searchTwoLevelConfigByTagLink(config_data, tag_link) {
-  var _parent_name, _parent_icon, _parent_link, _child_name, _child_link, _child_index, _child_count, _parent_count;
+  var _parent_name, _parent_icon, _parent_link, _parent_index, _parent_count, _child_name, _child_link, _child_index, _child_count;
 
   for (var pl = config_data.length, pi = 0; pi < pl; pi++) {
     var parent = config_data[pi];
@@ -120,6 +121,7 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
           _child_link = child.link;
           _child_index = ci;
           _child_count = cl;
+          _parent_index = pi; 
           _parent_count = pl; 
           break;
         }
@@ -138,12 +140,13 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
 
   return {
     "parent_name": _parent_name,
-    "parent_icon": _parent_icon,
     "parent_link": _parent_link,
+    "parent_index": _parent_index,
+    "parent_icon": _parent_icon,
+    "parent_count": _parent_count,
     "child_name": _child_name,
     "child_link": _child_link,
     "child_index": _child_index,
     "child_count": _child_count,
-    "parent_count": _parent_count,
   };
 }
