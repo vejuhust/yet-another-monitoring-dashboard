@@ -59,11 +59,11 @@ function flattenConfigIntoList (config_data) {
   return _child_list;
 }
 
-function extractEnvPartProfile () {
+function updatePageProfile () {
   var tag = extractHashTags();
   var info_env = searchConfigByTagEnv(tag.env);
   var info_part = searchConfigByTagPart(tag.part);
-  return $.extend(info_env, info_part);
+  _page_profile = $.extend(info_env, info_part);
 }
 
 function searchConfigByTagEnv(tag_env) {

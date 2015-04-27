@@ -1,3 +1,6 @@
+// Page profile
+var _page_profile = undefined;
+updatePageProfile();
 
 // Render menus and search box on the left side
 renderEnvironmentMenuItems();

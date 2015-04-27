@@ -26,8 +26,8 @@ function renderSearchBoxWithAutoComplete () {
 }
 
 function handleSearchBoxSelection (event) {
-  var _profile = extractEnvPartProfile();
-  var _profile_env_region_link = _profile.env_link || _profile.region_link;
+  var _profile_env_region_link = _page_profile.env_link || _page_profile.region_link;
+  var _profile_part_link = _page_profile.part_link;
 
   var _list = $("#search-select").val();
   var _selected_env = undefined;
@@ -56,13 +56,13 @@ function handleSearchBoxSelection (event) {
         _selected_env = _profile_env_region_link;
       }
       if (!_selected_part) {
-        _selected_part = _profile.part_link;
+        _selected_part = _profile_part_link;
       }
     }
   }
   else {
     _selected_env = _profile_env_region_link;
-    _selected_part = _profile.part_link;
+    _selected_part = _profile_part_link;
   }
 
   // Output result
@@ -71,7 +71,7 @@ function handleSearchBoxSelection (event) {
   // Validate if the page should be updated
   var _shouldUpdate = false;
   if (_selected_env) {
-    if (_selected_part != _profile.part_link) {
+    if (_selected_part != _profile_part_link) {
       _shouldUpdate = true;
     }
     if (_selected_env != _profile_env_region_link) {

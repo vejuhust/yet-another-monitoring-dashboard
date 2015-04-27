@@ -1,6 +1,7 @@
 var _has_content_page = false;
 
 var _handlerUpdatePage = function (event) {
+  updatePageProfile();
   if (hasHasTagInUrl()) {
     // Render or update content if it meant to be 
     if (!_has_content_page) {

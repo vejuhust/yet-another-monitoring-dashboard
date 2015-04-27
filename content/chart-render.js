@@ -28,9 +28,8 @@ function renderChartContents () {
   $.each(gauge_data, function (index, label_data) {
     createChartContent(label_data.id + "-chart", label_data, _suffix);
   });
-  
-  var _profile = extractEnvPartProfile();
-  _suffix = _profile.env_name || _profile.region_name;
+
+  _suffix = _page_profile.env_name || _page_profile.region_name;
   $.each(partner_data, function (index, label_data) {
     createPartnerChartContent(label_data.id + "-chart", label_data, _suffix);
   });

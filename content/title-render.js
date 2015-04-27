@@ -3,9 +3,8 @@ function renderTitleAndStatus (_custom) {
   // Activate menu item as per hashtag
   activateTaggedMenuPath();
   // Update title & status
-  var _profile = extractEnvPartProfile();
-  updateContentTitleDesc(_profile)
-  updateWebpageTitle(_profile, _custom);
+  updateContentTitleDesc(_page_profile)
+  updateWebpageTitle(_page_profile, _custom);
 }
 
 function updateContentTitleDesc (profile) {
