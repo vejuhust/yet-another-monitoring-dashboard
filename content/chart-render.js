@@ -22,6 +22,7 @@ function renderChartBoxes () {
 
 function renderChartContents () {
   _chart_set = {};
+  _chart_main_set = {};
   _chart_partner_set = {};
 
   var _suffix = $("#content-title-desc").text();
@@ -64,6 +65,8 @@ function createChartContent (_div_id, _label, _suffix) {
   $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
   _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
   _chart_set[_label.id].addListener("zoomed", syncZoom);
+
+  _chart_main_set[_label.id] = _chart_set[_label.id];
 }
 
 function generateChartGraphs (_graphs_setting, index, name, value, unit, color) {
@@ -119,6 +122,10 @@ function createPartnerChartContent (_div_id, _label, _suffix) {
 }
 
 function syncDisplayOfPartnerGraphsLine (event) {
+  syncDisplayOfGraphsLine(event, _chart_partner_set);
+}
+
+function syncDisplayOfGraphsLine (event, _set) {
   var _index = event.dataItem.index;
   var _hidden = event.type == "hideItem";
   var _start = event.chart.startIndex;
@@ -126,7 +133,7 @@ function syncDisplayOfPartnerGraphsLine (event) {
   var _zoomed = event.chart.dataProvider.length != (_end - _start + 1);
   var _last_chart = undefined;
 
-  $.each(_chart_partner_set, function (index, _chart_id) {
+  $.each(_set, function (index, _chart_id) {
     _chart_id.graphs[_index].hidden = _hidden;
     _chart_id.validateData();
     _last_chart = _chart_id;
@@ -207,6 +214,7 @@ function createChartBox (_data, _striped_header) {
 }
 
 var _chart_set = {};
+var _chart_main_set = {};
 var _chart_partner_set = {};
 
 var _chart_font_size = 14;
