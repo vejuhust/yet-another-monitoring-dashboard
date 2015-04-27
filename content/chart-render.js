@@ -73,6 +73,27 @@ function createChartContent (_div_id, _label, _suffix) {
   _chart_main_set[_label.id] = _chart_set[_label.id];
 }
 
+function createPartnerChartContent (_div_id, _label, _suffix) {
+  var _setting = $.extend(true, {}, _chart_setting);
+  _setting.titles[0].id = _label.id + "-title";
+  _setting.titles[0].text = _label.name + " - " + _suffix;
+  _setting.valueAxes[0].title = _label.unit || "Rate";
+  _setting.dataProvider = [];
+  _setting.legend.length = 0;
+  
+  _setting.graphs = [];
+  $.each(partner_profile, function (index, profile) {
+    _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, profile.name, "value" + index, _label.unit, undefined));
+  });
+
+  $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
+  _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
+  _chart_set[_label.id].addLegend(generateChartLegend(65, syncDisplayOfPartnerGraphsLine), _label.id);
+  _chart_set[_label.id].addListener("zoomed", syncZoom);
+
+  _chart_partner_set[_label.id] = _chart_set[_label.id];
+}
+
 function generateChartGraphs (_graphs_setting, index, name, value, unit, color) {
   var _graphs = $.extend(true, {}, _graphs_setting);
   _graphs.id = "zen" + index;
@@ -94,27 +115,6 @@ function generateChartLegend (_width, _handler) {
   _legend.addListener("hideItem", _handler);
   _legend.addListener("showItem", _handler);
   return _legend;
-}
-
-function createPartnerChartContent (_div_id, _label, _suffix) {
-  var _setting = $.extend(true, {}, _chart_setting);
-  _setting.titles[0].id = _label.id + "-title";
-  _setting.titles[0].text = _label.name + " - " + _suffix;
-  _setting.valueAxes[0].title = _label.unit || "Rate";
-  _setting.dataProvider = [];
-  _setting.legend.length = 0;
-  
-  _setting.graphs = [];
-  $.each(partner_profile, function (index, profile) {
-    _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, profile.name, "value" + index, _label.unit, undefined));
-  });
-
-  $("#" + _div_id).replaceWith($("<div/>", { class: "chart", style: "height:400px;", id: _div_id }));
-  _chart_set[_label.id] = AmCharts.makeChart(_div_id, _setting);
-  _chart_set[_label.id].addLegend(generateChartLegend(65, syncDisplayOfPartnerGraphsLine), _label.id);
-  _chart_set[_label.id].addListener("zoomed", syncZoom);
-
-  _chart_partner_set[_label.id] = _chart_set[_label.id];
 }
 
 function syncDisplayOfMainGraphsLine (event) {
