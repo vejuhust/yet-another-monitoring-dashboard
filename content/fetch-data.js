@@ -27,6 +27,11 @@ function extractDataAndUpdateContent () {
       updateCharts(chartData);
       break;
     case "global":
+      var gaugeData = extractGaugeRowData();
+      var chartData = extractChartData(_page_profile.region_count);
+      adjustGaugeDataWithChartData(gaugeData, chartData);
+      renderOrUpdateGaugeRowItemsWithAnimation(gaugeData);
+      updateCharts(chartData);
       break;
   }
 
