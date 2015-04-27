@@ -32,6 +32,14 @@ function extractChartData (_limit) {
       var _record = {};
       _record.date = $.format.date(record[item.id].time, 'yyyy-MM-dd HH:mm:ss');
       _record.value = formatReadableFloat(record[item.id].value);
+      var _count = 5;
+      var _total = 0;
+      for (var i = 0; i < _count; i++) {
+        var _value = (record[item.id].rand[i % 3] + (_count - i)/(_count * 2.5)) * record[item.id].value; 
+        _record["value" + i] = formatReadableFloat(_value);
+        _total += _value;
+      }
+      _record["total"] = formatReadableFloat(_total); 
       _list.push(_record);
     });
     _data_set[item.id] = _list;
@@ -45,7 +53,7 @@ function extractChartData (_limit) {
       var _base_value = record[item.parent_id].value;
       for (var i = 0; i < partner_limit; i++) {
         _record["value" + i] = formatReadableFloat(_base_value * 0.17 * (5 * partner_limit - (i + 1) * 0.42 - ((_base_value * 1000).toFixed(0) % (10 + i))) / (5 * partner_limit) );
-      };
+      }
       _list.push(_record);
     });
     _data_set[item.id] = _list;
@@ -94,6 +102,7 @@ function fetchMockupData () {
     _item.time = _date;
     _item.value = _last_set ? _last_set[item.id].value : item.value;
     _item.value *= (1 + (Math.random() - 0.5) * 0.1);
+    _item.rand = [Math.random(), Math.random(), Math.random()];
     _set[item.id] = _item;
   });
   _data_list.push(_set);
