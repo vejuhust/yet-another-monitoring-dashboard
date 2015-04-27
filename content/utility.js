@@ -66,6 +66,17 @@ function updatePageProfile () {
   _page_profile = $.extend(info_env, info_part);
   _page_profile["env_region_name"] = _page_profile.env_name || _page_profile.region_name;
   _page_profile["env_region_link"] = _page_profile.env_link || _page_profile.region_link;
+
+  var _type = "default";
+  if (_page_profile.env_region_name) {
+    if (_page_profile.env_name) {
+      _type = _page_profile.is_summary ? "region" : "environment";
+    }
+    else {
+      _type = "global";
+    }
+  }
+  _page_profile["page_type"] = _type;
 }
 
 function searchConfigByTagEnv(tag_env) {
@@ -76,6 +87,7 @@ function searchConfigByTagEnv(tag_env) {
     "region_link": result.parent_link,
     "env_name": result.child_name,
     "env_link": result.child_link,
+    "is_summary": result.child_index == 0,
   };
 }
 
@@ -91,7 +103,7 @@ function searchConfigByTagPart (tag_part) {
 }
 
 function searchTwoLevelConfigByTagLink(config_data, tag_link) {
-  var _parent_name, _parent_icon, _parent_link, _child_name, _child_link;
+  var _parent_name, _parent_icon, _parent_link, _child_name, _child_link, _child_index;
 
   for (var pl = config_data.length, pi = 0; pi < pl; pi++) {
     var parent = config_data[pi];
@@ -103,6 +115,7 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
           _parent_icon = parent.icon;
           _child_name = child.name;
           _child_link = child.link;
+          _child_index = ci;
           break;
         }
       }
@@ -123,5 +136,6 @@ function searchTwoLevelConfigByTagLink(config_data, tag_link) {
     "parent_link": _parent_link,
     "child_name": _child_name,
     "child_link": _child_link,
+    "child_index": _child_index,
   };
 }
