@@ -37,6 +37,7 @@ function composeContentPage() {
 function updateContentPage() {
   // Update title and add status box
   renderTitleAndStatus();
+  $("#fetch-count-content").empty();
   // Show partners menu
   $("#menu-part").fadeIn();
   // Reset data update event, and fetch data to render content

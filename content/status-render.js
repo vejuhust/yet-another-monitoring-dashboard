@@ -17,8 +17,20 @@ function updateSearchBoxStatusLine (_selected_env, _selected_part) {
 }
 
 function updateFetchCounter () {
-  var _div = $("#fetch-count");
-  _div.text(_data_list.length);
+  var _length = _data_list.length;
+  $("#fetch-count").text(_length);
+  $("#fetch-count-text").text(_length);
+
+  var _set = _data_list.slice(-1)[0];
+  var _keys = Object.keys(_set);
+  var _time = _set[_keys[0]].time;
+  if (_time) {
+    var _message = "Retrieved lastest data: " + formatDateTime(_time);
+    var _doc = $("<a/>");
+    _doc.append($("<i/>", { class: "fa fa-table text-aqua" }));
+    _doc.append(_message);
+    $("#fetch-count-content").prepend($("<li/>").append(_doc));
+  }
 }
 
 function updateFetchProgress(num) {

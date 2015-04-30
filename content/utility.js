@@ -28,6 +28,15 @@ function animationFontZoomOut(_selector, _archive, _delay) {
   }
 }
 
+
+function formatTimestamp (timestamp) {
+  return $.format.date(timestamp, 'HH:mm:ss') + " ";
+}
+
+function formatDateTime (timestamp) {
+  return $.format.date(timestamp, 'HH:mm:ss MMM d');
+}
+
 function formatReadableFloat (value) {
   var precision;
   if (value < 10) {
