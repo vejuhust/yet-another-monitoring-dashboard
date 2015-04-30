@@ -50,7 +50,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 3",
   "icon": "flag-icon flag-icon-sg",
-  "color": "#00FFCC",
+  "color": "#39CCCC",
   "sub": [{
     "name": "Region 3 Summary",
     "link": "reg-3",
