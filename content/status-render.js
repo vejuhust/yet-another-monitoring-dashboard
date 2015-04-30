@@ -17,9 +17,9 @@ function updateSearchBoxStatusLine (_selected_env, _selected_part) {
 }
 
 function updateFetchCounter () {
-  var _length = _data_list.length;
-  $("#fetch-count").text(_length);
-  $("#fetch-count-text").text(_length);
+  var _count = _data_list.length;
+  $("#fetch-count").text(_count);
+  $("#fetch-count-text").text(_count);
 
   var _set = _data_list.slice(-1)[0];
   var _keys = Object.keys(_set);
@@ -33,7 +33,13 @@ function updateFetchCounter () {
   }
 }
 
-function updateFetchProgress(num) {
+function updateBookmarkCounter () {
+  var _count = parseInt($("#bookmark-count").text()) + 1;
+  $("#bookmark-count").text(_count);
+  $("#bookmark-count-text").text(_count);
+}
+
+function updateFetchProgress (num) {
   var rate;
   if (num != undefined) {
     rate = num / 100;
@@ -46,7 +52,7 @@ function updateFetchProgress(num) {
   updateProgressBar(rate);
 }
 
-function updateProgressBar(rate) {
+function updateProgressBar (rate) {
   var _rate = rate * 100;
   _rate = _rate > 100 ? 100 : _rate;
   var percent = _rate.toFixed(0);
