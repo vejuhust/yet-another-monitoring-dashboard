@@ -22,7 +22,7 @@ function updateExistingGaugeRowItems (row_data) {
   $("#gauge-row").show();
   $("#gauge-row").children().each(function (index, div) {
     $(div).find("h3").contents().first()[0].textContent = formatReadableFloat(row_data[index].value);
-    $(div).find(".small-box-footer").contents().first()[0].textContent = _formatTimestampForGauge(row_data[index].time);
+    $(div).find(".small-box-footer").contents().first()[0].textContent = formatTimestamp(row_data[index].time);
   });
 }
 
@@ -50,15 +50,11 @@ function createGaugeBox (item_data) {
   var _div_icon = $("<div/>", { class: "icon"}).append($("<i/>", { class: item_data.icon}));
   _div_icon.appendTo(_div_color);
 
-  var _div_time = $("<div/>", { class: "small-box-footer", text: _formatTimestampForGauge(item_data.time) });
+  var _div_time = $("<div/>", { class: "small-box-footer", text: formatTimestamp(item_data.time) });
   _div_time.append($("<i/>", { class: "fa fa-fw fa-clock-o"}));
   _div_time.appendTo(_div_color);
 
   _div_color.appendTo(_div);
 
   return _div;
-}
-
-function _formatTimestampForGauge (timestamp) {
-  return $.format.date(timestamp, 'HH:mm:ss') + " ";
 }

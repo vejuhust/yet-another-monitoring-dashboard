@@ -35,8 +35,10 @@ function composeContentPage() {
 }
 
 function updateContentPage() {
-  // Update title and add status box
+  // Update title and status areas
   renderTitleAndStatus();
+  $("#fetch-count-content").empty();
+  updateBookmarkCounter();
   // Show partners menu
   $("#menu-part").fadeIn();
   // Reset data update event, and fetch data to render content
