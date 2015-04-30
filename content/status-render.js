@@ -25,18 +25,34 @@ function updateFetchCounter () {
   var _keys = Object.keys(_set);
   var _time = _set[_keys[0]].time;
   if (_time) {
-    var _message = "Retrieved lastest data: " + formatDateTime(_time);
     var _doc = $("<a/>");
     _doc.append($("<i/>", { class: "fa fa-table text-aqua" }));
-    _doc.append(_message);
+    _doc.append("Latest data: " + formatDateTime(_time));
     $("#fetch-count-content").prepend($("<li/>").append(_doc));
   }
 }
 
 function updateBookmarkCounter () {
-  var _count = parseInt($("#bookmark-count").text()) + 1;
-  $("#bookmark-count").text(_count);
-  $("#bookmark-count-text").text(_count);
+  if (_page_profile.page_type != "default") {
+    var _count = parseInt($("#bookmark-count").text()) + 1;
+
+    // Extract current view and link
+    var _name = $("#content-title-desc").text();
+    var _link = window.location.hash;
+
+    // Remove duplicate records
+    $("#bookmark-count-content a[href=" + _link + "]").remove();
+
+    // Create DOM for view history record 
+    var _doc = $("<a/>", { href: _link });
+    _doc.append($("<i/>", { class: "fa fa-table text-aqua" }));
+    _doc.append("<strong>" + _name + "</strong>");
+    $("#bookmark-count-content").prepend($("<li/>").append(_doc));
+
+    // Update the counter
+    $("#bookmark-count").text(_count);
+    $("#bookmark-count-text").text($("#bookmark-count-content a[href]").length);
+  }
 }
 
 function updateFetchProgress (num) {
