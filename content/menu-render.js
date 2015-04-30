@@ -20,10 +20,10 @@ function createMultiLevelMenuItem (item, _part_handler) {
   item.link = "";
   var _a = createLinkItem(item);
   if (_part_handler) {
-    $("<span/>", { class: "label pull-right", style: "background-color: #A19F9F;", text: item.sub.length }).appendTo(_a);
+    $("<span/>", { class: "label pull-right", style: "background-color:#A19F9F;", text: item.sub.length }).appendTo(_a);
   }
   else {
-    $("<span/>", { class: "label label-primary pull-right", text: item.sub.length - 1 }).appendTo(_a);
+    $("<span/>", { class: "label pull-right", style: "background-color:" + item.color + ";", text: item.sub.length - 1 }).appendTo(_a);
   }
 
   var _ul = $("<ul/>", { class: "treeview-menu" });
