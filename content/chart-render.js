@@ -61,9 +61,9 @@ function createChartContent (_div_id, _label, _suffix) {
       break;
     case "global":
       _setting.graphs = [];
-      _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "sum", _page_profile.region_name, "sum", _label.unit, undefined));
+      _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], "sum", _page_profile.region_name, "sum", _label.unit, menu_env_data[0].color));
       for (var index = 0; index < _page_profile.region_count; index++) {
-        _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, menu_env_data[index + 1].name, "value" + index, _label.unit, undefined));
+        _setting.graphs.push(generateChartGraphs(_chart_setting.graphs[0], index, menu_env_data[index + 1].name, "value" + index, _label.unit, menu_env_data[index + 1].color));
       };
       _setting.legend.length = 0;
       break;

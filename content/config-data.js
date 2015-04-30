@@ -5,10 +5,12 @@ var interval_progress = 300;
 var menu_env_data = [{
   "name": "Global",
   "icon": "fa fa-globe",
+  "color": "#000000",
   "link": "global",
 }, {
   "name": "Region 1",
   "icon": "flag-icon flag-icon-us",
+  "color": "#3366FF",
   "sub": [{
     "name": "Region 1 Summary",
     "link": "reg-1",
@@ -25,6 +27,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 2",
   "icon": "flag-icon flag-icon-hk",
+  "color": "#FF3300",
   "sub": [{
     "name": "Region 2 Summary",
     "link": "reg-2",
@@ -47,6 +50,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 3",
   "icon": "flag-icon flag-icon-sg",
+  "color": "#00FFCC",
   "sub": [{
     "name": "Region 3 Summary",
     "link": "reg-3",
@@ -66,6 +70,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 4",
   "icon": "flag-icon flag-icon-za",
+  "color": "#009933",
   "sub": [{
     "name": "Region 4 Summary",
     "link": "reg-4",
@@ -79,6 +84,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 5",
   "icon": "flag-icon flag-icon-gb",
+  "color": "#800000",
   "sub": [{
     "name": "Region 5 Summary",
     "link": "reg-5",
@@ -101,6 +107,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 6",
   "icon": "flag-icon flag-icon-cn",
+  "color": "#FF9900",
   "sub": [{
     "name": "Region 6 Summary",
     "link": "reg-6",
@@ -114,6 +121,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 7",
   "icon": "flag-icon flag-icon-kr",
+  "color": "#666699",
   "sub": [{
     "name": "Region 7 Summary",
     "link": "reg-7",
@@ -124,6 +132,7 @@ var menu_env_data = [{
 }, {
   "name": "Region 8",
   "icon": "flag-icon flag-icon-br",
+  "color": "#99CC00",
   "sub": [{
     "name": "Region 8 Summary",
     "link": "reg-8",
