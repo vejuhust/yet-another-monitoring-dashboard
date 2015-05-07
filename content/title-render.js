@@ -25,7 +25,7 @@ function updateContentTitleDesc (profile) {
 }
 
 function updateWebpageTitle (profile, _custom) {
-  var _title = "EGMD | ";
+  var _title = "YAMD | ";
   if (_custom) {
     _title += _custom;
   }
